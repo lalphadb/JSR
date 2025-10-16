@@ -50,36 +50,39 @@ const Realisations = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-secondary text-secondary-foreground py-20">
+      <section className="bg-gradient-to-br from-secondary via-secondary to-secondary/90 text-secondary-foreground py-24">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Nos réalisations</h1>
-          <p className="text-xl max-w-3xl mx-auto opacity-90">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in tracking-tight">Nos réalisations</h1>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-95 animate-fade-in leading-relaxed" style={{ animationDelay: '0.2s', opacity: 0 }}>
             Découvrez quelques-uns de nos projets récents et la qualité de notre travail.
           </p>
         </div>
       </section>
 
       {/* Gallery */}
-      <section className="py-20">
+      <section className="py-24 bg-gradient-to-b from-background via-muted/20 to-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {projects.map((project, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="relative h-64 overflow-hidden">
+              <Card key={index} className="group overflow-hidden hover-lift border-0 shadow-xl">
+                <div className="relative h-72 overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform hover:scale-110 duration-300"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                   <div className="absolute top-4 left-4">
-                    <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                       {project.category}
                     </span>
                   </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
+                  </div>
                 </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground">{project.description}</p>
+                <CardContent className="p-6 bg-card">
+                  <p className="text-muted-foreground leading-relaxed">{project.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -88,15 +91,15 @@ const Realisations = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-muted py-20">
+      <section className="bg-gradient-to-br from-muted/50 to-background py-24">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
             Votre projet sera notre prochaine réalisation
           </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
             Faites confiance à notre expertise pour mener à bien votre projet de déneigement, excavation ou aménagement.
           </p>
-          <Button asChild size="lg" className="text-lg px-8">
+          <Button asChild size="lg" className="text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
             <Link to="/contact">Démarrer votre projet</Link>
           </Button>
         </div>

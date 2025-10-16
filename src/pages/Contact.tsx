@@ -64,81 +64,81 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-secondary text-secondary-foreground py-20">
+      <section className="bg-gradient-to-br from-secondary via-secondary to-secondary/90 text-secondary-foreground py-24">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Contactez-nous</h1>
-          <p className="text-xl max-w-3xl mx-auto opacity-90">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in tracking-tight">Contactez-nous</h1>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-95 animate-fade-in leading-relaxed" style={{ animationDelay: '0.2s', opacity: 0 }}>
             Nous sommes là pour répondre à vos questions et discuter de vos projets.
           </p>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-20">
+      <section className="py-24 bg-gradient-to-b from-background via-muted/20 to-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Information */}
             <div>
-              <h2 className="text-3xl font-bold mb-8">Nos coordonnées</h2>
-              
-              <div className="space-y-6 mb-8">
-                <Card>
-                  <CardContent className="p-6 flex items-start gap-4">
-                    <div className="bg-primary text-primary-foreground p-3 rounded-lg">
-                      <Phone className="h-6 w-6" />
+              <h2 className="text-4xl font-bold mb-10 tracking-tight">Nos coordonnées</h2>
+
+              <div className="space-y-5 mb-10">
+                <Card className="group hover-lift border-l-4 border-l-primary transition-all duration-300">
+                  <CardContent className="p-7 flex items-start gap-5">
+                    <div className="bg-primary/10 group-hover:bg-primary/20 text-primary p-4 rounded-xl transition-colors">
+                      <Phone className="h-7 w-7" />
                     </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Téléphone</h3>
-                      <a href="tel:+14188050063" className="text-primary hover:underline text-lg">
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg mb-2">Téléphone</h3>
+                      <a href="tel:+14188050063" className="text-primary hover:underline text-xl font-semibold block">
                         418-805-0063
                       </a>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                         Service d'urgence 24/7 en hiver
                       </p>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
-                  <CardContent className="p-6 flex items-start gap-4">
-                    <div className="bg-primary text-primary-foreground p-3 rounded-lg">
-                      <Mail className="h-6 w-6" />
+                <Card className="group hover-lift border-l-4 border-l-primary transition-all duration-300">
+                  <CardContent className="p-7 flex items-start gap-5">
+                    <div className="bg-primary/10 group-hover:bg-primary/20 text-primary p-4 rounded-xl transition-colors">
+                      <Mail className="h-7 w-7" />
                     </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Courriel</h3>
-                      <a href="mailto:jsrdeneigement@gmail.com" className="text-primary hover:underline text-lg">
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg mb-2">Courriel</h3>
+                      <a href="mailto:jsrdeneigement@gmail.com" className="text-primary hover:underline text-lg font-semibold block break-all">
                         jsrdeneigement@gmail.com
                       </a>
-                      <p className="text-sm text-muted-foreground mt-1">
+                      <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                         Réponse sous 24 heures
                       </p>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
-                  <CardContent className="p-6 flex items-start gap-4">
-                    <div className="bg-primary text-primary-foreground p-3 rounded-lg">
-                      <MapPin className="h-6 w-6" />
+                <Card className="group hover-lift border-l-4 border-l-primary transition-all duration-300">
+                  <CardContent className="p-7 flex items-start gap-5">
+                    <div className="bg-primary/10 group-hover:bg-primary/20 text-primary p-4 rounded-xl transition-colors">
+                      <MapPin className="h-7 w-7" />
                     </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Adresse</h3>
-                      <p className="text-lg">303 rue des Mélèzes</p>
-                      <p className="text-lg">Saint-Raymond (QC) G3L 0E8</p>
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg mb-2">Adresse</h3>
+                      <p className="text-lg leading-relaxed">303 rue des Mélèzes</p>
+                      <p className="text-lg leading-relaxed">Saint-Raymond (QC) G3L 0E8</p>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card>
-                  <CardContent className="p-6 flex items-start gap-4">
-                    <div className="bg-primary text-primary-foreground p-3 rounded-lg">
-                      <Clock className="h-6 w-6" />
+                <Card className="group hover-lift border-l-4 border-l-primary transition-all duration-300">
+                  <CardContent className="p-7 flex items-start gap-5">
+                    <div className="bg-primary/10 group-hover:bg-primary/20 text-primary p-4 rounded-xl transition-colors">
+                      <Clock className="h-7 w-7" />
                     </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Heures d'ouverture</h3>
-                      <p className="text-sm">Lundi - Vendredi: 7h - 18h</p>
-                      <p className="text-sm">Samedi: 8h - 16h</p>
-                      <p className="text-sm text-muted-foreground mt-1">
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg mb-2">Heures d'ouverture</h3>
+                      <p className="text-base">Lundi - Vendredi: 7h - 18h</p>
+                      <p className="text-base">Samedi: 8h - 16h</p>
+                      <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                         Urgences: 24/7 en saison hivernale
                       </p>
                     </div>
@@ -147,11 +147,11 @@ const Contact = () => {
               </div>
 
               {/* Quick Call Button */}
-              <Card className="bg-primary text-primary-foreground">
-                <CardContent className="p-6 text-center">
-                  <h3 className="text-2xl font-bold mb-2">Besoin d'un service urgent?</h3>
-                  <p className="mb-4 opacity-90">Appelez-nous directement</p>
-                  <Button asChild size="lg" variant="secondary" className="w-full text-lg">
+              <Card className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-2xl border-0">
+                <CardContent className="p-8 text-center">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-3">Besoin d'un service urgent?</h3>
+                  <p className="mb-6 opacity-95 text-lg">Appelez-nous directement</p>
+                  <Button asChild size="lg" variant="secondary" className="w-full text-lg py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
                     <a href="tel:+14188050063" className="flex items-center justify-center gap-2">
                       <Phone className="h-5 w-5" />
                       Appeler maintenant
@@ -163,14 +163,17 @@ const Contact = () => {
 
             {/* Contact Form */}
             <div>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-2xl">Demander un devis gratuit</CardTitle>
+              <Card className="shadow-2xl border-0">
+                <CardHeader className="pb-8">
+                  <CardTitle className="text-3xl font-bold tracking-tight">Demander un devis gratuit</CardTitle>
+                  <p className="text-muted-foreground text-base mt-2">
+                    Remplissez le formulaire ci-dessous et nous vous contacterons rapidement.
+                  </p>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                      <label htmlFor="nom" className="block text-sm font-medium mb-2">
+                      <label htmlFor="nom" className="block text-base font-semibold mb-3">
                         Nom complet *
                       </label>
                       <Input
@@ -180,12 +183,13 @@ const Contact = () => {
                         value={formData.nom}
                         onChange={handleChange}
                         placeholder="Jean Dupont"
+                        className="h-12 text-base"
                         required
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="telephone" className="block text-sm font-medium mb-2">
+                      <label htmlFor="telephone" className="block text-base font-semibold mb-3">
                         Téléphone *
                       </label>
                       <Input
@@ -194,13 +198,14 @@ const Contact = () => {
                         type="tel"
                         value={formData.telephone}
                         onChange={handleChange}
-                        placeholder="(514) 123-4567"
+                        placeholder="(418) 123-4567"
+                        className="h-12 text-base"
                         required
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="courriel" className="block text-sm font-medium mb-2">
+                      <label htmlFor="courriel" className="block text-base font-semibold mb-3">
                         Courriel *
                       </label>
                       <Input
@@ -210,12 +215,13 @@ const Contact = () => {
                         value={formData.courriel}
                         onChange={handleChange}
                         placeholder="vous@exemple.com"
+                        className="h-12 text-base"
                         required
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium mb-2">
+                      <label htmlFor="message" className="block text-base font-semibold mb-3">
                         Message *
                       </label>
                       <Textarea
@@ -225,15 +231,16 @@ const Contact = () => {
                         onChange={handleChange}
                         placeholder="Décrivez votre projet ou vos besoins..."
                         rows={6}
+                        className="text-base resize-none"
                         required
                       />
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full text-lg">
+                    <Button type="submit" size="lg" className="w-full text-lg py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                       Envoyer ma demande
                     </Button>
 
-                    <p className="text-sm text-muted-foreground text-center">
+                    <p className="text-sm text-muted-foreground text-center leading-relaxed">
                       * Champs obligatoires. Nous respectons votre vie privée.
                     </p>
                   </form>
@@ -245,15 +252,19 @@ const Contact = () => {
       </section>
 
       {/* Map Section */}
-      <section className="bg-muted py-20">
+      <section className="bg-gradient-to-br from-muted/50 to-background py-24">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Notre zone de service</h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Nous desservons Lac St-Charles et les environs.
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Notre zone de service</h2>
+          <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
+            Nous desservons fièrement Lac St-Charles, Saint-Raymond et les environs dans la région de Portneuf.
           </p>
-          <div className="bg-background rounded-lg p-8 max-w-2xl mx-auto">
-            <p className="text-muted-foreground">
-              🗺️ Carte de service: Lac St-Charles, Québec!
+          <div className="bg-card rounded-2xl p-12 max-w-3xl mx-auto shadow-2xl border-2 border-primary/10">
+            <div className="text-6xl mb-6">🗺️</div>
+            <p className="text-xl text-foreground font-semibold mb-2">
+              Zones desservies
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Lac St-Charles • Saint-Raymond • Stoneham • Saint-Gabriel-de-Valcartier • Saint-Émile • Portneuf et environs
             </p>
           </div>
         </div>
