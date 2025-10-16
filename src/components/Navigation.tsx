@@ -41,7 +41,7 @@ const Navigation = () => {
               </Link>
             ))}
             <Button asChild size="lg" className="ml-4">
-              <a href="tel:+15141234567" className="flex items-center gap-2">
+              <a href="tel:+14188050063" className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
                 Appelez-nous
               </a>
@@ -74,7 +74,7 @@ const Navigation = () => {
               </Link>
             ))}
             <Button asChild className="w-full mt-4" size="lg">
-              <a href="tel:+15141234567" className="flex items-center justify-center gap-2">
+              <a href="tel:+14188050063" className="flex items-center justify-center gap-2">
                 <Phone className="h-4 w-4" />
                 Appelez-nous
               </a>

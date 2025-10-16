@@ -89,8 +89,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-bold mb-1">Téléphone</h3>
-                      <a href="tel:+15141234567" className="text-primary hover:underline text-lg">
-                        (514) 123-4567
+                      <a href="tel:+14188050063" className="text-primary hover:underline text-lg">
+                        418-805-0063
                       </a>
                       <p className="text-sm text-muted-foreground mt-1">
                         Service d'urgence 24/7 en hiver
@@ -106,8 +106,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-bold mb-1">Courriel</h3>
-                      <a href="mailto:info@jsrdeneigement.ca" className="text-primary hover:underline text-lg">
-                        info@jsrdeneigement.ca
+                      <a href="mailto:jsrdeneigement@gmail.com" className="text-primary hover:underline text-lg">
+                        jsrdeneigement@gmail.com
                       </a>
                       <p className="text-sm text-muted-foreground mt-1">
                         Réponse sous 24 heures
@@ -122,11 +122,9 @@ const Contact = () => {
                       <MapPin className="h-6 w-6" />
                     </div>
                     <div>
-                      <h3 className="font-bold mb-1">Zone de service</h3>
-                      <p className="text-lg">Saint-Jérôme, Québec</p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        et les environs (Laurentides)
-                      </p>
+                      <h3 className="font-bold mb-1">Adresse</h3>
+                      <p className="text-lg">303 rue des Mélèzes</p>
+                      <p className="text-lg">Saint-Raymond (QC) G3L 0E8</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -154,7 +152,7 @@ const Contact = () => {
                   <h3 className="text-2xl font-bold mb-2">Besoin d'un service urgent?</h3>
                   <p className="mb-4 opacity-90">Appelez-nous directement</p>
                   <Button asChild size="lg" variant="secondary" className="w-full text-lg">
-                    <a href="tel:+15141234567" className="flex items-center justify-center gap-2">
+                    <a href="tel:+14188050063" className="flex items-center justify-center gap-2">
                       <Phone className="h-5 w-5" />
                       Appeler maintenant
                     </a>
@@ -251,11 +249,11 @@ const Contact = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Notre zone de service</h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Nous desservons Saint-Jérôme et les environs dans les Laurentides, incluant Prévost, Saint-Sauveur, Mirabel, Blainville, et Sainte-Adèle.
+            Nous desservons Saint-Raymond et les environs dans la région de Portneuf.
           </p>
           <div className="bg-background rounded-lg p-8 max-w-2xl mx-auto">
             <p className="text-muted-foreground">
-              🗺️ Carte de service: Saint-Jérôme, Québec et région des Laurentides
+              🗺️ Carte de service: Saint-Raymond, Québec et région de Portneuf
             </p>
           </div>
         </div>

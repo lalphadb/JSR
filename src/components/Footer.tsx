@@ -11,7 +11,7 @@ const Footer = () => {
           <div>
             <img src={jsrLogo} alt="JSR Déneigement" className="h-16 w-auto mb-4" />
             <p className="text-sm text-muted-foreground">
-              Service professionnel de déneigement, excavation et terrassement dans la région de Saint-Jérôme.
+              Service professionnel de déneigement, excavation et terrassement à Saint-Raymond et région de Portneuf.
             </p>
           </div>
 
@@ -48,19 +48,19 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm">
                 <Phone className="h-4 w-4 text-primary flex-shrink-0" />
-                <a href="tel:+15141234567" className="hover:text-primary transition-colors">
-                  (514) 123-4567
+                <a href="tel:+14188050063" className="hover:text-primary transition-colors">
+                  418-805-0063
                 </a>
               </li>
               <li className="flex items-center gap-2 text-sm">
                 <Mail className="h-4 w-4 text-primary flex-shrink-0" />
-                <a href="mailto:info@jsrdeneigement.ca" className="hover:text-primary transition-colors">
-                  info@jsrdeneigement.ca
+                <a href="mailto:jsrdeneigement@gmail.com" className="hover:text-primary transition-colors">
+                  jsrdeneigement@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-2 text-sm">
                 <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-1" />
-                <span>Saint-Jérôme, Québec</span>
+                <span>303 rue des Mélèzes<br />Saint-Raymond (QC) G3L 0E8</span>
               </li>
             </ul>
           </div>
