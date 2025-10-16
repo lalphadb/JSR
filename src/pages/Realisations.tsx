@@ -10,37 +10,37 @@ import terrasseImg from "@/assets/service-terrasse.jpg";
 const Realisations = () => {
   const projects = [
     {
-      title: "Déneigement résidentiel - Saint-Jérôme",
+      title: "Déneigement résidentiel - Lac St-Charles",
       category: "Déneigement",
       image: deneigementImg,
       description: "Service de déneigement complet pour propriété résidentielle avec stationnement double.",
     },
     {
-      title: "Excavation de fondation - Prévost",
+      title: "Excavation de fondation - Saint Gabriel De Valcartier",
       category: "Excavation",
       image: excavationImg,
       description: "Excavation complète pour nouvelle construction résidentielle avec sous-sol.",
     },
     {
-      title: "Terrassement commercial - Saint-Sauveur",
+      title: "Terrassement commercial - Saint-Raymond",
       category: "Terrassement",
       image: terrassementImg,
       description: "Préparation de terrain pour projet commercial de 5000 pi².",
     },
     {
-      title: "Installation de drains - Mirabel",
+      title: "Installation de drains - St-Émile",
       category: "Drains de fondation",
       image: drainsImg,
       description: "Installation complète de système de drainage français autour d'une résidence.",
     },
     {
-      title: "Terrasse en bois - Sainte-Adèle",
+      title: "Terrasse en bois - Lac St-Charles",
       category: "Construction de terrasse",
       image: terrasseImg,
       description: "Construction de terrasse sur mesure en cèdre avec pergola intégrée.",
     },
     {
-      title: "Excavation piscine - Blainville",
+      title: "Excavation piscine - Stoneham",
       category: "Excavation",
       image: excavationImg,
       description: "Excavation et terrassement pour installation de piscine creusée.",

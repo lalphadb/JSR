@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — JSR</title>
+  <meta name="description" content="Contactez JSR pour votre projet web.">
+  <link rel="stylesheet" href="assets/css/base.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand">JSR</a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu" class="container">
+    <h1>Nous contacter</h1>
+    <form class="form" method="post" action="#">
+      <label>Nom <input name="name" required></label>
+      <label>Email <input name="email" type="email" required></label>
+      <label>Message <textarea name="message" rows="5" required></textarea></label>
+      <button class="btn btn-primary" type="submit">Envoyer</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><p>© <span id="year"></span> JSR.</p></div>
+  </footer>
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

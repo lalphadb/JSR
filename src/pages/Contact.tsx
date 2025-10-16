@@ -249,11 +249,11 @@ const Contact = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Notre zone de service</h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Nous desservons Saint-Raymond et les environs dans la région de Portneuf.
+            Nous desservons Lac St-Charles et les environs.
           </p>
           <div className="bg-background rounded-lg p-8 max-w-2xl mx-auto">
             <p className="text-muted-foreground">
-              🗺️ Carte de service: Saint-Raymond, Québec et région de Portneuf
+              🗺️ Carte de service: Lac St-Charles, Québec!
             </p>
           </div>
         </div>

@@ -53,7 +53,7 @@ const APropos = () => {
                   Notre entreprise familiale a grandi grâce à notre engagement envers la qualité, la fiabilité et la satisfaction client. Chaque projet est pour nous l'occasion de démontrer notre savoir-faire et notre professionnalisme.
                 </p>
                 <p>
-                  Aujourd'hui, nous desservons fièrement les régions des Laurentides avec une équipe expérimentée et un équipement moderne, garantissant des résultats à la hauteur de vos attentes.
+                  Aujourd'hui, nous desservons fièrement les régions du Lac St-Charles avec une équipe expérimentée et un équipement moderne, garantissant des résultats à la hauteur de vos attentes.
                 </p>
               </div>
             </div>
