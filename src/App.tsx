@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import MobileCallButton from "./components/MobileCallButton";
 import Accueil from "./pages/Accueil";
 import Services from "./pages/Services";
 import Realisations from "./pages/Realisations";
@@ -34,6 +35,7 @@ const App = () => (
             </Routes>
           </main>
           <Footer />
+          <MobileCallButton />
         </div>
       </BrowserRouter>
     </TooltipProvider>

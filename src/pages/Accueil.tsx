@@ -45,6 +45,16 @@ const Accueil = () => {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center">
+          {/* Badges animés */}
+          <div className="flex flex-wrap gap-3 justify-center mb-6 animate-fade-in-down">
+            <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-secondary-foreground px-4 py-2 rounded-full text-sm font-semibold border border-white/30 shimmer">
+              ⚡ Service d'urgence 24/7
+            </span>
+            <span className="inline-flex items-center gap-2 bg-primary/90 text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold shadow-lg pulse-glow">
+              🎁 Devis gratuit
+            </span>
+          </div>
+
           <h1 className="text-5xl md:text-7xl font-extrabold text-secondary-foreground mb-6 animate-fade-in-up leading-tight">
             JSR Déneigement
           </h1>
@@ -75,15 +85,11 @@ const Accueil = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
             {services.map((service, index) => (
               <Card
                 key={index}
                 className="group hover-lift border-t-4 border-t-primary/20 hover:border-t-primary transition-all duration-300 overflow-hidden bg-card/50 backdrop-blur-sm"
-                style={{
-                  animationDelay: `${index * 0.1}s`,
-                  opacity: 0
-                }}
               >
                 <CardContent className="p-8 relative">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500" />
