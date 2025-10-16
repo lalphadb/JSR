@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Award, Users, Truck, ThumbsUp } from "lucide-react";
+import { useCounterAnimation } from "@/hooks/useCounterAnimation";
 import heroImage from "@/assets/hero-snow-excavation.jpg";
 
 const APropos = () => {
+  const { count: yearsCount, ref: yearsRef } = useCounterAnimation(15, 2000);
+  const { count: projectsCount, ref: projectsRef } = useCounterAnimation(500, 2500);
+  const { count: satisfactionCount, ref: satisfactionRef } = useCounterAnimation(100, 2000);
   const values = [
     {
       icon: Award,
@@ -100,17 +104,17 @@ const APropos = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
             <div className="text-center group">
-              <div className="text-6xl md:text-7xl font-bold text-primary mb-4 group-hover:scale-110 transition-transform duration-300">15+</div>
+              <div ref={yearsRef} className="text-6xl md:text-7xl font-bold text-primary mb-4 group-hover:scale-110 transition-transform duration-300">{yearsCount}+</div>
               <p className="text-2xl font-semibold">Années d'expérience</p>
               <p className="text-muted-foreground mt-2">Dans l'industrie</p>
             </div>
             <div className="text-center group">
-              <div className="text-6xl md:text-7xl font-bold text-primary mb-4 group-hover:scale-110 transition-transform duration-300">500+</div>
+              <div ref={projectsRef} className="text-6xl md:text-7xl font-bold text-primary mb-4 group-hover:scale-110 transition-transform duration-300">{projectsCount}+</div>
               <p className="text-2xl font-semibold">Projets réalisés</p>
               <p className="text-muted-foreground mt-2">Avec succès</p>
             </div>
             <div className="text-center group">
-              <div className="text-6xl md:text-7xl font-bold text-primary mb-4 group-hover:scale-110 transition-transform duration-300">100%</div>
+              <div ref={satisfactionRef} className="text-6xl md:text-7xl font-bold text-primary mb-4 group-hover:scale-110 transition-transform duration-300">{satisfactionCount}%</div>
               <p className="text-2xl font-semibold">Clients satisfaits</p>
               <p className="text-muted-foreground mt-2">Notre priorité</p>
             </div>

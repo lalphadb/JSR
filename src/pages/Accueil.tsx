@@ -1,10 +1,20 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Snowflake, Truck, Mountain, Droplet, Hammer } from "lucide-react";
+import { useCounterAnimation } from "@/hooks/useCounterAnimation";
 import heroImage from "@/assets/hero-snow-excavation.jpg";
 
 const Accueil = () => {
+  const { count: yearsCount, ref: yearsRef } = useCounterAnimation(15, 2000);
+  const { count: satisfactionCount, ref: satisfactionRef } = useCounterAnimation(100, 2500);
+
   const services = [
     {
       icon: Snowflake,
@@ -134,6 +144,76 @@ const Accueil = () => {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Questions fréquentes</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Retrouvez les réponses aux questions les plus courantes sur nos services
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="item-1" className="border rounded-2xl px-6 bg-card shadow-md hover:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-lg font-semibold hover:text-primary">
+                  Quels sont vos tarifs pour le déneigement?
+                </AccordionTrigger>
+                <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                  Nos tarifs varient selon la taille de votre terrain et la fréquence du service. Nous offrons des forfaits saisonniers avantageux et des services à la demande. Contactez-nous pour un devis gratuit et personnalisé adapté à vos besoins.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2" className="border rounded-2xl px-6 bg-card shadow-md hover:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-lg font-semibold hover:text-primary">
+                  Offrez-vous un service d'urgence?
+                </AccordionTrigger>
+                <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                  Oui! Nous sommes disponibles 24/7 pendant la saison hivernale pour les urgences de déneigement. Notre équipe peut intervenir rapidement pour assurer votre sécurité et maintenir l'accessibilité de votre propriété.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-3" className="border rounded-2xl px-6 bg-card shadow-md hover:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-lg font-semibold hover:text-primary">
+                  Quelle est votre zone de service?
+                </AccordionTrigger>
+                <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                  Nous desservons Lac St-Charles, Saint-Raymond, Stoneham, Saint-Gabriel-de-Valcartier, Saint-Émile, Portneuf et les environs. Contactez-nous pour vérifier si nous desservons votre secteur.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-4" className="border rounded-2xl px-6 bg-card shadow-md hover:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-lg font-semibold hover:text-primary">
+                  Combien de temps prend un projet d'excavation?
+                </AccordionTrigger>
+                <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                  La durée dépend de l'ampleur du projet. Une excavation résidentielle typique prend entre 1 et 3 jours. Nous vous fournirons un calendrier précis lors de l'évaluation initiale de votre projet.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-5" className="border rounded-2xl px-6 bg-card shadow-md hover:shadow-lg transition-shadow">
+                <AccordionTrigger className="text-lg font-semibold hover:text-primary">
+                  Êtes-vous assurés et licenciés?
+                </AccordionTrigger>
+                <AccordionContent className="text-base text-muted-foreground leading-relaxed">
+                  Absolument. JSR Déneigement possède toutes les assurances et licences nécessaires pour exercer nos activités. Nous respectons toutes les normes de sécurité et réglementations en vigueur.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-lg text-muted-foreground mb-6">
+              Vous avez d'autres questions?
+            </p>
+            <Button asChild size="lg" className="px-10 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <Link to="/contact">Contactez-nous</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us */}
       <section className="py-24 bg-gradient-to-b from-muted/50 to-background">
         <div className="container mx-auto px-4">
@@ -146,8 +226,8 @@ const Accueil = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
             <div className="text-center group">
-              <div className="bg-gradient-to-br from-primary to-primary/70 text-primary-foreground rounded-2xl w-24 h-24 flex items-center justify-center mx-auto mb-6 text-3xl font-bold shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
-                15+
+              <div ref={yearsRef} className="bg-gradient-to-br from-primary to-primary/70 text-primary-foreground rounded-2xl w-24 h-24 flex items-center justify-center mx-auto mb-6 text-3xl font-bold shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+                {yearsCount}+
               </div>
               <h3 className="font-bold text-2xl mb-3">Années d'expérience</h3>
               <p className="text-muted-foreground text-lg leading-relaxed">
@@ -166,8 +246,8 @@ const Accueil = () => {
             </div>
 
             <div className="text-center group">
-              <div className="bg-gradient-to-br from-primary to-primary/70 text-primary-foreground rounded-2xl w-24 h-24 flex items-center justify-center mx-auto mb-6 text-3xl font-bold shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
-                100%
+              <div ref={satisfactionRef} className="bg-gradient-to-br from-primary to-primary/70 text-primary-foreground rounded-2xl w-24 h-24 flex items-center justify-center mx-auto mb-6 text-3xl font-bold shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+                {satisfactionCount}%
               </div>
               <h3 className="font-bold text-2xl mb-3">Satisfaction garantie</h3>
               <p className="text-muted-foreground text-lg leading-relaxed">

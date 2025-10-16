@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import MobileCallButton from "./components/MobileCallButton";
+import ScrollToTop from "./components/ScrollToTop";
 import Accueil from "./pages/Accueil";
 import Services from "./pages/Services";
 import Realisations from "./pages/Realisations";
@@ -36,6 +37,7 @@ const App = () => (
           </main>
           <Footer />
           <MobileCallButton />
+          <ScrollToTop />
         </div>
       </BrowserRouter>
     </TooltipProvider>
