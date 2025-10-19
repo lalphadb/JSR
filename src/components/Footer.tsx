@@ -1,18 +1,51 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import jsrLogo from "@/assets/jsr-logo.png";
+import jsrLogoWebp from "@/assets/jsr-logo-transparent.webp";
+import jsrLogoPng from "@/assets/jsr-logo-transparent.png";
 
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-secondary to-secondary/95 text-secondary-foreground border-t border-secondary-foreground/10">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
-          {/* Logo et Description */}
+          {/* Logo et Description Enhanced */}
           <div>
-            <img src={jsrLogo} alt="JSR Déneigement" className="h-16 w-auto mb-6" />
-            <p className="text-base text-secondary-foreground/80 leading-relaxed">
+            <div className="relative inline-block mb-6 group">
+              {/* Logo avec effet de brillance subtle */}
+              <div className="relative">
+                <picture>
+                  <source type="image/webp" srcSet={jsrLogoWebp} />
+                  <img 
+                    src={jsrLogoPng}
+                    alt="JSR Déneigement" 
+                    className="h-20 w-auto transition-all duration-500 group-hover:scale-105 filter brightness-110 drop-shadow-lg"
+                  />
+                </picture>
+                
+                {/* Effet de fond lumineux subtle */}
+                <div className="absolute -inset-2 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-500 rounded-lg" />
+                
+                {/* Effet de brillance traversant */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 opacity-0 group-hover:opacity-100"></div>
+              </div>
+            </div>
+            
+            <p className="text-base text-secondary-foreground/80 leading-relaxed mb-4">
               Service professionnel de déneigement, excavation et terrassement à Saint-Raymond et région de Portneuf.
             </p>
+            
+            {/* Badges de qualité */}
+            <div className="flex flex-wrap gap-2">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-red-500/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20">
+                <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                15+ ans d'expérience
+              </div>
+              
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 text-green-400 px-3 py-1.5 rounded-full text-sm font-semibold border border-green-400/20">
+                <span className="text-green-400">✓</span>
+                Service 24/7
+              </div>
+            </div>
           </div>
 
           {/* Liens rapides */}
