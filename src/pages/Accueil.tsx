@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/accordion";
 import { Snowflake, Truck, Mountain, Droplet, Hammer } from "lucide-react";
 import { useCounterAnimation } from "@/hooks/useCounterAnimation";
-import heroImage from "@/assets/hero-snow-excavation.jpg";
+import { PHOTOS } from "@/lib/photos";
+import LogoShowcase from "@/components/LogoShowcase";
 
 const Accueil = () => {
   const { count: yearsCount, ref: yearsRef } = useCounterAnimation(15, 2000);
@@ -47,15 +48,41 @@ const Accueil = () => {
     <div>
       {/* Hero Section */}
       <section className="relative h-[700px] md:h-[750px] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        >
+        <div className="absolute inset-0 transition-transform duration-700 hover:scale-105">
+          <picture>
+            <source type="image/webp" srcSet={PHOTOS.hero.webp640} />
+            <img
+              src={PHOTOS.hero.jpg1280}
+              alt={PHOTOS.hero.alt}
+              className="w-full h-full object-cover"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/85 via-secondary/70 to-secondary/50" />
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center">
           {/* Badges animés */}
+          {/* Logo Hero TRANSPARENT - Spectacle ultime */}
+          <div className="mb-12 animate-scale-in relative">
+            {/* Effet de fond lumineux pour la page hero */}
+            <div className="absolute -inset-16 bg-gradient-to-r from-primary/20 via-red-500/15 to-primary/20 rounded-full blur-3xl opacity-50 animate-pulse"></div>
+            
+            <LogoShowcase 
+              size="hero" 
+              animated={true}
+              className="mx-auto relative z-10"
+            />
+            
+            {/* Texte sous le logo */}
+            <div className="text-center mt-6 animate-fade-in-up" style={{ animationDelay: '0.8s', opacity: 0 }}>
+              <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
+                <span className="w-3 h-3 bg-gradient-to-r from-primary to-red-500 rounded-full animate-pulse"></span>
+                <span className="text-secondary-foreground font-semibold tracking-wide">EXCAVATION • DÉNEIGEMENT • TERRASSEMENT</span>
+                <span className="w-3 h-3 bg-gradient-to-r from-red-500 to-primary rounded-full animate-pulse"></span>
+              </div>
+            </div>
+          </div>
+
           <div className="flex flex-wrap gap-3 justify-center mb-6 animate-fade-in-down">
             <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-secondary-foreground px-4 py-2 rounded-full text-sm font-semibold border border-white/30 shimmer">
               ⚡ Service d'urgence 24/7

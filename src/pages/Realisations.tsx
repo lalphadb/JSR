@@ -1,48 +1,44 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import deneigementImg from "@/assets/service-deneigement.jpg";
-import excavationImg from "@/assets/service-excavation.jpg";
-import terrassementImg from "@/assets/service-terrassement.jpg";
-import drainsImg from "@/assets/service-drains.jpg";
-import terrasseImg from "@/assets/service-terrasse.jpg";
+import { PHOTOS } from "@/lib/photos";
 
 const Realisations = () => {
   const projects = [
     {
       title: "Déneigement résidentiel - Lac St-Charles",
       category: "Déneigement",
-      image: deneigementImg,
+  image: PHOTOS.services.deneigement,
       description: "Service de déneigement complet pour propriété résidentielle avec stationnement double.",
     },
     {
       title: "Excavation de fondation - Saint Gabriel De Valcartier",
       category: "Excavation",
-      image: excavationImg,
+  image: PHOTOS.services.excavation,
       description: "Excavation complète pour nouvelle construction résidentielle avec sous-sol.",
     },
     {
       title: "Terrassement commercial - Saint-Raymond",
       category: "Terrassement",
-      image: terrassementImg,
+  image: PHOTOS.services.terrassement,
       description: "Préparation de terrain pour projet commercial de 5000 pi².",
     },
     {
       title: "Installation de drains - St-Émile",
       category: "Drains de fondation",
-      image: drainsImg,
+  image: PHOTOS.services.drains,
       description: "Installation complète de système de drainage français autour d'une résidence.",
     },
     {
       title: "Terrasse en bois - Lac St-Charles",
       category: "Construction de terrasse",
-      image: terrasseImg,
+  image: PHOTOS.services.terrasse,
       description: "Construction de terrasse sur mesure en cèdre avec pergola intégrée.",
     },
     {
       title: "Excavation piscine - Stoneham",
       category: "Excavation",
-      image: excavationImg,
+      image: PHOTOS.services.excavation,
       description: "Excavation et terrassement pour installation de piscine creusée.",
     },
   ];
@@ -66,11 +62,15 @@ const Realisations = () => {
             {projects.map((project, index) => (
               <Card key={index} className="group overflow-hidden hover-lift border-0 shadow-xl">
                 <div className="relative h-72 overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+                  <picture>
+                    <source type="image/webp" srcSet={project.image.webp640} />
+                    <img
+                      src={project.image.jpg1280}
+                      alt={project.image.alt}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                   <div className="absolute top-4 left-4">
                     <span className="bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
