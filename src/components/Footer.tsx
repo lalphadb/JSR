@@ -36,7 +36,7 @@ const Footer = () => {
             
             {/* Badges de qualité */}
             <div className="flex flex-wrap gap-2">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-red-500/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
                 15+ ans d'expérience
               </div>

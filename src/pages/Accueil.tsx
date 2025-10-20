@@ -10,7 +10,6 @@ import {
 import { Snowflake, Truck, Mountain, Droplet, Hammer } from "lucide-react";
 import { useCounterAnimation } from "@/hooks/useCounterAnimation";
 import { PHOTOS } from "@/lib/photos";
-import LogoShowcase from "@/components/LogoShowcase";
 
 const Accueil = () => {
   const { count: yearsCount, ref: yearsRef } = useCounterAnimation(15, 2000);
@@ -61,25 +60,12 @@ const Accueil = () => {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center">
-          {/* Badges animés */}
-          {/* Logo Hero TRANSPARENT - Spectacle ultime */}
-          <div className="mb-12 animate-scale-in relative">
-            {/* Effet de fond lumineux pour la page hero */}
-            <div className="absolute -inset-16 bg-gradient-to-r from-primary/20 via-red-500/15 to-primary/20 rounded-full blur-3xl opacity-50 animate-pulse"></div>
-            
-            <LogoShowcase 
-              size="hero" 
-              animated={true}
-              className="mx-auto relative z-10"
-            />
-            
-            {/* Texte sous le logo */}
-            <div className="text-center mt-6 animate-fade-in-up" style={{ animationDelay: '0.8s', opacity: 0 }}>
-              <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-                <span className="w-3 h-3 bg-gradient-to-r from-primary to-red-500 rounded-full animate-pulse"></span>
-                <span className="text-secondary-foreground font-semibold tracking-wide">EXCAVATION • DÉNEIGEMENT • TERRASSEMENT</span>
-                <span className="w-3 h-3 bg-gradient-to-r from-red-500 to-primary rounded-full animate-pulse"></span>
-              </div>
+          {/* Ruban de services (sans logo) */}
+          <div className="mb-8 text-center animate-fade-in-up" style={{ animationDelay: '0.2s', opacity: 0 }}>
+            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
+              <span className="w-3 h-3 bg-gradient-to-r from-primary to-primary/70 rounded-full animate-pulse"></span>
+              <span className="text-secondary-foreground font-semibold tracking-wide">EXCAVATION • DÉNEIGEMENT • TERRASSEMENT</span>
+              <span className="w-3 h-3 bg-gradient-to-r from-primary/70 to-primary rounded-full animate-pulse"></span>
             </div>
           </div>
 

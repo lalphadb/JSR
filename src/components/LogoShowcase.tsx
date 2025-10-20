@@ -63,7 +63,7 @@ const LogoShowcase: React.FC<LogoShowcaseProps> = ({
       
       {/* Badge premium flottant */}
       {animated && size === 'hero' && (
-        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-primary to-red-600 text-white text-sm px-3 py-1.5 rounded-full font-bold opacity-0 group-hover:opacity-100 transition-all duration-500 animate-bounce shadow-xl">
+        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-primary to-primary/80 text-white text-sm px-3 py-1.5 rounded-full font-bold opacity-0 group-hover:opacity-100 transition-all duration-500 animate-bounce shadow-xl">
           ⭐ EXPERT
         </div>
       )}
@@ -72,7 +72,7 @@ const LogoShowcase: React.FC<LogoShowcaseProps> = ({
       {animated && (
         <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700">
           <div className="absolute top-2 left-2 w-1 h-1 bg-primary rounded-full animate-ping"></div>
-          <div className="absolute top-4 right-4 w-1 h-1 bg-red-500 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute top-4 right-4 w-1 h-1 bg-primary rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
           <div className="absolute bottom-2 left-4 w-1 h-1 bg-primary rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
         </div>
       )}

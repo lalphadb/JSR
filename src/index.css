@@ -17,8 +17,9 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
 
-    --primary: 0 70% 48%;
-    --primary-foreground: 0 0% 100%;
+  /* Brand green: #367C2B ≈ hsl(112 49% 33%) */
+  --primary: 112 49% 33%;
+  --primary-foreground: 0 0% 100%;
 
     --secondary: 210 20% 15%;
     --secondary-foreground: 0 0% 98%;
@@ -26,7 +27,8 @@ All colors MUST be HSL.
     --muted: 210 15% 96%;
     --muted-foreground: 210 10% 45%;
 
-    --accent: 0 70% 48%;
+  /* Keep accent aligned with primary brand */
+  --accent: 112 49% 33%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -34,18 +36,18 @@ All colors MUST be HSL.
 
     --border: 210 15% 92%;
     --input: 210 15% 92%;
-    --ring: 0 70% 48%;
+  --ring: 112 49% 33%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 99%;
     --sidebar-foreground: 0 0% 10%;
-    --sidebar-primary: 0 70% 48%;
+  --sidebar-primary: 112 49% 33%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 210 15% 96%;
     --sidebar-accent-foreground: 0 0% 10%;
     --sidebar-border: 210 15% 92%;
-    --sidebar-ring: 0 70% 48%;
+  --sidebar-ring: 112 49% 33%;
   }
 
   .dark {
@@ -58,7 +60,8 @@ All colors MUST be HSL.
     --popover: 0 0% 5%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 85% 51%;
+  /* Dark mode brand green: slightly more saturated and lighter */
+  --primary: 112 50% 38%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 15%;
@@ -67,7 +70,7 @@ All colors MUST be HSL.
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 0 85% 51%;
+  --accent: 112 50% 38%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -75,16 +78,16 @@ All colors MUST be HSL.
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 0 85% 51%;
+  --ring: 112 50% 38%;
     
     --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 0 85% 51%;
+  --sidebar-primary: 112 50% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 0 85% 51%;
+  --sidebar-ring: 112 50% 38%;
   }
 }
 
@@ -297,7 +300,7 @@ All colors MUST be HSL.
 
   /* Gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, hsl(0 70% 48%) 0%, hsl(0 60% 35%) 100%);
+    background: linear-gradient(135deg, hsl(112 49% 33%) 0%, hsl(112 40% 25%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -322,10 +325,10 @@ All colors MUST be HSL.
 
   @keyframes pulse-glow {
     0%, 100% {
-      box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+      box-shadow: 0 0 20px rgba(54, 124, 43, 0.4);
     }
     50% {
-      box-shadow: 0 0 30px rgba(220, 38, 38, 0.6);
+      box-shadow: 0 0 30px rgba(54, 124, 43, 0.6);
     }
   }
 
@@ -335,15 +338,15 @@ All colors MUST be HSL.
   
   /* Effet de halo coloré pour logo transparent */
   .logo-halo {
-    filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.3)) 
-            drop-shadow(0 0 40px rgba(220, 38, 38, 0.2));
+    filter: drop-shadow(0 0 20px rgba(54, 124, 43, 0.3)) 
+            drop-shadow(0 0 40px rgba(54, 124, 43, 0.2));
     transition: filter 0.3s ease;
   }
   
   .logo-halo:hover {
-    filter: drop-shadow(0 0 30px rgba(220, 38, 38, 0.5)) 
-            drop-shadow(0 0 60px rgba(220, 38, 38, 0.3))
-            drop-shadow(0 0 90px rgba(220, 38, 38, 0.2));
+    filter: drop-shadow(0 0 30px rgba(54, 124, 43, 0.5)) 
+            drop-shadow(0 0 60px rgba(54, 124, 43, 0.3))
+            drop-shadow(0 0 90px rgba(54, 124, 43, 0.2));
   }
 
   /* Effet de fond lumineux pour logo transparent */
@@ -355,7 +358,7 @@ All colors MUST be HSL.
     content: '';
     position: absolute;
     inset: -20px;
-    background: radial-gradient(circle, rgba(220, 38, 38, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(54, 124, 43, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     opacity: 0;
     transition: opacity 0.5s ease;
