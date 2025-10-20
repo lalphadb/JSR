@@ -64,6 +64,25 @@ src/
 
 Le site est configuré pour être déployé sur un serveur Ubuntu avec Docker ou directement avec Node.js.
 
+## Identité visuelle (Brand)
+
+Couleurs principales utilisées par le thème (définies dans `src/index.css` via variables CSS HSL et exposées par Tailwind comme `primary`, `accent`, etc.).
+
+- Couleur principale (Primary)
+	- Hex: `#367C2B`
+	- RGB: `rgb(54, 124, 43)`
+	- HSL: `hsl(112 49% 33%)`
+	- Pantone approximatif: `Pantone 364 C`
+
+Usage recommandé
+- Utiliser `bg-primary` / `text-primary` / `border-primary` pour les éléments de marque et CTA.
+- Les effets, halos et dégradés doivent s’appuyer sur `primary` (ex: `from-primary to-primary/80`).
+- Les états destructifs/erreur conservent un rouge d’alerte via la palette `destructive`.
+
+Emplacements clés
+- Variables: `src/index.css` (`:root` et `.dark`).
+- Composants impactés: `Navigation.tsx`, `Footer.tsx`, `Accueil.tsx`, `LogoShowcase.tsx`, ainsi que les composants UI shadcn qui s’appuient sur la couleur `primary`.
+
 ## Contact
 
 JSR Déneigement - Service professionnel dans les Laurentides
