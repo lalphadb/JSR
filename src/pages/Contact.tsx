@@ -3,19 +3,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { sendContactEmail, ContactFormData } from "@/lib/emailjs";
 
 const Contact = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<ContactFormData>({
     nom: "",
     telephone: "",
     courriel: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validation simple
@@ -39,19 +41,45 @@ const Contact = () => {
       return;
     }
 
-    // Simulation d'envoi
-    toast({
-      title: "Message envoyé!",
-      description: "Nous vous contacterons sous peu. Merci!",
-    });
+    // Validation téléphone (format québécois)
+    const phoneRegex = /^(\+1)?[\s.-]?\(?[0-9]{3}\)?[\s.-]?[0-9]{3}[\s.-]?[0-9]{4}$/;
+    if (!phoneRegex.test(formData.telephone)) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez entrer un numéro de téléphone valide (ex: 418-123-4567).",
+        variant: "destructive",
+      });
+      return;
+    }
 
-    // Réinitialiser le formulaire
-    setFormData({
-      nom: "",
-      telephone: "",
-      courriel: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+
+    try {
+      // Envoyer l'email via EmailJS
+      await sendContactEmail(formData);
+
+      toast({
+        title: "Message envoyé avec succès! 🎉",
+        description: "Nous vous contacterons dans les plus brefs délais. Merci!",
+      });
+
+      // Réinitialiser le formulaire
+      setFormData({
+        nom: "",
+        telephone: "",
+        courriel: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Erreur d'envoi",
+        description: "Une erreur est survenue. Veuillez réessayer ou nous appeler directement au 418-805-0063.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -185,6 +213,7 @@ const Contact = () => {
                         placeholder="Jean Dupont"
                         className="h-12 text-base"
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
 
@@ -201,6 +230,7 @@ const Contact = () => {
                         placeholder="(418) 123-4567"
                         className="h-12 text-base"
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
 
@@ -217,6 +247,7 @@ const Contact = () => {
                         placeholder="vous@exemple.com"
                         className="h-12 text-base"
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
 
@@ -233,11 +264,24 @@ const Contact = () => {
                         rows={6}
                         className="text-base resize-none"
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full text-lg py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                      Envoyer ma demande
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      className="w-full text-lg py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Envoi en cours...
+                        </>
+                      ) : (
+                        'Envoyer ma demande'
+                      )}
                     </Button>
 
                     <p className="text-sm text-muted-foreground text-center leading-relaxed">
@@ -274,3 +318,6 @@ const Contact = () => {
 };
 
 export default Contact;
+
+// Note: Le contenu ci-dessus remplace déjà le fichier
+// Ajoutons maintenant les imports pour le paiement dans une version mise à jour

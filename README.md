@@ -83,6 +83,29 @@ Emplacements clés
 - Variables: `src/index.css` (`:root` et `.dark`).
 - Composants impactés: `Navigation.tsx`, `Footer.tsx`, `Accueil.tsx`, `LogoShowcase.tsx`, ainsi que les composants UI shadcn qui s’appuient sur la couleur `primary`.
 
+Nuancier rapide (exemples Tailwind)
+
+- Couleur de base: `bg-primary` → `hsl(112 49% 33%)`
+- Hover doux: `hover:bg-primary/90` (légère intensification)
+- Active: `active:bg-primary/80`
+- Bordures et halos: `border-primary/20`, `from-primary to-primary/80`
+
+Exemples d’utilisation
+
+```tsx
+// Bouton CTA plein
+<button className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-md">Demander un devis</button>
+
+// Bouton contour
+<button className="border border-primary text-primary hover:bg-primary/10 px-6 py-3 rounded-md">Contact</button>
+
+// Badge
+<span className="inline-flex items-center gap-2 bg-primary/10 text-primary border border-primary/20 px-3 py-1.5 rounded-full">✓ Disponible 24/7</span>
+
+// Dégradé décoratif
+<div className="bg-gradient-to-r from-primary to-primary/80 h-1 w-32 rounded-full" />
+```
+
 ## Contact
 
 JSR Déneigement - Service professionnel dans les Laurentides
