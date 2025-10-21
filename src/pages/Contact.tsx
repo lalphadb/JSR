@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { sendContactEmail, ContactFormData } from "@/lib/emailjs";
+import { sendContactEmail, ContactFormData } from "@/lib/backend-email";
 
 const Contact = () => {
   const { toast } = useToast();
