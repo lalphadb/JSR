@@ -34,6 +34,8 @@ const Navigation = () => {
               <div className="absolute -inset-8 border border-primary/15 rounded-full opacity-0 group-hover:opacity-30 transition-all duration-1000" style={{ animation: 'spin 15s linear infinite reverse' }}></div>
               
               {/* Logo transparent avec halo magique */}
+              {/* Cercle blanc pour contraste */}
+              <div className="absolute inset-0 bg-white rounded-full scale-90 opacity-90 -z-10 shadow-xl"></div>
               <picture>
                 <source type="image/webp" srcSet={jsrLogoWebp} />
                 <img 
@@ -130,6 +132,8 @@ const Navigation = () => {
           <div className="lg:hidden pb-6 pt-4 border-t border-slate-700/50 animate-fade-in">
             {/* Logo mobile centré */}
             <div className="flex justify-center mb-6">
+              {/* Cercle blanc pour contraste */}
+              <div className="absolute inset-0 bg-white rounded-full scale-90 opacity-90 -z-10 shadow-xl"></div>
               <picture>
                 <source type="image/webp" srcSet={jsrLogoWebp} />
                 <img 

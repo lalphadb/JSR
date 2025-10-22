@@ -7,7 +7,10 @@ export type PhotoSet = {
   alt: string;
 };
 
-// Hero image
+// Hero image - PARC DE MACHINES
+import parcMachinesImg from "@/assets/photos/parc-machines.jpg";
+
+// Hero image original
 import heroWebp640 from "@/assets/photos/real/hero-640.webp";
 import heroJpg1280 from "@/assets/photos/real/hero-1280.jpg";
 
@@ -28,11 +31,19 @@ import terrasseWebp640 from "@/assets/photos/services/terrasse-640.webp";
 import terrasseJpg1280 from "@/assets/photos/services/terrasse-1280.jpg";
 
 export const PHOTOS = {
+  // NOUVELLE PHOTO HERO - Parc de machines
+  parcMachines: {
+    webp640: parcMachinesImg,
+    jpg1280: parcMachinesImg,
+    alt: "Parc de machines JSR – Flotte complète d'équipements pour excavation et déneigement",
+  } satisfies PhotoSet,
+  
   hero: {
     webp640: heroWebp640,
     jpg1280: heroJpg1280,
     alt: "Parc de camions et machinerie JSR – flotte prête à intervenir",
   } satisfies PhotoSet,
+  
   services: {
     deneigement: {
       webp640: deneigementWebp640,

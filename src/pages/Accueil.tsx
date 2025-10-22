@@ -49,10 +49,10 @@ const Accueil = () => {
       <section className="relative h-[700px] md:h-[750px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 transition-transform duration-700 hover:scale-105">
           <picture>
-            <source type="image/webp" srcSet={PHOTOS.hero.webp640} />
+            <source type="image/webp" srcSet={PHOTOS.parcMachines.webp640} />
             <img
-              src={PHOTOS.hero.jpg1280}
-              alt={PHOTOS.hero.alt}
+              src={PHOTOS.parcMachines.jpg1280}
+              alt={PHOTOS.parcMachines.alt}
               className="w-full h-full object-cover"
             />
           </picture>
