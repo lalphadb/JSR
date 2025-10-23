@@ -2,12 +2,42 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Award, Users, Truck, ThumbsUp } from "lucide-react";
 import { useCounterAnimation } from "@/hooks/useCounterAnimation";
-import heroImage from "@/assets/hero-snow-excavation.jpg";
+import { useEffect } from "react";
+import { PHOTOS } from "@/lib/photos";
 
 const APropos = () => {
   const { count: yearsCount, ref: yearsRef } = useCounterAnimation(15, 2000);
   const { count: projectsCount, ref: projectsRef } = useCounterAnimation(500, 2500);
   const { count: satisfactionCount, ref: satisfactionRef } = useCounterAnimation(100, 2000);
+  
+  // Set meta tags for SEO
+  useEffect(() => {
+    document.title = "À propos de JSR Déneigement – Expertise depuis 15 ans | Saint-Raymond";
+    
+    // Meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", "Découvrez JSR Déneigement : 15 ans d'expertise en excavation, déneigement et terrassement à Saint-Raymond et région. Équipe qualifiée et équipement moderne.");
+    }
+    
+    // Open Graph
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", "À propos de JSR Déneigement");
+    
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute("content", "15 ans d'expertise en excavation, déneigement et terrassement. Équipe professionnelle dédiée à votre satisfaction.");
+    
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage) ogImage.setAttribute("content", window.location.origin + PHOTOS.hero.jpg1280);
+    
+    // Twitter Card
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute("content", "À propos de JSR Déneigement");
+    
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDescription) twitterDescription.setAttribute("content", "Expert en excavation et déneigement depuis 15 ans");
+  }, []);
+
   const values = [
     {
       icon: Award,
@@ -63,11 +93,16 @@ const APropos = () => {
             </div>
             <div className="group">
               <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-                <img
-                  src={heroImage}
-                  alt="JSR Déneigement équipement"
-                  className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
-                />
+                <picture>
+                  <source srcSet={PHOTOS.hero.webp640} type="image/webp" media="(max-width: 768px)" />
+                  <source srcSet={PHOTOS.hero.jpg1280} type="image/jpeg" />
+                  <img
+                    src={PHOTOS.hero.jpg1280}
+                    alt={PHOTOS.hero.alt}
+                    loading="lazy"
+                    className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
             </div>
