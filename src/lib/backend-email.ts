@@ -2,7 +2,9 @@
  * Service d'envoi d'emails via notre backend Nodemailer
  */
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
+// Prefer a relative API path exposed by the reverse proxy (Traefik/nginx)
+// This avoids exposing internal hostnames in the frontend bundle and works across envs.
+const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 
 export interface ContactFormData {
   nom: string;
@@ -23,7 +25,7 @@ export interface EmailResponse {
  */
 export const sendContactEmail = async (formData: ContactFormData): Promise<EmailResponse> => {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/contact`, {
+    const response = await fetch(`${API_BASE}/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

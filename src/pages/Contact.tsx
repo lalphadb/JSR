@@ -10,6 +10,8 @@ import { sendContactEmail, ContactFormData } from "@/lib/backend-email";
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // Honeypot field (anti-bot). Real users won't see or fill this.
+  const [hp, setHp] = useState("");
   const [formData, setFormData] = useState<ContactFormData>({
     nom: "",
     telephone: "",
@@ -49,6 +51,22 @@ const Contact = () => {
         description: "Veuillez entrer un numéro de téléphone valide (ex: 418-123-4567).",
         variant: "destructive",
       });
+      return;
+    }
+
+    // Honeypot: if filled, silently pretend success to mislead bots
+    if (hp.trim() !== "") {
+      setIsSubmitting(true);
+      try {
+        toast({
+          title: "Message envoyé avec succès! 🎉",
+          description: "Nous vous contacterons dans les plus brefs délais. Merci!",
+        });
+        setFormData({ nom: "", telephone: "", courriel: "", message: "" });
+        setHp("");
+      } finally {
+        setIsSubmitting(false);
+      }
       return;
     }
 
@@ -200,6 +218,19 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Honeypot field: hidden from users, visible to simple bots */}
+                    <div className="hidden" aria-hidden="true">
+                      <label htmlFor="company">Votre entreprise</label>
+                      <input
+                        id="company"
+                        name="company"
+                        type="text"
+                        autoComplete="off"
+                        tabIndex={-1}
+                        value={hp}
+                        onChange={(e) => setHp(e.target.value)}
+                      />
+                    </div>
                     <div>
                       <label htmlFor="nom" className="block text-base font-semibold mb-3">
                         Nom complet *
