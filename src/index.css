@@ -17,37 +17,42 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
 
-  /* Brand green: #367C2B ≈ hsl(112 49% 33%) */
-  --primary: 112 49% 33%;
-  --primary-foreground: 0 0% 100%;
+    /* ✅ Brand green: #2F855A ≈ hsl(112 50% 35%) */
+    --primary: 112 50% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 20% 15%;
-    --secondary-foreground: 0 0% 98%;
+    /* ✅ Dark header/footer: #0D0D0D */
+    --secondary: 0 0% 5%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 210 15% 96%;
     --muted-foreground: 210 10% 45%;
 
-  /* Keep accent aligned with primary brand */
-  --accent: 112 49% 33%;
+    /* ✅ Keep accent aligned with primary brand (GREEN) */
+    --accent: 112 50% 35%;
     --accent-foreground: 0 0% 100%;
 
+    /* Keep destructive for error states */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 210 15% 92%;
     --input: 210 15% 92%;
-  --ring: 112 49% 33%;
+    /* ✅ Focus ring GREEN */
+    --ring: 112 50% 35%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 99%;
     --sidebar-foreground: 0 0% 10%;
-  --sidebar-primary: 112 49% 33%;
+    /* ✅ Sidebar primary GREEN */
+    --sidebar-primary: 112 50% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 210 15% 96%;
     --sidebar-accent-foreground: 0 0% 10%;
     --sidebar-border: 210 15% 92%;
-  --sidebar-ring: 112 49% 33%;
+    /* ✅ Sidebar ring GREEN */
+    --sidebar-ring: 112 50% 35%;
   }
 
   .dark {
@@ -60,34 +65,40 @@ All colors MUST be HSL.
     --popover: 0 0% 5%;
     --popover-foreground: 0 0% 98%;
 
-  /* Dark mode brand green: slightly more saturated and lighter */
-  --primary: 112 50% 38%;
+    /* ✅ Dark mode brand green: slightly more saturated and lighter */
+    --primary: 112 50% 38%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 15%;
+    /* ✅ Dark mode secondary (dark surface) */
+    --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
 
-  --accent: 112 50% 38%;
+    /* ✅ Dark mode accent GREEN */
+    --accent: 112 50% 38%;
     --accent-foreground: 0 0% 100%;
 
+    /* Dark mode destructive (darker red) */
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-  --ring: 112 50% 38%;
+    /* ✅ Dark mode focus ring GREEN */
+    --ring: 112 50% 38%;
     
     --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 95%;
-  --sidebar-primary: 112 50% 38%;
+    /* ✅ Dark mode sidebar primary GREEN */
+    --sidebar-primary: 112 50% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 0 0% 20%;
-  --sidebar-ring: 112 50% 38%;
+    /* ✅ Dark mode sidebar ring GREEN */
+    --sidebar-ring: 112 50% 38%;
   }
 }
 
@@ -298,9 +309,9 @@ All colors MUST be HSL.
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   }
 
-  /* Gradient text */
+  /* ✅ Gradient text (using GREEN brand) */
   .gradient-text {
-    background: linear-gradient(135deg, hsl(112 49% 33%) 0%, hsl(112 40% 25%) 100%);
+    background: linear-gradient(135deg, hsl(112 50% 35%) 0%, hsl(112 50% 25%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -318,17 +329,17 @@ All colors MUST be HSL.
     animation: shimmer 2s infinite;
   }
 
-  /* Pulse glow effect */
+  /* ✅ Pulse glow effect (using GREEN brand) */
   .pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
   }
 
   @keyframes pulse-glow {
     0%, 100% {
-      box-shadow: 0 0 20px rgba(54, 124, 43, 0.4);
+      box-shadow: 0 0 20px rgba(47, 133, 90, 0.4);
     }
     50% {
-      box-shadow: 0 0 30px rgba(54, 124, 43, 0.6);
+      box-shadow: 0 0 30px rgba(47, 133, 90, 0.6);
     }
   }
 
@@ -336,20 +347,20 @@ All colors MUST be HSL.
   /* EFFETS SPÉCIAUX LOGO TRANSPARENT JSR */
   /* ============================================ */
   
-  /* Effet de halo coloré pour logo transparent */
+  /* ✅ Effet de halo coloré pour logo transparent (GREEN) */
   .logo-halo {
-    filter: drop-shadow(0 0 20px rgba(54, 124, 43, 0.3)) 
-            drop-shadow(0 0 40px rgba(54, 124, 43, 0.2));
+    filter: drop-shadow(0 0 20px rgba(47, 133, 90, 0.3)) 
+            drop-shadow(0 0 40px rgba(47, 133, 90, 0.2));
     transition: filter 0.3s ease;
   }
   
   .logo-halo:hover {
-    filter: drop-shadow(0 0 30px rgba(54, 124, 43, 0.5)) 
-            drop-shadow(0 0 60px rgba(54, 124, 43, 0.3))
-            drop-shadow(0 0 90px rgba(54, 124, 43, 0.2));
+    filter: drop-shadow(0 0 30px rgba(47, 133, 90, 0.5)) 
+            drop-shadow(0 0 60px rgba(47, 133, 90, 0.3))
+            drop-shadow(0 0 90px rgba(47, 133, 90, 0.2));
   }
 
-  /* Effet de fond lumineux pour logo transparent */
+  /* ✅ Effet de fond lumineux pour logo transparent (GREEN) */
   .logo-transparent-glow {
     position: relative;
   }
@@ -358,7 +369,7 @@ All colors MUST be HSL.
     content: '';
     position: absolute;
     inset: -20px;
-  background: radial-gradient(circle, rgba(54, 124, 43, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(47, 133, 90, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     opacity: 0;
     transition: opacity 0.5s ease;

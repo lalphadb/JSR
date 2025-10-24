@@ -58,6 +58,26 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // ✅ BRAND PALETTE - USE HSL VARIABLES FOR GRADIENT COMPATIBILITY
+        brand: {
+          DEFAULT: "hsl(112 50% 35%)",      // #2F855A
+          hover: "hsl(112 49% 31%)",        // #276749
+          light: "hsl(112 51% 39%)",        // #38A169
+          focus: "hsl(112 51% 39%)",        // Focus ring
+        },
+        // ✅ DARK PALETTE - USE HSL VARIABLES FOR GRADIENT COMPATIBILITY
+        dark: {
+          DEFAULT: "hsl(0 0% 5%)",          // #0D0D0D (NOIR PUR)
+          surface: "hsl(0 0% 10%)",         // #1A1A1A
+        },
+        text: {
+          primary: "hsl(0 0% 5%)",          // #0D0D0D
+          secondary: "hsl(0 0% 40%)",       // #666666
+        },
+        surface: {
+          light: "hsl(0 0% 96%)",           // #F5F5F5
+          border: "hsl(0 0% 90%)",          // #E6E6E6
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

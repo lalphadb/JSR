@@ -80,27 +80,22 @@ const Contact = () => {
         title: "Message envoyé avec succès! 🎉",
         description: "Nous vous contacterons dans les plus brefs délais. Merci!",
       });
-
-      // Réinitialiser le formulaire
-      setFormData({
-        nom: "",
-        telephone: "",
-        courriel: "",
-        message: "",
-      });
+      setFormData({ nom: "", telephone: "", courriel: "", message: "" });
     } catch (error) {
-      console.error('Error submitting form:', error);
       toast({
-        title: "Erreur d'envoi",
-        description: "Une erreur est survenue. Veuillez réessayer ou nous appeler directement au 418-805-0063.",
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
         variant: "destructive",
       });
+      console.error("Submit error:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -109,11 +104,11 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-secondary via-secondary to-secondary/90 text-secondary-foreground py-24">
+      {/* Hero Section - UPDATED WITH DARK COLOR */}
+      <section className="bg-gradient-to-br from-dark via-dark-surface to-dark text-white py-24">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in tracking-tight">Contactez-nous</h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-95 animate-fade-in leading-relaxed" style={{ animationDelay: '0.2s', opacity: 0 }}>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto text-white/90 animate-fade-in leading-relaxed" style={{ animationDelay: '0.2s', opacity: 0 }}>
             Nous sommes là pour répondre à vos questions et discuter de vos projets.
           </p>
         </div>
@@ -128,14 +123,14 @@ const Contact = () => {
               <h2 className="text-4xl font-bold mb-10 tracking-tight">Nos coordonnées</h2>
 
               <div className="space-y-5 mb-10">
-                <Card className="group hover-lift border-l-4 border-l-primary transition-all duration-300">
+                <Card className="group hover-lift border-l-4 border-l-brand transition-all duration-300">
                   <CardContent className="p-7 flex items-start gap-5">
-                    <div className="bg-primary/10 group-hover:bg-primary/20 text-primary p-4 rounded-xl transition-colors">
+                    <div className="bg-brand/10 group-hover:bg-brand/20 text-brand p-4 rounded-xl transition-colors">
                       <Phone className="h-7 w-7" />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-bold text-lg mb-2">Téléphone</h3>
-                      <a href="tel:+14188050063" className="text-primary hover:underline text-xl font-semibold block">
+                      <a href="tel:+14188050063" className="text-brand hover:underline text-xl font-semibold block">
                         418-805-0063
                       </a>
                       <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
@@ -145,14 +140,14 @@ const Contact = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="group hover-lift border-l-4 border-l-primary transition-all duration-300">
+                <Card className="group hover-lift border-l-4 border-l-brand transition-all duration-300">
                   <CardContent className="p-7 flex items-start gap-5">
-                    <div className="bg-primary/10 group-hover:bg-primary/20 text-primary p-4 rounded-xl transition-colors">
+                    <div className="bg-brand/10 group-hover:bg-brand/20 text-brand p-4 rounded-xl transition-colors">
                       <Mail className="h-7 w-7" />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-bold text-lg mb-2">Courriel</h3>
-                      <a href="mailto:jsrdeneigement@gmail.com" className="text-primary hover:underline text-lg font-semibold block break-all">
+                      <a href="mailto:jsrdeneigement@gmail.com" className="text-brand hover:underline text-lg font-semibold block break-all">
                         jsrdeneigement@gmail.com
                       </a>
                       <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
@@ -162,9 +157,9 @@ const Contact = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="group hover-lift border-l-4 border-l-primary transition-all duration-300">
+                <Card className="group hover-lift border-l-4 border-l-brand transition-all duration-300">
                   <CardContent className="p-7 flex items-start gap-5">
-                    <div className="bg-primary/10 group-hover:bg-primary/20 text-primary p-4 rounded-xl transition-colors">
+                    <div className="bg-brand/10 group-hover:bg-brand/20 text-brand p-4 rounded-xl transition-colors">
                       <MapPin className="h-7 w-7" />
                     </div>
                     <div className="flex-1">
@@ -175,9 +170,9 @@ const Contact = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="group hover-lift border-l-4 border-l-primary transition-all duration-300">
+                <Card className="group hover-lift border-l-4 border-l-brand transition-all duration-300">
                   <CardContent className="p-7 flex items-start gap-5">
-                    <div className="bg-primary/10 group-hover:bg-primary/20 text-primary p-4 rounded-xl transition-colors">
+                    <div className="bg-brand/10 group-hover:bg-brand/20 text-brand p-4 rounded-xl transition-colors">
                       <Clock className="h-7 w-7" />
                     </div>
                     <div className="flex-1">
@@ -193,11 +188,11 @@ const Contact = () => {
               </div>
 
               {/* Quick Call Button */}
-              <Card className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-2xl border-0">
+              <Card className="bg-gradient-to-br from-brand to-brand/80 text-white shadow-2xl border-0">
                 <CardContent className="p-8 text-center">
                   <h3 className="text-2xl md:text-3xl font-bold mb-3">Besoin d'un service urgent?</h3>
-                  <p className="mb-6 opacity-95 text-lg">Appelez-nous directement</p>
-                  <Button asChild size="lg" variant="secondary" className="w-full text-lg py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <p className="mb-6 text-white/90 text-lg">Appelez-nous directement</p>
+                  <Button asChild size="lg" className="w-full text-lg py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 bg-white text-brand hover:bg-white/90">
                     <a href="tel:+14188050063" className="flex items-center justify-center gap-2">
                       <Phone className="h-5 w-5" />
                       Appeler maintenant
@@ -302,7 +297,7 @@ const Contact = () => {
                     <Button 
                       type="submit" 
                       size="lg" 
-                      className="w-full text-lg py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                      className="w-full text-lg py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-brand hover:bg-brand-hover text-white"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
@@ -333,7 +328,7 @@ const Contact = () => {
           <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
             Nous desservons fièrement Lac St-Charles, Saint-Raymond et les environs dans la région de Portneuf.
           </p>
-          <div className="bg-card rounded-2xl p-12 max-w-3xl mx-auto shadow-2xl border-2 border-primary/10">
+          <div className="bg-card rounded-2xl p-12 max-w-3xl mx-auto shadow-2xl border-2 border-brand/10">
             <div className="text-6xl mb-6">🗺️</div>
             <p className="text-xl text-foreground font-semibold mb-2">
               Zones desservies
@@ -349,6 +344,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-// Note: Le contenu ci-dessus remplace déjà le fichier
-// Ajoutons maintenant les imports pour le paiement dans une version mise à jour

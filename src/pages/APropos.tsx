@@ -63,11 +63,11 @@ const APropos = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-secondary via-secondary to-secondary/90 text-secondary-foreground py-24">
+      {/* Hero Section - UPDATED WITH DARK COLOR */}
+      <section className="bg-gradient-to-br from-dark via-dark-surface to-dark text-white py-24">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in tracking-tight">À propos de JSR Déneigement</h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-95 animate-fade-in leading-relaxed" style={{ animationDelay: '0.2s', opacity: 0 }}>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto text-white/90 animate-fade-in leading-relaxed" style={{ animationDelay: '0.2s', opacity: 0 }}>
             Votre partenaire de confiance pour tous vos projets d'excavation, déneigement et aménagement extérieur.
           </p>
         </div>
@@ -123,7 +123,7 @@ const APropos = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {values.map((value, index) => (
               <div key={index} className="text-center group">
-                <div className="bg-gradient-to-br from-primary to-primary/70 text-primary-foreground w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
+                <div className="bg-gradient-to-br from-brand to-brand/70 text-white w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
                   <value.icon className="h-10 w-10" />
                 </div>
                 <h3 className="text-2xl font-bold mb-3">{value.title}</h3>
@@ -139,17 +139,17 @@ const APropos = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
             <div className="text-center group">
-              <div ref={yearsRef} className="text-6xl md:text-7xl font-bold text-primary mb-4 group-hover:scale-110 transition-transform duration-300">{yearsCount}+</div>
+              <div ref={yearsRef} className="text-6xl md:text-7xl font-bold text-brand mb-4 group-hover:scale-110 transition-transform duration-300">{yearsCount}+</div>
               <p className="text-2xl font-semibold">Années d'expérience</p>
               <p className="text-muted-foreground mt-2">Dans l'industrie</p>
             </div>
             <div className="text-center group">
-              <div ref={projectsRef} className="text-6xl md:text-7xl font-bold text-primary mb-4 group-hover:scale-110 transition-transform duration-300">{projectsCount}+</div>
+              <div ref={projectsRef} className="text-6xl md:text-7xl font-bold text-brand mb-4 group-hover:scale-110 transition-transform duration-300">{projectsCount}+</div>
               <p className="text-2xl font-semibold">Projets réalisés</p>
               <p className="text-muted-foreground mt-2">Avec succès</p>
             </div>
             <div className="text-center group">
-              <div ref={satisfactionRef} className="text-6xl md:text-7xl font-bold text-primary mb-4 group-hover:scale-110 transition-transform duration-300">{satisfactionCount}%</div>
+              <div ref={satisfactionRef} className="text-6xl md:text-7xl font-bold text-brand mb-4 group-hover:scale-110 transition-transform duration-300">{satisfactionCount}%</div>
               <p className="text-2xl font-semibold">Clients satisfaits</p>
               <p className="text-muted-foreground mt-2">Notre priorité</p>
             </div>
@@ -157,21 +157,21 @@ const APropos = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-gradient-to-br from-primary via-primary to-primary/80 text-primary-foreground py-24 relative overflow-hidden">
+      {/* CTA - UPDATED WITH BRAND COLORS */}
+      <section className="bg-gradient-to-br from-brand via-brand to-brand/80 text-white py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30" />
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Travaillons ensemble sur votre prochain projet
           </h2>
-          <p className="text-xl md:text-2xl mb-10 opacity-95 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl mb-10 text-white/90 max-w-3xl mx-auto leading-relaxed">
             Contactez-nous pour discuter de vos besoins et découvrir comment nous pouvons vous aider.
           </p>
           <div className="flex flex-col sm:flex-row gap-5 justify-center">
-            <Button asChild size="lg" variant="secondary" className="text-lg px-10 py-6 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 font-semibold">
+            <Button asChild size="lg" className="text-lg px-10 py-6 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 font-semibold bg-white text-brand hover:bg-white/90">
               <Link to="/contact">Demander un devis</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-10 py-6 border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/15 backdrop-blur-sm transition-all duration-300 hover:scale-105 font-semibold">
+            <Button asChild size="lg" variant="outline" className="text-lg px-10 py-6 border-2 border-white text-white hover:bg-white/15 backdrop-blur-sm transition-all duration-300 hover:scale-105 font-semibold">
               <a href="tel:+14188050063">Appelez-nous</a>
             </Button>
           </div>

@@ -45,11 +45,11 @@ const Realisations = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-secondary via-secondary to-secondary/90 text-secondary-foreground py-24">
+      {/* Hero Section - UPDATED WITH DARK COLOR */}
+      <section className="bg-gradient-to-br from-dark via-dark-surface to-dark text-white py-24">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in tracking-tight">Nos réalisations</h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-95 animate-fade-in leading-relaxed" style={{ animationDelay: '0.2s', opacity: 0 }}>
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto text-white/90 animate-fade-in leading-relaxed" style={{ animationDelay: '0.2s', opacity: 0 }}>
             Découvrez quelques-uns de nos projets récents et la qualité de notre travail.
           </p>
         </div>
@@ -73,7 +73,7 @@ const Realisations = () => {
                   </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                   <div className="absolute top-4 left-4">
-                    <span className="bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                    <span className="bg-brand text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                       {project.category}
                     </span>
                   </div>
@@ -99,7 +99,7 @@ const Realisations = () => {
           <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
             Faites confiance à notre expertise pour mener à bien votre projet de déneigement, excavation ou aménagement.
           </p>
-          <Button asChild size="lg" className="text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <Button asChild size="lg" className="text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-brand hover:bg-brand-hover text-white">
             <Link to="/contact">Démarrer votre projet</Link>
           </Button>
         </div>
