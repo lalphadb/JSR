@@ -113,10 +113,21 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/20 mt-12 pt-8 text-center">
-          <p className="text-base text-white/70">
-            &copy; {new Date().getFullYear()} JSR Déneigement. Tous droits réservés.
-          </p>
+        <div className="border-t border-white/20 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-base text-white/70">
+              &copy; {new Date().getFullYear()} JSR Pro Solutions. Tous droits réservés.
+            </p>
+            
+            <div className="flex gap-6">
+              <Link 
+                to="/politique-confidentialite" 
+                className="text-sm text-white/60 hover:text-brand transition-colors"
+              >
+                Politique de confidentialité
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

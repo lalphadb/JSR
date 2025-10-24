@@ -84,28 +84,34 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      {/* Hero Section - UPDATED WITH BRAND COLORS */}
+      {/* Hero Section - Enhanced with Visual Effects */}
       <section className="relative bg-gradient-to-br from-dark via-dark-surface to-dark text-white py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20" />
+        {/* Animated Background Pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20 animate-pulse-slow" />
+        
+        {/* Gradient Orbs for Visual Interest */}
+        <div className="absolute top-20 left-10 w-96 h-96 bg-brand/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-brand/15 rounded-full blur-3xl animate-float-delayed" />
+        
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-6xl md:text-7xl font-bold mb-8 tracking-tight">
+          <h1 className="text-6xl md:text-7xl font-bold mb-8 tracking-tight animate-fade-in">
             Nos Services Professionnels
           </h1>
-          <p className="text-xl md:text-2xl max-w-4xl mx-auto text-white/80 leading-relaxed mb-10">
+          <p className="text-xl md:text-2xl max-w-4xl mx-auto text-white/80 leading-relaxed mb-10 animate-fade-in" style={{ animationDelay: '0.1s' }}>
             Des solutions complètes et sur mesure pour tous vos besoins en déneigement, excavation et aménagement extérieur dans la région de Québec.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-brand hover:bg-brand-hover text-white text-lg px-8 py-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <Button asChild size="lg" className="bg-brand hover:bg-brand-hover text-white text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
               <Link to="/contact">Demander une soumission gratuite</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-8 py-6 border-2 border-white text-white hover:bg-white/10">
+            <Button asChild size="lg" variant="outline" className="text-lg px-8 py-6 border-2 border-white text-white bg-transparent hover:bg-white/20 transition-all duration-300">
               <a href="tel:+14188050063"><Phone className="mr-2 h-5 w-5" /> 418-805-0063</a>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Services Grid - Professional Cards with Better Proportions */}
+      {/* Services Grid - Balanced Image/Text Proportions */}
       <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20 animate-fade-in">
@@ -115,22 +121,22 @@ const Services = () => {
             </p>
           </div>
 
-          <div className="space-y-32">
+          <div className="space-y-24">
             {services.map((service, index) => (
               <div
                 key={index}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch group transition-all duration-500 ${
+                className={`grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center group transition-all duration-500 ${
                   index % 2 === 1 ? "lg:grid-flow-dense" : ""
                 }`}
               >
-                {/* Image Section - FIXED HEIGHT FOR BETTER PROPORTIONS */}
-                <div className={`${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
-                  <div className="relative group/image h-full overflow-hidden">
+                {/* Image Section - REDUCED TO 2 COLUMNS (40%) */}
+                <div className={`lg:col-span-2 ${index % 2 === 1 ? "lg:col-start-4" : ""}`}>
+                  <div className="relative group/image overflow-hidden">
                     {/* Glow Effect Background */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-brand via-brand/50 to-transparent rounded-2xl blur-lg opacity-0 group-hover/image:opacity-40 transition-all duration-500" />
                     
-                    {/* Image Container with Fixed Aspect Ratio */}
-                    <div className="relative overflow-hidden rounded-2xl shadow-2xl h-full min-h-[300px] lg:min-h-[400px]">
+                    {/* Image Container - Aspect Ratio 4:3 for Better Balance */}
+                    <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-[4/3]">
                       <img
                         src={service.image}
                         alt={service.title}
@@ -148,47 +154,37 @@ const Services = () => {
                   </div>
                 </div>
 
-                {/* Content Section - Enhanced with Effects */}
-                <div className={`flex flex-col justify-between ${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
-                  {/* Title avec animation */}
+                {/* Content Section - EXPANDED TO 3 COLUMNS (60%) */}
+                <div className={`lg:col-span-3 flex flex-col justify-center ${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
+                  {/* Title with Animation */}
                   <div className="space-y-4 mb-6 transform group-hover:translate-x-2 transition-transform duration-300">
-                    <h3 className="text-4xl md:text-5xl font-bold text-foreground group-hover:text-brand transition-colors duration-300">
+                    <h3 className="text-3xl md:text-4xl font-bold text-foreground group-hover:text-brand transition-colors duration-300">
                       {service.title}
                     </h3>
                     <div className="h-1 w-16 bg-gradient-to-r from-brand to-brand/50 rounded-full" />
                   </div>
                   
                   {/* Description */}
-                  <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                  <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                     {service.description}
                   </p>
 
-                  {/* Features Card with Hover Effect */}
-                  <Card className="mb-8 border-2 border-border shadow-lg hover:shadow-2xl hover:border-brand transition-all duration-300 transform group-hover:scale-[1.02]">
-                    <CardHeader className="pb-4">
-                      <CardTitle className="text-lg text-brand flex items-center gap-2">
-                        <span className="inline-block w-2 h-2 bg-brand rounded-full"></span>
-                        Points forts
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="space-y-3">
-                        {service.features.map((feature, fIndex) => (
-                          <li key={fIndex} className="flex items-start gap-3 group/item">
-                            <CheckCircle2 className="h-6 w-6 text-brand flex-shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform duration-300" />
-                            <span className="text-base text-foreground group-hover/item:text-brand transition-colors duration-300">
-                              {feature}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
+                  {/* Features List - Compact */}
+                  <ul className="space-y-2 mb-6">
+                    {service.features.map((feature, fIndex) => (
+                      <li key={fIndex} className="flex items-start gap-3 group/item">
+                        <CheckCircle2 className="h-5 w-5 text-brand flex-shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform duration-300" />
+                        <span className="text-base text-foreground group-hover/item:text-brand transition-colors duration-300">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
 
-                  {/* CTA Button with Premium Styling */}
-                  <Button asChild size="lg" className="w-full sm:w-auto bg-brand hover:bg-brand-hover text-white font-bold py-6 px-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 group-hover:brightness-110">
+                  {/* CTA Button */}
+                  <Button asChild size="lg" className="w-full sm:w-auto bg-brand hover:bg-brand-hover text-white font-semibold py-5 px-7 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group-hover:brightness-110">
                     <Link to="/contact" className="flex items-center justify-center gap-2">
-                      Obtenir un devis pour ce service
+                      Obtenir un devis
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                     </Link>
                   </Button>
@@ -237,7 +233,7 @@ const Services = () => {
         </div>
       </section>
 
-      {/* CTA Section - UPDATED WITH BRAND COLORS */}
+      {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-brand via-brand to-brand/90 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30" />
         <div className="container mx-auto px-4 text-center relative z-10">
