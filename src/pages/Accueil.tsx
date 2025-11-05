@@ -28,9 +28,9 @@ const Accueil = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      {/* Hero Section - MACHINES VISIBLES + DESIGN MODERNE */}
+      {/* Hero Section - SPLIT SCREEN MODERNE */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Image de fond - machines bien visibles */}
+        {/* Image de fond - PLEINE VISIBILITÉ */}
         <div className="absolute inset-0">
           <picture>
             <source type="image/webp" srcSet={PHOTOS.parcMachines.webp640} />
@@ -40,38 +40,37 @@ const Accueil = () => {
               className="w-full h-full object-cover object-center"
             />
           </picture>
-          {/* Gradient stratégique : sombre à gauche, transparent à droite */}
-          <div className="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark/40 via-transparent to-transparent" />
+          {/* Gradient UNIQUEMENT sur la zone texte (gauche) */}
+          <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-dark via-dark/95 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-dark/30 via-transparent to-transparent" />
         </div>
 
-        {/* Contenu positionné à gauche pour libérer les machines */}
-        <div className="relative z-10 container mx-auto px-4 py-20">
-          <div className="max-w-xl">
-            {/* Petit badge discret */}
-            <div className="inline-flex items-center gap-2 bg-brand/10 backdrop-blur-md border border-brand/20 rounded-full px-4 py-2 mb-6">
+        {/* Contenu - Zone gauche seulement */}
+        <div className="relative z-10 container mx-auto px-4 lg:px-8 py-20">
+          <div className="max-w-lg lg:max-w-xl">
+            {/* Badge 24/7 ultra-discret */}
+            <div className="inline-flex items-center gap-2 mb-6">
               <div className="w-2 h-2 rounded-full bg-brand animate-pulse" />
-              <span className="text-white text-sm font-medium">Disponible 24/7</span>
+              <span className="text-white/80 text-sm">Disponible 24/7</span>
             </div>
             
-            {/* Titre avec effet glassmorphism */}
-            <div className="bg-dark/40 backdrop-blur-md rounded-2xl p-8 border border-white/10 shadow-2xl mb-6">
-              <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
-                Votre partenaire en
-                <span className="block text-brand mt-1">travaux extérieurs</span>
-              </h1>
-              
-              <p className="text-lg text-white/90">
-                Excavation, déneigement et terrassement professionnel
-              </p>
-            </div>
+            {/* Titre sans fond opaque */}
+            <h1 className="text-5xl lg:text-7xl font-bold text-white leading-[1.1] mb-6">
+              Votre partenaire en
+              <span className="block text-brand">travaux extérieurs</span>
+            </h1>
             
-            {/* Boutons avec effet moderne */}
-            <div className="flex flex-col sm:flex-row gap-3">
+            {/* Description */}
+            <p className="text-lg lg:text-xl text-white/90 mb-8 max-w-md">
+              Excavation, déneigement et terrassement professionnel
+            </p>
+            
+            {/* Boutons */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-10">
               <Button 
                 asChild 
                 size="lg" 
-                className="bg-brand hover:bg-brand-hover text-white px-8 py-6 text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                className="bg-brand hover:bg-brand-hover text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
               >
                 <Link to="/contact" className="flex items-center justify-center gap-2">
                   Demander un devis
@@ -82,7 +81,7 @@ const Accueil = () => {
               <Button 
                 asChild 
                 size="lg"
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-md px-8 py-6 text-lg hover:scale-105 transition-all duration-300"
+                className="bg-white/5 hover:bg-white/10 text-white border-2 border-white/20 backdrop-blur-sm px-8 py-6 text-lg font-semibold hover:scale-105 transition-all duration-300"
               >
                 <a href="tel:+14188050063" className="flex items-center justify-center gap-2">
                   <Phone className="w-5 h-5" />
@@ -91,24 +90,24 @@ const Accueil = () => {
               </Button>
             </div>
             
-            {/* Stats en bas - discrets */}
-            <div className="flex gap-6 mt-8">
-              <div className="text-white/80 text-sm">
-                <div className="text-2xl font-bold text-brand">15+</div>
-                <div>Ans d'expérience</div>
+            {/* Stats minimalistes */}
+            <div className="flex gap-8">
+              <div>
+                <div className="text-3xl font-bold text-brand">15+</div>
+                <div className="text-white/70 text-sm">Ans d'expérience</div>
               </div>
-              <div className="text-white/80 text-sm">
-                <div className="text-2xl font-bold text-brand">500+</div>
-                <div>Projets réalisés</div>
+              <div>
+                <div className="text-3xl font-bold text-brand">500+</div>
+                <div className="text-white/70 text-sm">Projets réalisés</div>
               </div>
             </div>
           </div>
         </div>
         
-        {/* Effet de scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-3 bg-white/50 rounded-full animate-pulse" />
+        {/* Scroll indicator minimaliste */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50 hover:opacity-100 transition-opacity">
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
+            <div className="w-1 h-3 bg-white/60 rounded-full animate-pulse" />
           </div>
         </div>
       </section>
