@@ -23,43 +23,39 @@ const Navigation = () => {
     <header className="bg-gradient-to-r from-dark via-dark to-dark backdrop-blur-md shadow-2xl sticky top-0 z-50 border-b border-dark-surface/50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
-          {/* Logo Section - TRANSPARENT PREMIUM */}
-          <Link to="/" className="flex items-center group relative overflow-hidden">
-            <div className="relative logo-transparent-glow">
-              {/* Effet de fond lumineux spécial pour transparent */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-brand/30 via-brand/20 to-brand/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 blur-xl animate-pulse"></div>
+          {/* Logo Section - ENTREPRISE PROFESSIONNEL */}
+          <Link to="/" className="flex items-center gap-4 group relative py-2">
+            {/* Logo avec fond subtil */}
+            <div className="relative">
+              {/* Fond blanc circulaire pour contraste */}
+              <div className="absolute inset-0 bg-white/95 rounded-2xl scale-105 shadow-lg group-hover:shadow-xl transition-all duration-300"></div>
               
-              {/* Cercles décoratifs pour logo transparent */}
-              <div className="absolute -inset-6 border border-brand/20 rounded-full opacity-0 group-hover:opacity-50 transition-all duration-1000" style={{ animation: 'spin 20s linear infinite' }}></div>
-              <div className="absolute -inset-8 border border-brand/15 rounded-full opacity-0 group-hover:opacity-30 transition-all duration-1000" style={{ animation: 'spin 15s linear infinite reverse' }}></div>
+              {/* Halo vert au hover */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-brand/20 via-brand/30 to-brand/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div>
               
-              {/* Logo transparent avec halo magique */}
-              {/* Cercle blanc pour contraste */}
-              <div className="absolute inset-0 bg-white rounded-full scale-90 opacity-90 -z-10 shadow-xl"></div>
-              <picture>
+              <picture className="relative z-10">
                 <source type="image/webp" srcSet={jsrLogoWebp} />
                 <img 
                   src={jsrLogoPng}
-                  alt="JSR Déneigement - Expert Excavation & Déneigement" 
-                  className="h-16 w-auto relative z-10 transition-all duration-500 group-hover:scale-110 logo-halo"
+                  alt="JSR Solutions - Logo" 
+                  className="h-14 w-auto relative z-10 transition-all duration-500 group-hover:scale-105 p-2"
                 />
               </picture>
-              
-              {/* Particules flottantes */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                <div className="absolute top-2 left-2 w-1 h-1 bg-brand rounded-full animate-ping"></div>
-                <div className="absolute top-4 right-4 w-1 h-1 bg-brand rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
-                <div className="absolute bottom-2 left-4 w-1 h-1 bg-brand rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
-                <div className="absolute bottom-4 right-2 w-1 h-1 bg-brand rounded-full animate-ping" style={{ animationDelay: '1.5s' }}></div>
-              </div>
-              
-              {/* Reflet en bas */}
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-transparent via-brand/40 to-transparent blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
             
-            {/* Badge Premium animé avec nouveau design */}
-            <div className="absolute -top-2 -right-4 bg-gradient-to-r from-brand via-brand/90 to-brand/80 text-white text-xs px-3 py-1.5 rounded-full font-bold opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl border border-white/20">
-              <span className="animate-pulse">⭐ PRO</span>
+            {/* Nom de l'entreprise + Tagline */}
+            <div className="hidden sm:flex flex-col">
+              <span className="text-2xl font-bold text-white tracking-tight group-hover:text-brand transition-colors duration-300">
+                JSR Solutions
+              </span>
+              <span className="text-xs font-medium text-white/70 tracking-wide uppercase">
+                Excavation • Déneigement • Terrassement
+              </span>
+            </div>
+            
+            {/* Badge "Professionnel" discret */}
+            <div className="hidden md:flex absolute -top-1 -right-2 bg-brand text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-lg">
+              PRO
             </div>
           </Link>
 
