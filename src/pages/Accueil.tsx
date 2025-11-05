@@ -28,49 +28,107 @@ const Accueil = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      {/* Hero Section - OPTIMIZED LAYOUT */}
-      <section className="relative h-[90vh] flex items-end md:items-center overflow-hidden">
+      {/* Hero Section - DESIGN MODERNE ET PROFESSIONNEL */}
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+        {/* Image de fond avec overlay sophistiqué */}
         <div className="absolute inset-0">
           <picture>
             <source type="image/webp" srcSet={PHOTOS.parcMachines.webp640} />
             <img
               src={PHOTOS.parcMachines.jpg1280}
               alt={PHOTOS.parcMachines.alt}
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-center scale-105 animate-slow-zoom"
             />
           </picture>
-          {/* Gradient optimisé : plus sombre en bas, plus clair en haut pour voir les machines */}
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/40 via-dark/50 to-dark/95" />
+          {/* Overlay gradient premium */}
+          <div className="absolute inset-0 bg-gradient-to-r from-dark/95 via-dark/85 to-dark/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent" />
           
-          {/* Animated Background Pattern */}
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20 animate-pulse-slow" />
+          {/* Texture subtile */}
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjAzIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-40" />
         </div>
 
-        {/* Gradient Orbs - repositionnés pour ne pas cacher machines */}
-        <div className="absolute top-10 left-10 w-64 h-64 bg-brand/15 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-32 right-10 w-64 h-64 bg-brand/10 rounded-full blur-3xl animate-float-delayed" />
-
-        {/* Contenu repositionné en bas pour libérer le haut (machines visibles) */}
-        <div className="relative z-10 container mx-auto px-4 pb-16 md:pb-24">
-          <div className="max-w-4xl">
-            {/* TITRE COMPACT ET ALIGNÉ À GAUCHE */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 tracking-tight animate-fade-in drop-shadow-2xl leading-tight">
-              JSR Solutions
+        {/* Contenu hero - Design premium */}
+        <div className="relative z-10 container mx-auto px-4 py-20">
+          <div className="max-w-3xl">
+            {/* Badge Premium */}
+            <div className="inline-flex items-center gap-2 bg-brand/10 backdrop-blur-sm border border-brand/30 rounded-full px-5 py-2.5 mb-8 animate-fade-in">
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-brand"></span>
+              </span>
+              <span className="text-white/90 font-semibold text-sm tracking-wide">Service disponible 24/7</span>
+            </div>
+            
+            {/* Titre principal - Sans répétition */}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 tracking-tight animate-fade-in leading-[1.1]" style={{ animationDelay: '0.1s' }}>
+              Votre expert en
+              <span className="block text-brand mt-2">travaux extérieurs</span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-white/95 font-medium mb-8 animate-fade-in drop-shadow-lg" style={{ animationDelay: '0.1s' }}>
-              Excavation • Déneigement • Terrassement
+            
+            {/* Description moderne */}
+            <p className="text-xl md:text-2xl text-white/90 font-light mb-10 leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              Excavation, déneigement et terrassement de qualité supérieure dans la région de Québec
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <Button asChild size="lg" className="bg-brand hover:bg-brand-hover text-white text-base md:text-lg px-8 md:px-12 py-6 md:py-7 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
-                <Link to="/contact">Obtenir un devis gratuit</Link>
+            {/* Points forts avec icônes */}
+            <div className="flex flex-wrap gap-6 mb-10 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <div className="flex items-center gap-2 text-white/80">
+                <div className="bg-brand/20 backdrop-blur-sm rounded-full p-2">
+                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="font-medium">15+ ans d'expérience</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/80">
+                <div className="bg-brand/20 backdrop-blur-sm rounded-full p-2">
+                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="font-medium">Équipement professionnel</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/80">
+                <div className="bg-brand/20 backdrop-blur-sm rounded-full p-2">
+                  <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="font-medium">Satisfaction garantie</span>
+              </div>
+            </div>
+            
+            {/* CTA Buttons - Design moderne */}
+            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-brand hover:bg-brand-hover text-white text-lg px-10 py-7 shadow-2xl hover:shadow-brand/50 transition-all duration-300 hover:scale-105 group font-semibold"
+              >
+                <Link to="/contact" className="flex items-center justify-center gap-2">
+                  Obtenir un devis gratuit
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-base md:text-lg px-8 md:px-12 py-6 md:py-7 bg-transparent hover:bg-white/20 border-2 border-white text-white backdrop-blur-sm transition-all duration-300 hover:scale-105">
-                <Link to="/services">Découvrir nos services</Link>
+              
+              <Button 
+                asChild 
+                variant="outline" 
+                size="lg" 
+                className="text-lg px-10 py-7 bg-white/10 hover:bg-white/20 border-2 border-white/30 text-white backdrop-blur-md transition-all duration-300 hover:scale-105 font-semibold"
+              >
+                <a href="tel:+14188050063" className="flex items-center justify-center gap-2">
+                  <Phone className="w-5 h-5" />
+                  418-805-0063
+                </a>
               </Button>
             </div>
           </div>
         </div>
+        
+        {/* Décoration lumineuse */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-brand to-transparent opacity-50" />
       </section>
 
       {/* Services Section - Modern Card Design */}
