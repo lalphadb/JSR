@@ -28,8 +28,8 @@ const Accueil = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      {/* Hero Section - CENTRÉ ET TRANSPARENT */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero Section - ULTRA MINIMAL */}
+      <section className="relative min-h-screen flex items-end pb-32 overflow-hidden">
         {/* Image de fond - PLEINE VISIBILITÉ PARTOUT */}
         <div className="absolute inset-0">
           <picture>
@@ -44,23 +44,17 @@ const Accueil = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-dark/20 via-transparent to-transparent" />
         </div>
 
-        {/* Contenu centré - Texte transparent */}
+        {/* Contenu centré en bas - Texte transparent */}
         <div className="relative z-10 container mx-auto px-4 text-center">
           <div className="max-w-2xl mx-auto">
-            {/* Badge 24/7 centré */}
-            <div className="inline-flex items-center gap-2 mb-6 opacity-0 animate-fade-in bg-dark/60 backdrop-blur-sm rounded-full px-4 py-2">
-              <div className="w-2 h-2 rounded-full bg-brand animate-pulse" />
-              <span className="text-white/90 text-sm">Disponible 24/7</span>
-            </div>
-            
             {/* Titre centré plus petit et transparent */}
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white/80 leading-tight opacity-0 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white/80 leading-tight opacity-0 animate-fade-in">
               Votre partenaire en
               <span className="block text-brand/90 mt-2">travaux extérieurs</span>
             </h1>
             
             {/* Description centrée et transparente */}
-            <p className="text-sm md:text-base lg:text-lg text-white/70 mt-6 opacity-0 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <p className="text-sm md:text-base lg:text-lg text-white/70 mt-6 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               Excavation, déneigement et terrassement professionnel
             </p>
           </div>
