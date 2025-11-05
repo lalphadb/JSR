@@ -23,8 +23,13 @@ const Services = () => {
         "Forfaits saisonniers avantageux",
       ],
       icon: "❄️",
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43485.89489945319!2d-71.28779!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb896f5d5d5d5d5%3A0x5d5d5d5d5d5d5d5!2sQuebec%2C%20QC!5e0!3m2!1sfr!2sca!4v1234567890",
-      zones: ["Québec", "Lévis", "Beauport", "Charlesbourg", "Sainte-Foy", "Sillery"],
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2730.5!2d-71.2425!3d46.8195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDbCsDQ5JzEwLjIiTiA3McKwMTQnMzMuMCJX!5e0!3m2!1sfr!2sca!4v1234567890",
+      zones: [
+        "Rue Lepire",
+        "Rue des Merisiers",
+        "Parc de l'Épilobe",
+        "Secteur résidentiel avoisinant"
+      ],
     },
     {
       title: "Excavation",
@@ -246,6 +251,19 @@ const Services = () => {
                           </div>
                         ))}
                       </div>
+                      
+                      {/* Note spéciale pour Déneigement */}
+                      {service.title === "Déneigement" && (
+                        <div className="mt-4 p-3 bg-amber-50 rounded-lg border-2 border-amber-200">
+                          <p className="text-xs font-semibold text-amber-800 mb-1">
+                            ⚠️ Zone limitée
+                          </p>
+                          <p className="text-xs text-amber-700">
+                            Le déneigement est offert UNIQUEMENT dans le secteur visible sur la carte (entre Rue Lepire et Rue des Merisiers).
+                          </p>
+                        </div>
+                      )}
+                      
                       <div className="mt-4 p-3 bg-brand/5 rounded-lg border border-brand/20">
                         <p className="text-xs text-muted-foreground">
                           📞 Secteur non listé ? Contactez-nous pour vérifier la disponibilité
