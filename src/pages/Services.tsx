@@ -23,6 +23,8 @@ const Services = () => {
         "Forfaits saisonniers avantageux",
       ],
       icon: "❄️",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43485.89489945319!2d-71.28779!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb896f5d5d5d5d5%3A0x5d5d5d5d5d5d5d5!2sQuebec%2C%20QC!5e0!3m2!1sfr!2sca!4v1234567890",
+      zones: ["Québec", "Lévis", "Beauport", "Charlesbourg", "Sainte-Foy", "Sillery"],
     },
     {
       title: "Excavation",
@@ -37,6 +39,8 @@ const Services = () => {
         "Transport de matériaux",
       ],
       icon: "🚜",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d86971.78979890638!2d-71.35779!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb896f5d5d5d5d5%3A0x5d5d5d5d5d5d5d5!2sQuebec%2C%20QC!5e0!3m2!1sfr!2sca!4v1234567890",
+      zones: ["Québec", "Lévis", "Beauport", "Charlesbourg", "Cap-Rouge", "Saint-Augustin"],
     },
     {
       title: "Terrassement",
@@ -51,6 +55,8 @@ const Services = () => {
         "Gestion optimale des eaux de surface",
       ],
       icon: "⛏️",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d86971.78979890638!2d-71.28779!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb896f5d5d5d5d5%3A0x5d5d5d5d5d5d5d5!2sQuebec%2C%20QC!5e0!3m2!1sfr!2sca!4v1234567890",
+      zones: ["Québec", "Lévis", "Beauport", "Ancienne-Lorette", "Val-Bélair"],
     },
     {
       title: "Drains de fondation",
@@ -65,6 +71,8 @@ const Services = () => {
         "Solutions anti-infiltration durables",
       ],
       icon: "💧",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d65228.84234918979!2d-71.28779!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb896f5d5d5d5d5%3A0x5d5d5d5d5d5d5d5!2sQuebec%2C%20QC!5e0!3m2!1sfr!2sca!4v1234567890",
+      zones: ["Québec", "Lévis", "Beauport", "Charlesbourg"],
     },
     {
       title: "Construction de terrasse",
@@ -79,6 +87,8 @@ const Services = () => {
         "Finition professionnelle impeccable",
       ],
       icon: "🏡",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d65228.84234918979!2d-71.25779!3d46.8139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb896f5d5d5d5d5%3A0x5d5d5d5d5d5d5d5!2sQuebec%2C%20QC!5e0!3m2!1sfr!2sca!4v1234567890",
+      zones: ["Québec", "Lévis", "Sainte-Foy", "Sillery", "Cap-Rouge"],
     },
   ];
 
@@ -123,12 +133,13 @@ const Services = () => {
 
           <div className="space-y-24">
             {services.map((service, index) => (
-              <div
-                key={index}
-                className={`grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center group transition-all duration-500 ${
-                  index % 2 === 1 ? "lg:grid-flow-dense" : ""
-                }`}
-              >
+              <div key={index} className="space-y-12">
+                {/* Service Detail Section */}
+                <div
+                  className={`grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center group transition-all duration-500 ${
+                    index % 2 === 1 ? "lg:grid-flow-dense" : ""
+                  }`}
+                >
                 {/* Image Section - REDUCED TO 2 COLUMNS (40%) */}
                 <div className={`lg:col-span-2 ${index % 2 === 1 ? "lg:col-start-4" : ""}`}>
                   <div className="relative group/image overflow-hidden">
@@ -188,6 +199,60 @@ const Services = () => {
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                     </Link>
                   </Button>
+                </div>
+              </div>
+
+              {/* Zone de Service - Carte Google Maps pour ce service */}
+              <div className="bg-surface rounded-2xl p-6 border-2 border-border hover:border-brand/50 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="bg-brand/10 p-3 rounded-lg">
+                      <span className="text-2xl">📍</span>
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold">Zone de service - {service.title}</h4>
+                      <p className="text-muted-foreground text-sm">Secteurs desservis pour ce service</p>
+                    </div>
+                  </div>
+
+                  <div className="grid lg:grid-cols-3 gap-6">
+                    {/* Carte Google Maps */}
+                    <div className="lg:col-span-2">
+                      <div className="relative rounded-xl overflow-hidden shadow-lg aspect-video">
+                        <iframe
+                          src={service.mapUrl}
+                          width="100%"
+                          height="100%"
+                          style={{ border: 0 }}
+                          allowFullScreen
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          title={`Zone de service ${service.title}`}
+                          className="w-full h-full"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Zones desservies */}
+                    <div className="lg:col-span-1">
+                      <h5 className="font-semibold mb-4 text-brand">Zones desservies</h5>
+                      <div className="space-y-2">
+                        {service.zones.map((zone, zIndex) => (
+                          <div
+                            key={zIndex}
+                            className="flex items-center gap-2 p-2 rounded-lg hover:bg-brand/5 transition-colors"
+                          >
+                            <div className="w-2 h-2 rounded-full bg-brand" />
+                            <span className="text-sm font-medium">{zone}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4 p-3 bg-brand/5 rounded-lg border border-brand/20">
+                        <p className="text-xs text-muted-foreground">
+                          📞 Secteur non listé ? Contactez-nous pour vérifier la disponibilité
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
