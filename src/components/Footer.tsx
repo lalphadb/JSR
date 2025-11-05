@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import jsrLogoWebp from "@/assets/jsr-logo-transparent.webp";
 import jsrLogoPng from "@/assets/jsr-logo-transparent.png";
@@ -35,7 +35,7 @@ const Footer = () => {
             </p>
             
             {/* Badges de qualité */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-4">
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-brand/10 to-brand/10 text-brand px-3 py-1.5 rounded-full text-sm font-semibold border border-brand/20">
                 <span className="w-2 h-2 bg-brand rounded-full animate-pulse"></span>
                 15+ ans d'expérience
@@ -45,6 +45,12 @@ const Footer = () => {
                 <span className="text-green-400">✓</span>
                 Service 24/7
               </div>
+            </div>
+
+            {/* RBQ Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/10 text-white px-3 py-2 rounded-lg text-sm border border-white/20">
+              <ShieldCheck className="h-4 w-4 text-brand" />
+              <span className="font-semibold">RBQ: 5804-4926-01</span>
             </div>
           </div>
 
@@ -116,7 +122,7 @@ const Footer = () => {
         <div className="border-t border-white/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-base text-white/70">
-              &copy; {new Date().getFullYear()} JSR Pro Solutions. Tous droits réservés.
+              &copy; {new Date().getFullYear()} JSR Solutions. Tous droits réservés.
             </p>
             
             <div className="flex gap-6">

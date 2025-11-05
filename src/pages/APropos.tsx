@@ -12,15 +12,15 @@ const APropos = () => {
   const { count: satisfactionCount, ref: satisfactionRef } = useCounterAnimation(100, 2000);
   
   useEffect(() => {
-    document.title = "À propos de JSR Pro Solutions – Expertise depuis 15 ans | Québec";
+    document.title = "À propos de JSR Solutions – Expertise depuis 15 ans | Québec";
     
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute("content", "Découvrez JSR Pro Solutions : 15 ans d'expertise en excavation, déneigement et terrassement à Québec. Équipe qualifiée et équipement moderne.");
+      metaDescription.setAttribute("content", "Découvrez JSR Solutions : 15 ans d'expertise en excavation, déneigement et terrassement à Québec. Équipe qualifiée et équipement moderne.");
     }
     
     const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute("content", "À propos de JSR Pro Solutions");
+    if (ogTitle) ogTitle.setAttribute("content", "À propos de JSR Solutions");
     
     const ogDescription = document.querySelector('meta[property="og:description"]');
     if (ogDescription) ogDescription.setAttribute("content", "15 ans d'expertise en excavation, déneigement et terrassement. Équipe professionnelle dédiée à votre satisfaction.");
@@ -69,7 +69,7 @@ const APropos = () => {
         
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-6xl md:text-7xl font-bold mb-8 tracking-tight animate-fade-in">
-            À propos de JSR Pro Solutions
+            À propos de JSR Solutions
           </h1>
           <p className="text-xl md:text-2xl max-w-4xl mx-auto text-white/80 leading-relaxed animate-fade-in" style={{ animationDelay: '0.1s' }}>
             Votre partenaire de confiance pour tous vos projets d'excavation, déneigement et aménagement extérieur dans la région de Québec.
@@ -106,7 +106,7 @@ const APropos = () => {
               
               <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                 <p>
-                  Fondée il y a plus de <strong className="text-brand">15 ans</strong>, JSR Pro Solutions s'est établie comme une référence dans le domaine de l'excavation, du déneigement et de l'aménagement extérieur dans la région de Québec.
+                  Fondée il y a plus de <strong className="text-brand">15 ans</strong>, JSR Solutions s'est établie comme une référence dans le domaine de l'excavation, du déneigement et de l'aménagement extérieur dans la région de Québec.
                 </p>
                 <p>
                   Notre engagement envers l'excellence et la satisfaction client nous a permis de bâtir une solide réputation. Nous combinons expertise traditionnelle et équipement moderne pour offrir des services de qualité supérieure.

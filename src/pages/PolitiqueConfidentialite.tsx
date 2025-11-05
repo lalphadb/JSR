@@ -4,7 +4,7 @@ import { Shield, Lock, Eye, FileText, Mail, Phone } from "lucide-react";
 
 const PolitiqueConfidentialite = () => {
   useEffect(() => {
-    document.title = "Politique de confidentialité - JSR Pro Solutions";
+    document.title = "Politique de confidentialité - JSR Solutions";
     window.scrollTo(0, 0);
   }, []);
 
@@ -14,7 +14,7 @@ const PolitiqueConfidentialite = () => {
       title: "Protection de vos données",
       emoji: "🔒",
       content: [
-        "Chez JSR Pro Solutions, nous prenons très au sérieux la protection de vos renseignements personnels. Cette politique de confidentialité décrit comment nous recueillons, utilisons, divulguons et protégeons vos informations personnelles conformément aux lois québécoises et canadiennes applicables, notamment la Loi 25 modifiant la Loi sur la protection des renseignements personnels dans le secteur privé."
+        "Chez JSR Solutions, nous prenons très au sérieux la protection de vos renseignements personnels. Cette politique de confidentialité décrit comment nous recueillons, utilisons, divulguons et protégeons vos informations personnelles conformément aux lois québécoises et canadiennes applicables, notamment la Loi 25 modifiant la Loi sur la protection des renseignements personnels dans le secteur privé."
       ]
     },
     {
@@ -51,7 +51,7 @@ const PolitiqueConfidentialite = () => {
       title: "Protection et conservation",
       emoji: "🛡️",
       content: [
-        "JSR Pro Solutions met en œuvre des mesures de sécurité appropriées pour protéger vos renseignements personnels contre tout accès, modification, divulgation ou destruction non autorisés.",
+        "JSR Solutions met en œuvre des mesures de sécurité appropriées pour protéger vos renseignements personnels contre tout accès, modification, divulgation ou destruction non autorisés.",
         "",
         "Conservation des données :",
         "• Vos renseignements sont conservés uniquement le temps nécessaire pour accomplir les fins pour lesquelles ils ont été recueillis",
@@ -132,7 +132,7 @@ const PolitiqueConfidentialite = () => {
                     </div>
                     <div className="text-muted-foreground leading-relaxed space-y-3">
                       <p>
-                        JSR Pro Solutions ne vend, ne loue ni n'échange vos renseignements personnels avec des tiers.
+                        JSR Solutions ne vend, ne loue ni n'échange vos renseignements personnels avec des tiers.
                       </p>
                       <p>
                         Nous pouvons divulguer vos renseignements personnels uniquement dans les cas suivants :
@@ -259,7 +259,7 @@ const PolitiqueConfidentialite = () => {
                 <div className="mt-8 pt-8 border-t">
                   <p className="text-sm text-muted-foreground">
                     <strong>Responsable de la protection des renseignements personnels :</strong><br />
-                    JSR Pro Solutions<br />
+                    JSR Solutions<br />
                     303 rue des Mélèzes, Saint-Raymond (QC) G3L 0E8
                   </p>
                   <p className="text-sm text-muted-foreground mt-4">

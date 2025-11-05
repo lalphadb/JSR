@@ -307,7 +307,7 @@ const Contact = () => {
                     </Button>
 
                     <p className="text-sm text-muted-foreground text-center mt-4">
-                      En soumettant ce formulaire, vous acceptez d'être contacté par JSR Pro Solutions
+                      En soumettant ce formulaire, vous acceptez d'être contacté par JSR Solutions
                     </p>
                   </form>
                 </CardContent>
