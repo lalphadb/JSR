@@ -6,9 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { sendContactEmail, ContactFormData } from "@/lib/backend-email";
+import { useGAEvent } from "@/components/GoogleAnalytics";
 
 const Contact = () => {
   const { toast } = useToast();
+  const { trackEvent } = useGAEvent();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hp, setHp] = useState("");
   const [formData, setFormData] = useState<ContactFormData>({
@@ -69,6 +71,12 @@ const Contact = () => {
 
     try {
       await sendContactEmail(formData);
+
+      // Track successful form submission
+      trackEvent('contact_form_submit', {
+        form_type: 'demande_soumission',
+        contact_method: 'form'
+      });
 
       toast({
         title: "Message envoyé avec succès! 🎉",
@@ -329,7 +337,11 @@ const Contact = () => {
                 Notre équipe est disponible 24/7 pour les urgences
               </p>
               <Button asChild size="lg" className="bg-brand hover:bg-brand-hover text-white text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                <a href="tel:+14188050063" className="flex items-center gap-2">
+                <a 
+                  href="tel:+14188050063" 
+                  className="flex items-center gap-2"
+                  onClick={() => trackEvent('phone_call_click', { button_location: 'urgence_section' })}
+                >
                   <Phone className="h-5 w-5" />
                   Appelez maintenant: 418-805-0063
                 </a>

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 echo "🔄 Mise à jour du site JSR Pro Solutions..."
 echo ""
@@ -18,7 +18,14 @@ docker build --no-cache -t jsr-website:latest .
 
 # 3. Redémarrer le conteneur
 echo "🔄 Redémarrage du conteneur..."
-docker rm -f jsr-website
+# Ne pas échouer si le conteneur n'existe pas
+docker rm -f jsr-website >/dev/null 2>&1 || true
+
+# S'assurer que le réseau existe
+if ! docker network inspect 4lbca_frontend >/dev/null 2>&1; then
+  echo "🌐 Création du réseau docker: 4lbca_frontend"
+  docker network create 4lbca_frontend >/dev/null
+fi
 
 docker run -d \
   --name jsr-website \

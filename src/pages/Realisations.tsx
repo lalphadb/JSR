@@ -121,7 +121,9 @@ const Realisations = () => {
                       </div>
                       <img 
                         src={avantApresProjects[currentIndex].avant}
-                        alt="Avant transformation"
+                        alt={`Avant transformation - ${avantApresProjects[currentIndex].title}`}
+                        loading="eager"
+                        decoding="async"
                         className="w-full h-96 object-cover rounded-lg shadow-xl"
                         onError={(e) => {
                           e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBBVkFOVDwvdGV4dD48L3N2Zz4=';
@@ -136,7 +138,9 @@ const Realisations = () => {
                       </div>
                       <img 
                         src={avantApresProjects[currentIndex].apres}
-                        alt="Après transformation"
+                        alt={`Après transformation - ${avantApresProjects[currentIndex].title}`}
+                        loading="eager"
+                        decoding="async"
                         className="w-full h-96 object-cover rounded-lg shadow-xl"
                         onError={(e) => {
                           e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2Y1ZjVmNSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBBUFJFUzwvdGV4dD48L3N2Zz4=';
@@ -212,7 +216,9 @@ const Realisations = () => {
             <Card className="border-2 hover:border-brand transition-all duration-300 overflow-hidden group">
               <img 
                 src={parcMachinesImg}
-                alt="Parc de machines JSR"
+                alt="Parc de machines JSR - Flotte complète d'équipements professionnels"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <CardContent className="p-6">
@@ -226,7 +232,9 @@ const Realisations = () => {
             <Card className="border-2 hover:border-brand transition-all duration-300 overflow-hidden group">
               <img 
                 src={excavationImg}
-                alt="Pelle mécanique pour excavation"
+                alt="Pelle mécanique pour excavation - Équipement de précision"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <CardContent className="p-6">
@@ -240,7 +248,9 @@ const Realisations = () => {
             <Card className="border-2 hover:border-brand transition-all duration-300 overflow-hidden group">
               <img 
                 src={terrassementImg}
-                alt="Chargeuse pour terrassement"
+                alt="Chargeuse sur roues pour terrassement - Machinerie lourde"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <CardContent className="p-6">

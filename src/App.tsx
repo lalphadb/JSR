@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import MobileCallButton from "./components/MobileCallButton";
 import ScrollToTop from "./components/ScrollToTop";
+import { GoogleAnalytics } from "./components/GoogleAnalytics";
 import Accueil from "./pages/Accueil";
 import Services from "./pages/Services";
 import Realisations from "./pages/Realisations";
@@ -23,6 +24,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <GoogleAnalytics />
         <div className="flex flex-col min-h-screen">
           <Navigation />
           <main className="flex-1">
