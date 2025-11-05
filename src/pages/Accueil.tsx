@@ -28,7 +28,7 @@ const Accueil = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      {/* Hero Section - SPLIT SCREEN MODERNE */}
+      {/* Hero Section - MINIMALISTE ULTIME */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* Image de fond - PLEINE VISIBILITÉ */}
         <div className="absolute inset-0">
@@ -45,62 +45,25 @@ const Accueil = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-dark/30 via-transparent to-transparent" />
         </div>
 
-        {/* Contenu - Zone gauche seulement */}
+        {/* Contenu - Titre seul avec animation */}
         <div className="relative z-10 container mx-auto px-4 lg:px-8 py-20">
           <div className="max-w-lg lg:max-w-xl">
-            {/* Badge 24/7 ultra-discret */}
-            <div className="inline-flex items-center gap-2 mb-6">
+            {/* Badge 24/7 discret */}
+            <div className="inline-flex items-center gap-2 mb-8 opacity-0 animate-fade-in">
               <div className="w-2 h-2 rounded-full bg-brand animate-pulse" />
               <span className="text-white/80 text-sm">Disponible 24/7</span>
             </div>
             
-            {/* Titre sans fond opaque */}
-            <h1 className="text-5xl lg:text-7xl font-bold text-white leading-[1.1] mb-6">
+            {/* Titre avec animation de chargement */}
+            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-[1.1] opacity-0 animate-fade-in" style={{ animationDelay: '0.2s' }}>
               Votre partenaire en
-              <span className="block text-brand">travaux extérieurs</span>
+              <span className="block text-brand mt-2">travaux extérieurs</span>
             </h1>
             
-            {/* Description */}
-            <p className="text-lg lg:text-xl text-white/90 mb-8 max-w-md">
+            {/* Description avec animation */}
+            <p className="text-base lg:text-lg text-white/90 mt-6 opacity-0 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               Excavation, déneigement et terrassement professionnel
             </p>
-            
-            {/* Boutons */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              <Button 
-                asChild 
-                size="lg" 
-                className="bg-brand hover:bg-brand-hover text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
-              >
-                <Link to="/contact" className="flex items-center justify-center gap-2">
-                  Demander un devis
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-              
-              <Button 
-                asChild 
-                size="lg"
-                className="bg-white/5 hover:bg-white/10 text-white border-2 border-white/20 backdrop-blur-sm px-8 py-6 text-lg font-semibold hover:scale-105 transition-all duration-300"
-              >
-                <a href="tel:+14188050063" className="flex items-center justify-center gap-2">
-                  <Phone className="w-5 h-5" />
-                  418-805-0063
-                </a>
-              </Button>
-            </div>
-            
-            {/* Stats minimalistes */}
-            <div className="flex gap-8">
-              <div>
-                <div className="text-3xl font-bold text-brand">15+</div>
-                <div className="text-white/70 text-sm">Ans d'expérience</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-brand">500+</div>
-                <div className="text-white/70 text-sm">Projets réalisés</div>
-              </div>
-            </div>
           </div>
         </div>
         
