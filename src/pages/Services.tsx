@@ -24,7 +24,7 @@ const Services = () => {
         "Forfaits saisonniers avantageux",
       ],
       icon: "❄️",
-      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2730.5!2d-71.2425!3d46.8195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDbCsDQ5JzEwLjIiTiA3McKwMTQnMzMuMCJX!5e0!3m2!1sfr!2sca!4v1234567890",
+      mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2728.3!2d-71.3924!3d46.8814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb89717f4ec44ed%3A0x1d8e9c1a8e9c1a8!2sRue%20Lepire%2C%20Qu%C3%A9bec%2C%20QC!5e0!3m2!1sfr!2sca!4v1730942800000!5m2!1sfr!2sca",
       zones: ["Rue Lepire", "Rue des Merisiers", "Parc de l'Épilobe", "Secteur résidentiel avoisinant"],
       hasLimitedZone: true,
     },
