@@ -7,6 +7,7 @@ import { Phone, Mail, MapPin, Clock, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { sendContactEmail, ContactFormData } from "@/lib/backend-email";
 import { useGAEvent } from "@/components/GoogleAnalytics";
+import ServiceAreaMap from "@/components/ServiceAreaMap";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -324,6 +325,9 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      {/* Service Area Map */}
+      <ServiceAreaMap />
 
       {/* Quick Contact CTA */}
       <section className="py-20 bg-muted/40">

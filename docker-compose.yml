@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.jsr.rule=Host(\`jsr.4lb.ca\`)"
+      - "traefik.http.routers.jsr.rule=Host(`jsr.4lb.ca`)"
       - "traefik.http.routers.jsr.entrypoints=websecure"
       - "traefik.http.routers.jsr.tls=true"
       - "traefik.http.routers.jsr.tls.certresolver=letsencrypt"
@@ -34,7 +34,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.jsr-api.rule=Host(\`api.jsr.4lb.ca\`)"
+      - "traefik.http.routers.jsr-api.rule=Host(`api.jsr.4lb.ca`)"
       - "traefik.http.routers.jsr-api.entrypoints=websecure"
       - "traefik.http.routers.jsr-api.tls=true"
       - "traefik.http.routers.jsr-api.tls.certresolver=letsencrypt"

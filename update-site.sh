@@ -16,7 +16,9 @@ NC='\033[0m'
 
 # Variables
 PROJECT_DIR="/home/lalpha/projets/developpement/JSR"
-TRAEFIK_CONFIG_DIR="/home/lalpha/traefik-config"
+COMPOSE_DIR="/home/lalpha/projets/developpement"
+COMPOSE_FILE="docker-compose-jsr.yml"
+TRAEFIK_CONFIG_DIR="/home/lalpha/projets/traefik-config"
 
 log_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
 log_success() { echo -e "${GREEN}[✓]${NC} $1"; }
@@ -26,55 +28,10 @@ log_error() { echo -e "${RED}[✗]${NC} $1"; }
 check_traefik() {
     if ! docker ps | grep -q "traefik"; then
         log_warning "Traefik n'est pas en cours d'exécution"
-        log_info "Démarrage de Traefik..."
+        log_info "Démarrage de Traefik depuis $TRAEFIK_CONFIG_DIR..."
         
-        mkdir -p "$TRAEFIK_CONFIG_DIR"
-        
-        if [ ! -f "$TRAEFIK_CONFIG_DIR/traefik.yml" ]; then
-            cat > "$TRAEFIK_CONFIG_DIR/traefik.yml" << 'EOF'
-api:
-  dashboard: true
-  insecure: true
-
-entryPoints:
-  web:
-    address: ":80"
-    http:
-      redirections:
-        entryPoint:
-          to: websecure
-          scheme: https
-  websecure:
-    address: ":443"
-
-providers:
-  docker:
-    endpoint: "unix:///var/run/docker.sock"
-    exposedByDefault: false
-
-certificatesResolvers:
-  letsencrypt:
-    acme:
-      email: lalpha@4lb.ca
-      storage: /acme.json
-      httpChallenge:
-        entryPoint: web
-EOF
-            touch "$TRAEFIK_CONFIG_DIR/acme.json"
-            chmod 600 "$TRAEFIK_CONFIG_DIR/acme.json"
-        fi
-        
-        docker run -d \
-          --name traefik \
-          --network 4lbca_frontend \
-          --restart unless-stopped \
-          -p 80:80 \
-          -p 443:443 \
-          -p 8080:8080 \
-          -v /var/run/docker.sock:/var/run/docker.sock:ro \
-          -v "$TRAEFIK_CONFIG_DIR/traefik.yml:/etc/traefik/traefik.yml:ro" \
-          -v "$TRAEFIK_CONFIG_DIR/acme.json:/acme.json" \
-          traefik:v3.0
+        cd "$TRAEFIK_CONFIG_DIR"
+        docker-compose up -d traefik
         
         log_success "Traefik démarré"
         sleep 5
@@ -108,19 +65,24 @@ check_traefik
 
 # 4. Arrêter les anciens containers
 log_info "Étape 4/7 : Arrêt des anciens containers..."
-docker-compose down 2>/dev/null || true
+cd "$COMPOSE_DIR"
+docker-compose -f "$COMPOSE_FILE" down 2>/dev/null || true
 docker stop jsr-website jsr2-jsr2-1 2>/dev/null || true
 docker rm jsr-website jsr2-jsr2-1 2>/dev/null || true
 log_success "Containers arrêtés"
 
 # 5. Build avec docker-compose
 log_info "Étape 5/7 : Build des images..."
-docker-compose build --no-cache
+cd "$PROJECT_DIR/frontend"
+docker build -t jsr2:local . --no-cache
+cd "$COMPOSE_DIR"
+docker-compose -f "$COMPOSE_FILE" build backend --no-cache
 log_success "Images construites"
 
 # 6. Démarrer avec docker-compose
 log_info "Étape 6/7 : Démarrage des services..."
-docker-compose up -d
+cd "$COMPOSE_DIR"
+docker-compose -f "$COMPOSE_FILE" up -d
 log_success "Services démarrés"
 
 # 7. Vérification
@@ -143,14 +105,14 @@ else
 fi
 
 # Test URLs
-if curl -s -o /dev/null -w "%{http_code}" https://jsr.4lb.ca | grep -q "200"; then
+if curl -sk -o /dev/null -w "%{http_code}" https://jsr.4lb.ca | grep -q "200"; then
     log_success "Frontend : ✓ https://jsr.4lb.ca"
 else
     log_warning "Frontend : En attente SSL..."
 fi
 
-if curl -s -o /dev/null -w "%{http_code}" http://localhost:4000/health 2>/dev/null | grep -q "200"; then
-    log_success "Backend : ✓ http://localhost:4000"
+if curl -s -o /dev/null -w "%{http_code}" http://localhost:3001/health 2>/dev/null | grep -q "200"; then
+    log_success "Backend : ✓ http://localhost:3001"
 else
     log_warning "Backend : Vérifier les logs"
 fi
@@ -162,15 +124,15 @@ log_info "=========================================="
 echo ""
 echo "📊 Services :"
 echo "  • Frontend : https://jsr.4lb.ca"
-echo "  • Backend  : http://localhost:4000"
+echo "  • Backend  : http://localhost:3001"
 echo "  • API      : https://api.jsr.4lb.ca (si configuré)"
 echo "  • Traefik  : http://localhost:8080"
 echo ""
 echo "🔧 Commandes :"
-echo "  • Logs     : docker-compose logs -f"
-echo "  • Status   : docker-compose ps"
-echo "  • Stop     : docker-compose down"
-echo "  • Restart  : docker-compose restart"
+echo "  • Logs     : cd $COMPOSE_DIR && docker-compose -f $COMPOSE_FILE logs -f"
+echo "  • Status   : cd $COMPOSE_DIR && docker-compose -f $COMPOSE_FILE ps"
+echo "  • Stop     : cd $COMPOSE_DIR && docker-compose -f $COMPOSE_FILE down"
+echo "  • Restart  : cd $COMPOSE_DIR && docker-compose -f $COMPOSE_FILE restart"
 echo ""
 log_info "Monorepo opérationnel ! 🚀"
 echo ""
