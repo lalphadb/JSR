@@ -1,152 +1,177 @@
 #!/bin/bash
-set -euo pipefail
 
-# Couleurs pour l'output
+# ========================================
+# Script de Déploiement JSR Monorepo
+# ========================================
+# Frontend + Backend dans un seul projet
+
+set -e
+
+# Couleurs
+RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
-RED='\033[0;31m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-echo -e "${BLUE}🔄 Mise à jour du site JSR - Services de Rénovation${NC}"
-echo -e "${BLUE}=================================================${NC}"
-echo ""
-
-# Vérifier qu'on est dans le bon répertoire
+# Variables
 PROJECT_DIR="/home/lalpha/projets/developpement/JSR"
-if [ "$(pwd)" != "$PROJECT_DIR" ]; then
-    echo -e "${YELLOW}📂 Changement vers le répertoire du projet...${NC}"
-    cd "$PROJECT_DIR"
-fi
+TRAEFIK_CONFIG_DIR="/home/lalpha/traefik-config"
 
-echo -e "${GREEN}✓ Répertoire: $(pwd)${NC}"
-echo ""
+log_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
+log_success() { echo -e "${GREEN}[✓]${NC} $1"; }
+log_warning() { echo -e "${YELLOW}[!]${NC} $1"; }
+log_error() { echo -e "${RED}[✗]${NC} $1"; }
 
-# 1. Git pull (optionnel, ne pas échouer si pas de repo)
-if [ -d .git ]; then
-    echo -e "${BLUE}📥 Vérification des mises à jour Git...${NC}"
-    git fetch origin >/dev/null 2>&1 || true
-    
-    LOCAL=$(git rev-parse @ 2>/dev/null || echo "")
-    REMOTE=$(git rev-parse @{u} 2>/dev/null || echo "")
-    
-    if [ "$LOCAL" != "$REMOTE" ] && [ -n "$REMOTE" ]; then
-        echo -e "${YELLOW}⬇️  Nouvelles modifications disponibles, pull en cours...${NC}"
-        git pull origin main || git pull origin master || echo -e "${RED}⚠️  Erreur Git (non critique)${NC}"
-        echo -e "${GREEN}✓ Git pull terminé${NC}"
+check_traefik() {
+    if ! docker ps | grep -q "traefik"; then
+        log_warning "Traefik n'est pas en cours d'exécution"
+        log_info "Démarrage de Traefik..."
+        
+        mkdir -p "$TRAEFIK_CONFIG_DIR"
+        
+        if [ ! -f "$TRAEFIK_CONFIG_DIR/traefik.yml" ]; then
+            cat > "$TRAEFIK_CONFIG_DIR/traefik.yml" << 'EOF'
+api:
+  dashboard: true
+  insecure: true
+
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":443"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: lalpha@4lb.ca
+      storage: /acme.json
+      httpChallenge:
+        entryPoint: web
+EOF
+            touch "$TRAEFIK_CONFIG_DIR/acme.json"
+            chmod 600 "$TRAEFIK_CONFIG_DIR/acme.json"
+        fi
+        
+        docker run -d \
+          --name traefik \
+          --network 4lbca_frontend \
+          --restart unless-stopped \
+          -p 80:80 \
+          -p 443:443 \
+          -p 8080:8080 \
+          -v /var/run/docker.sock:/var/run/docker.sock:ro \
+          -v "$TRAEFIK_CONFIG_DIR/traefik.yml:/etc/traefik/traefik.yml:ro" \
+          -v "$TRAEFIK_CONFIG_DIR/acme.json:/acme.json" \
+          traefik:v3.0
+        
+        log_success "Traefik démarré"
+        sleep 5
     else
-        echo -e "${GREEN}✓ Dépôt Git à jour${NC}"
+        log_success "Traefik opérationnel"
     fi
+}
+
+echo ""
+log_info "=========================================="
+log_info "   Déploiement JSR Monorepo"
+log_info "=========================================="
+echo ""
+
+# 1. Vérifier dossier
+log_info "Étape 1/7 : Vérification..."
+cd "$PROJECT_DIR" || exit 1
+log_success "Dossier : $PROJECT_DIR"
+
+# 2. Git pull
+log_info "Étape 2/7 : Mise à jour Git..."
+if git pull origin main 2>/dev/null; then
+    log_success "Code à jour"
 else
-    echo -e "${YELLOW}ℹ️  Pas de dépôt Git trouvé (mode local)${NC}"
+    log_warning "Pas de mise à jour Git"
 fi
-echo ""
 
-# 2. Build l'image Docker
-echo -e "${BLUE}🔨 Construction de l'image Docker...${NC}"
-echo -e "${YELLOW}   (Cela peut prendre 1-2 minutes)${NC}"
+# 3. Traefik
+log_info "Étape 3/7 : Vérification Traefik..."
+check_traefik
 
-if docker build --no-cache -t jsr-website:latest . >/dev/null 2>&1; then
-    echo -e "${GREEN}✓ Image Docker construite avec succès${NC}"
+# 4. Arrêter les anciens containers
+log_info "Étape 4/7 : Arrêt des anciens containers..."
+docker-compose down 2>/dev/null || true
+docker stop jsr-website jsr2-jsr2-1 2>/dev/null || true
+docker rm jsr-website jsr2-jsr2-1 2>/dev/null || true
+log_success "Containers arrêtés"
+
+# 5. Build avec docker-compose
+log_info "Étape 5/7 : Build des images..."
+docker-compose build --no-cache
+log_success "Images construites"
+
+# 6. Démarrer avec docker-compose
+log_info "Étape 6/7 : Démarrage des services..."
+docker-compose up -d
+log_success "Services démarrés"
+
+# 7. Vérification
+log_info "Étape 7/7 : Vérification..."
+sleep 10
+
+FRONTEND_STATUS=$(docker inspect -f '{{.State.Status}}' jsr-frontend 2>/dev/null || echo "not found")
+BACKEND_STATUS=$(docker inspect -f '{{.State.Status}}' jsr-backend 2>/dev/null || echo "not found")
+
+if [ "$FRONTEND_STATUS" = "running" ]; then
+    log_success "Frontend : ✓ Running"
 else
-    echo -e "${RED}✗ Erreur lors du build Docker${NC}"
-    echo -e "${RED}  Exécutez manuellement: docker build -t jsr-website:latest .${NC}"
-    exit 1
-fi
-echo ""
-
-# 3. Mise à jour du conteneur PRODUCTION (jsr-website)
-echo -e "${BLUE}🚀 Déploiement en PRODUCTION (jsr-website)...${NC}"
-
-# Arrêter l'ancien conteneur
-if docker ps -a --format '{{.Names}}' | grep -q "^jsr-website$"; then
-    echo -e "${YELLOW}   Arrêt du conteneur existant...${NC}"
-    docker rm -f jsr-website >/dev/null 2>&1
-    echo -e "${GREEN}   ✓ Ancien conteneur supprimé${NC}"
+    log_error "Frontend : ✗ $FRONTEND_STATUS"
 fi
 
-# Créer le réseau si nécessaire
-if ! docker network inspect 4lbca_frontend >/dev/null 2>&1; then
-    echo -e "${YELLOW}   Création du réseau Docker: 4lbca_frontend${NC}"
-    docker network create 4lbca_frontend >/dev/null 2>&1
-    echo -e "${GREEN}   ✓ Réseau créé${NC}"
-fi
-
-# Démarrer le nouveau conteneur
-docker run -d \
-  --name jsr-website \
-  --restart unless-stopped \
-  --network 4lbca_frontend \
-  --label "traefik.enable=true" \
-  --label "traefik.http.routers.jsr.rule=Host(\`jsr.4lb.ca\`)" \
-  --label "traefik.http.routers.jsr.entrypoints=websecure" \
-  --label "traefik.http.routers.jsr.tls=true" \
-  --label "traefik.http.routers.jsr.tls.certresolver=letsencrypt" \
-  --label "traefik.http.services.jsr.loadbalancer.server.port=80" \
-  jsr-website:latest >/dev/null 2>&1
-
-echo -e "${GREEN}✓ Conteneur PRODUCTION démarré${NC}"
-echo ""
-
-# 4. Mise à jour du conteneur DEV/PREVIEW (optionnel)
-if docker ps --format '{{.Names}}' | grep -q "^jsr2-jsr2-1$"; then
-    echo -e "${BLUE}🔧 Mise à jour du conteneur DEV (port 8082)...${NC}"
-    
-    # Rebuild avec docker-compose
-    if [ -f "../docker-compose-jsr.yml" ]; then
-        cd ..
-        
-        # Rebuild l'image frontend
-        docker build -t jsr2:local JSR/ >/dev/null 2>&1
-        
-        # Redémarrer via docker-compose
-        docker-compose -f docker-compose-jsr.yml up -d frontend >/dev/null 2>&1
-        
-        cd "$PROJECT_DIR"
-        echo -e "${GREEN}✓ Conteneur DEV mis à jour${NC}"
-    else
-        echo -e "${YELLOW}⚠️  Fichier docker-compose-jsr.yml non trouvé${NC}"
-    fi
+if [ "$BACKEND_STATUS" = "running" ]; then
+    log_success "Backend : ✓ Running"
 else
-    echo -e "${YELLOW}ℹ️  Conteneur DEV non actif (ignoré)${NC}"
+    log_error "Backend : ✗ $BACKEND_STATUS"
 fi
-echo ""
 
-# 5. Vérifications finales
-echo -e "${BLUE}🔍 Vérifications...${NC}"
-sleep 3
-
-# Vérifier PRODUCTION
-if docker ps --format '{{.Names}}\t{{.Status}}' | grep "^jsr-website" | grep -q "Up"; then
-    echo -e "${GREEN}✓ Conteneur PRODUCTION: En ligne${NC}"
-    PROD_STATUS="${GREEN}✅ Healthy${NC}"
+# Test URLs
+if curl -s -o /dev/null -w "%{http_code}" https://jsr.4lb.ca | grep -q "200"; then
+    log_success "Frontend : ✓ https://jsr.4lb.ca"
 else
-    echo -e "${RED}✗ Conteneur PRODUCTION: Problème détecté${NC}"
-    PROD_STATUS="${RED}❌ Erreur${NC}"
+    log_warning "Frontend : En attente SSL..."
 fi
 
-# Vérifier DEV
-if docker ps --format '{{.Names}}\t{{.Status}}' | grep "^jsr2-jsr2-1" | grep -q "Up"; then
-    DEV_STATUS="${GREEN}✅ Healthy${NC}"
+if curl -s -o /dev/null -w "%{http_code}" http://localhost:4000/health 2>/dev/null | grep -q "200"; then
+    log_success "Backend : ✓ http://localhost:4000"
 else
-    DEV_STATUS="${YELLOW}⚠️  Arrêté${NC}"
+    log_warning "Backend : Vérifier les logs"
 fi
 
-# Récapitulatif
 echo ""
-echo -e "${BLUE}═══════════════════════════════════════════${NC}"
-echo -e "${BLUE}📊 RÉCAPITULATIF${NC}"
-echo -e "${BLUE}═══════════════════════════════════════════${NC}"
-echo -e "Production:  ${PROD_STATUS}"
-echo -e "Dev Preview: ${DEV_STATUS}"
+log_info "=========================================="
+log_success "   Déploiement Terminé !"
+log_info "=========================================="
 echo ""
-echo -e "${GREEN}🌐 URLs disponibles:${NC}"
-echo -e "   Production:  ${BLUE}https://jsr.4lb.ca${NC}"
-echo -e "   Dev Preview: ${BLUE}http://localhost:8082${NC}"
+echo "📊 Services :"
+echo "  • Frontend : https://jsr.4lb.ca"
+echo "  • Backend  : http://localhost:4000"
+echo "  • API      : https://api.jsr.4lb.ca (si configuré)"
+echo "  • Traefik  : http://localhost:8080"
 echo ""
-echo -e "${GREEN}📝 Commandes utiles:${NC}"
-echo -e "   Logs PROD: ${YELLOW}docker logs jsr-website -f${NC}"
-echo -e "   Logs DEV:  ${YELLOW}docker logs jsr2-jsr2-1 -f${NC}"
-echo -e "   Status:    ${YELLOW}docker ps --filter name=jsr${NC}"
+echo "🔧 Commandes :"
+echo "  • Logs     : docker-compose logs -f"
+echo "  • Status   : docker-compose ps"
+echo "  • Stop     : docker-compose down"
+echo "  • Restart  : docker-compose restart"
 echo ""
-echo -e "${GREEN}✨ Mise à jour terminée avec succès !${NC}"
+log_info "Monorepo opérationnel ! 🚀"
+echo ""
+

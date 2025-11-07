@@ -1,111 +1,72 @@
-# JSR Déneigement - Site Web
+# JSR - Services de Rénovation (Monorepo)
 
-Site web professionnel pour JSR Déneigement, spécialisé dans les services d'excavation, déneigement et terrassement dans la région du Lac St-Charles et des Laurentides.
+Site web professionnel pour JSR - Services de déneigement, excavation et terrassement
 
-## Services
-
-- **Déneigement** - Service rapide et fiable pour résidentiel et commercial
-- **Excavation** - Travaux professionnels pour projets de construction
-- **Terrassement** - Préparation et nivellement de terrain
-- **Drains de fondation** - Installation et réparation de systèmes de drainage
-- **Construction de terrasse** - Conception et construction durables
-
-## Technologies utilisées
-
-Ce projet est construit avec des technologies modernes :
-
-- **Vite** - Outil de build rapide
-- **TypeScript** - JavaScript typé pour plus de fiabilité
-- **React** - Framework UI moderne
-- **shadcn/ui** - Composants UI élégants
-- **Tailwind CSS** - Framework CSS utilitaire
-- **React Router** - Navigation SPA
-
-## Installation et développement
-
-Prérequis : Node.js et npm installés ([installer avec nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
-
-```sh
-# Cloner le projet
-git clone <URL_DU_REPO>
-
-# Naviguer dans le dossier
-cd JSR
-
-# Installer les dépendances
-npm install
-
-# Démarrer le serveur de développement
-npm run dev
-```
-
-Le site sera accessible sur `http://localhost:8080`
-
-## Scripts disponibles
-
-- `npm run dev` - Démarre le serveur de développement
-- `npm run build` - Build de production
-- `npm run build:dev` - Build de développement
-- `npm run preview` - Prévisualise le build de production
-- `npm run lint` - Vérifie le code avec ESLint
-
-## Structure du projet
+## 📁 Structure du Projet
 
 ```
-src/
-├── components/     # Composants réutilisables
-├── pages/         # Pages principales du site
-├── hooks/         # Hooks React personnalisés
-├── lib/           # Utilitaires et helpers
-└── assets/        # Images et ressources statiques
+JSR/
+├── frontend/          # Application React + Vite
+├── backend/           # API Node.js
+├── docs/              # Documentation
+├── docker-compose.yml # Orchestration des services
+├── update-site.sh     # Script de déploiement
+└── README.md
 ```
 
-## Déploiement
+## 🚀 Déploiement Rapide
 
-Le site est configuré pour être déployé sur un serveur Ubuntu avec Docker ou directement avec Node.js.
-
-## Identité visuelle (Brand)
-
-Couleurs principales utilisées par le thème (définies dans `src/index.css` via variables CSS HSL et exposées par Tailwind comme `primary`, `accent`, etc.).
-
-- Couleur principale (Primary)
-	- Hex: `#367C2B`
-	- RGB: `rgb(54, 124, 43)`
-	- HSL: `hsl(112 49% 33%)`
-	- Pantone approximatif: `Pantone 364 C`
-
-Usage recommandé
-- Utiliser `bg-primary` / `text-primary` / `border-primary` pour les éléments de marque et CTA.
-- Les effets, halos et dégradés doivent s’appuyer sur `primary` (ex: `from-primary to-primary/80`).
-- Les états destructifs/erreur conservent un rouge d’alerte via la palette `destructive`.
-
-Emplacements clés
-- Variables: `src/index.css` (`:root` et `.dark`).
-- Composants impactés: `Navigation.tsx`, `Footer.tsx`, `Accueil.tsx`, `LogoShowcase.tsx`, ainsi que les composants UI shadcn qui s’appuient sur la couleur `primary`.
-
-Nuancier rapide (exemples Tailwind)
-
-- Couleur de base: `bg-primary` → `hsl(112 49% 33%)`
-- Hover doux: `hover:bg-primary/90` (légère intensification)
-- Active: `active:bg-primary/80`
-- Bordures et halos: `border-primary/20`, `from-primary to-primary/80`
-
-Exemples d’utilisation
-
-```tsx
-// Bouton CTA plein
-<button className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-md">Demander un devis</button>
-
-// Bouton contour
-<button className="border border-primary text-primary hover:bg-primary/10 px-6 py-3 rounded-md">Contact</button>
-
-// Badge
-<span className="inline-flex items-center gap-2 bg-primary/10 text-primary border border-primary/20 px-3 py-1.5 rounded-full">✓ Disponible 24/7</span>
-
-// Dégradé décoratif
-<div className="bg-gradient-to-r from-primary to-primary/80 h-1 w-32 rounded-full" />
+```bash
+cd /home/lalpha/projets/developpement/JSR
+./update-site.sh
 ```
 
-## Contact
+## 🔧 Commandes Utiles
 
-JSR Déneigement - Service professionnel dans les Laurentides
+```bash
+# Démarrer tous les services
+docker-compose up -d
+
+# Voir les logs
+docker-compose logs -f
+
+# Arrêter les services
+docker-compose down
+
+# Rebuild
+docker-compose build --no-cache
+
+# Status
+docker-compose ps
+```
+
+## 🌐 URLs
+
+- **Frontend** : https://jsr.4lb.ca
+- **Backend** : http://localhost:4000
+- **API** : https://api.jsr.4lb.ca (si configuré)
+- **Traefik Dashboard** : http://localhost:8080
+
+## 📚 Documentation
+
+Voir le dossier `docs/` pour la documentation complète.
+
+## 🎨 Technologies
+
+**Frontend** :
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Shadcn/ui
+
+**Backend** :
+- Node.js
+- Express
+
+**Infrastructure** :
+- Docker
+- Docker Compose
+- Traefik (reverse proxy)
+- Let's Encrypt (SSL)
+
