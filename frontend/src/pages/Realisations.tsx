@@ -4,7 +4,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import parcMachinesImg from "@/assets/photos/parc-machines.jpg";
-import excavationImg from "@/assets/service-excavation.png";
+import excavationImg from "@/assets/photos/services/excavation-1280.jpg";
 import terrassementImg from "@/assets/photos/services/terrassement-1280.jpg";
 
 const Realisations = () => {

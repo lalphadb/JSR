@@ -2,11 +2,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { CheckCircle2, Phone, MapPin, ArrowRight } from "lucide-react";
-import deneigementImg from "@/assets/service-deneigement.jpg";
-import excavationImg from "@/assets/service-excavation.jpg";
-import terrassementImg from "@/assets/service-terrassement.jpg";
-import drainsImg from "@/assets/service-drains.jpg";
-import terrasseImg from "@/assets/service-terrasse.jpg";
+import deneigementImg from "@/assets/photos/services/deneigement-1280.jpg";
+import excavationImg from "@/assets/photos/services/excavation-1280.jpg";
+import terrassementImg from "@/assets/photos/services/terrassement-1280.jpg";
+import drainsImg from "@/assets/photos/services/drains-1280.jpg";
+import terrasseImg from "@/assets/photos/services/terrasse-1280.jpg";
 
 const Services = () => {
   const services = [

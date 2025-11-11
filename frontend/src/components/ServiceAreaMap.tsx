@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
-// Coordonnées pour la zone de service (région de Québec - approximativement 50km de rayon)
+// Coordonnées pour la zone de service générale (région du Lac St-Charles - approximativement 2km de rayon)
 const serviceAreaCoordinates = [
   { lat: 46.95, lng: -71.55 },  // Nord-Ouest
   { lat: 46.95, lng: -71.0 },   // Nord-Est
@@ -15,10 +15,18 @@ const serviceAreaCoordinates = [
   { lat: 46.8, lng: -71.7 },    // Ouest
 ];
 
-// Centre de Québec (approximatif)
+// Zone limitée pour le déneigement (secteur Rue Lepire, jusqu'a Rue des Merisiers)
+const deneigementZoneCoordinates = [
+  { lat: 46.8845, lng: -71.8370 },  // Nord-Ouest
+  { lat: 46.8855, lng: -71.8310 },  // Nord-Est  
+  { lat: 46.8805, lng: -71.8300 },  // Sud-Est
+  { lat: 46.8795, lng: -71.8360 },  // Sud-Ouest
+];
+
+// Centre de Saint-Raymond (Rue Lepire)
 const center = {
-  lat: 46.8139,
-  lng: -71.2080,
+  lat: 46.8825,
+  lng: -71.8335,
 };
 
 const mapContainerStyle = {
@@ -41,17 +49,32 @@ const mapOptions = {
   ],
 };
 
+// Options pour la zone de service générale (bleu clair)
 const polygonOptions = {
-  fillColor: "#DC2626",
-  fillOpacity: 0.2,
-  strokeColor: "#DC2626",
-  strokeOpacity: 0.8,
-  strokeWeight: 3,
+  fillColor: "#3B82F6",
+  fillOpacity: 0.15,
+  strokeColor: "#3B82F6",
+  strokeOpacity: 0.6,
+  strokeWeight: 2,
   clickable: false,
   draggable: false,
   editable: false,
   geodesic: false,
   zIndex: 1,
+};
+
+// Options pour la zone de déneigement limitée (ROUGE ENCADRÉ)
+const deneigementPolygonOptions = {
+  fillColor: "#DC2626",
+  fillOpacity: 0.25,
+  strokeColor: "#DC2626",
+  strokeOpacity: 1,
+  strokeWeight: 4,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  geodesic: false,
+  zIndex: 2,
 };
 
 // Animation de flocons de neige CSS
@@ -78,7 +101,7 @@ const snowflakeStyles = `
 }
 `;
 
-const libraries: ("places" | "drawing" | "geometry" | "localContext" | "visualization")[] = ["places"];
+const libraries: ("places" | "drawing" | "geometry" | "visualization")[] = ["places"];
 
 const ServiceAreaMap = () => {
   const [map, setMap] = useState<google.maps.Map | null>(null);
@@ -181,13 +204,16 @@ const ServiceAreaMap = () => {
           <GoogleMap
             mapContainerStyle={mapContainerStyle}
             center={center}
-            zoom={10}
+            zoom={14}
             onLoad={onLoad}
             onUnmount={onUnmount}
             options={mapOptions}
           >
-            {/* Polygone de la zone de service (rouge) */}
+            {/* Polygone de la zone de service générale (bleu) */}
             <Polygon paths={serviceAreaCoordinates} options={polygonOptions} />
+            
+            {/* ZONE DE DÉNEIGEMENT LIMITÉE - ENCADRÉ ROUGE */}
+            <Polygon paths={deneigementZoneCoordinates} options={deneigementPolygonOptions} />
             
             {/* Marqueur central JSR */}
             <Marker
@@ -195,12 +221,12 @@ const ServiceAreaMap = () => {
               icon={{
                 path: google.maps.SymbolPath.CIRCLE,
                 scale: 10,
-                fillColor: "#2F855A",
+                fillColor: "#DC2626",
                 fillOpacity: 1,
                 strokeColor: "#FFFFFF",
                 strokeWeight: 3,
               }}
-              title="JSR Solutions - Zone de service"
+              title="JSR Solutions - Zone de déneigement"
             />
           </GoogleMap>
 
@@ -227,6 +253,23 @@ const ServiceAreaMap = () => {
                     />
                   </Autocomplete>
                 )}
+              </div>
+            </Card>
+          </div>
+
+          {/* Légende des zones */}
+          <div className="absolute bottom-4 right-4 z-10">
+            <Card className="shadow-xl bg-white">
+              <div className="p-4 space-y-3">
+                <h3 className="font-bold text-sm text-text-primary">Zones de service</h3>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-4 border-4 border-red-600 bg-red-600/25"></div>
+                  <span className="text-xs text-text-secondary">Déneigement (zone limitée)</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-4 border-2 border-blue-500 bg-blue-500/15"></div>
+                  <span className="text-xs text-text-secondary">Autres services (50 km)</span>
+                </div>
               </div>
             </Card>
           </div>
