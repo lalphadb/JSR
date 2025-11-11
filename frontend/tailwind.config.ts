@@ -58,25 +58,34 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // ✅ BRAND PALETTE - USE HSL VARIABLES FOR GRADIENT COMPATIBILITY
+        // PROFESSIONAL PALETTE - Corporate Construction Industry
         brand: {
-          DEFAULT: "hsl(112 50% 35%)",      // #2F855A
-          hover: "hsl(112 49% 31%)",        // #276749
-          light: "hsl(112 51% 39%)",        // #38A169
-          focus: "hsl(112 51% 39%)",        // Focus ring
+          DEFAULT: "hsl(211 55% 24%)",      // Slate Blue #1E3A5F
+          hover: "hsl(211 55% 20%)",        // Darker slate
+          light: "hsl(211 55% 32%)",        // Lighter slate
+          focus: "hsl(211 55% 24%)",        // Focus ring
         },
-        // ✅ DARK PALETTE - USE HSL VARIABLES FOR GRADIENT COMPATIBILITY
+        // ACCENT - For CTAs and highlights
+        orange: {
+          DEFAULT: "hsl(32 95% 44%)",       // Professional Orange #D97706
+          hover: "hsl(32 95% 38%)",         // Darker orange
+          light: "hsl(32 95% 52%)",         // Lighter orange
+        },
+        // DARK PALETTE - Professional charcoal
         dark: {
-          DEFAULT: "hsl(0 0% 5%)",          // #0D0D0D (NOIR PUR)
-          surface: "hsl(0 0% 10%)",         // #1A1A1A
+          DEFAULT: "hsl(0 0% 10%)",         // #1A1A1A (Professional dark)
+          surface: "hsl(0 0% 15%)",         // #262626
+          lighter: "hsl(0 0% 20%)",         // #333333
         },
         text: {
-          primary: "hsl(0 0% 5%)",          // #0D0D0D
-          secondary: "hsl(0 0% 40%)",       // #666666
+          primary: "hsl(220 15% 15%)",      // Dark slate
+          secondary: "hsl(220 10% 45%)",    // Medium gray
+          muted: "hsl(220 10% 60%)",        // Light gray
         },
         surface: {
-          light: "hsl(0 0% 96%)",           // #F5F5F5
-          border: "hsl(0 0% 90%)",          // #E6E6E6
+          light: "hsl(220 15% 97%)",        // Off-white
+          border: "hsl(220 15% 90%)",       // Light border
+          hover: "hsl(220 15% 94%)",        // Hover state
         },
       },
       borderRadius: {

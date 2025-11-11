@@ -5,76 +5,54 @@ import jsrLogoPng from "@/assets/jsr-logo-transparent.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-dark to-dark text-white border-t border-white/10">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
-          {/* Logo et Description Enhanced */}
+    <footer className="bg-dark text-white border-t border-white/10">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {/* Logo et Description - Professional */}
           <div>
-            <div className="relative inline-block mb-6 group">
-              {/* Logo avec effet de brillance subtle */}
-              <div className="relative">
-                <picture>
-                  <source type="image/webp" srcSet={jsrLogoWebp} />
-                  <img 
-                    src={jsrLogoPng}
-                    alt="JSR Déneigement" 
-                    className="h-20 w-auto transition-all duration-500 group-hover:scale-105 filter brightness-110 drop-shadow-lg"
-                  />
-                </picture>
-                
-                {/* Effet de fond lumineux subtle */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-brand/10 via-transparent to-brand/10 blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-500 rounded-lg" />
-                
-                {/* Effet de brillance traversant */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 opacity-0 group-hover:opacity-100"></div>
-              </div>
+            <div className="mb-6">
+              <picture>
+                <source type="image/webp" srcSet={jsrLogoWebp} />
+                <img 
+                  src={jsrLogoPng}
+                  alt="JSR Déneigement" 
+                  className="h-16 w-auto"
+                />
+              </picture>
             </div>
             
-            <p className="text-base text-white/80 leading-relaxed mb-4">
-              Service professionnel de déneigement, excavation et terrassement à Saint-Raymond et région de Portneuf.
+            <p className="text-white/70 leading-relaxed mb-6">
+              Entrepreneur spécialisé en excavation, terrassement et déneigement commercial. Service professionnel dans la région de Portneuf depuis 2008.
             </p>
-            
-            {/* Badges de qualité */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-brand/10 to-brand/10 text-brand px-3 py-1.5 rounded-full text-sm font-semibold border border-brand/20">
-                <span className="w-2 h-2 bg-brand rounded-full animate-pulse"></span>
-                15+ ans d'expérience
-              </div>
-              
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 text-green-400 px-3 py-1.5 rounded-full text-sm font-semibold border border-green-400/20">
-                <span className="text-green-400">✓</span>
-                Service 24/7
-              </div>
-            </div>
 
             {/* RBQ Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 text-white px-3 py-2 rounded-lg text-sm border border-white/20">
-              <ShieldCheck className="h-4 w-4 text-brand" />
+            <div className="inline-flex items-center gap-2 bg-white/10 text-white px-4 py-2 rounded text-sm border border-white/20">
+              <ShieldCheck className="h-4 w-4 text-orange" />
               <span className="font-semibold">RBQ: 5804-4926-01</span>
             </div>
           </div>
 
           {/* Liens rapides */}
           <div>
-            <h3 className="font-bold text-xl mb-6 text-white">Liens rapides</h3>
+            <h3 className="font-bold text-lg mb-6 text-white">Navigation</h3>
             <ul className="space-y-3">
               <li>
-                <Link to="/" className="text-base text-white/80 hover:text-brand transition-all duration-300 inline-block hover:translate-x-1">
+                <Link to="/" className="text-white/70 hover:text-white transition-colors">
                   Accueil
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-base text-white/80 hover:text-brand transition-all duration-300 inline-block hover:translate-x-1">
+                <Link to="/services" className="text-white/70 hover:text-white transition-colors">
                   Services
                 </Link>
               </li>
               <li>
-                <Link to="/realisations" className="text-base text-white/80 hover:text-brand transition-all duration-300 inline-block hover:translate-x-1">
+                <Link to="/realisations" className="text-white/70 hover:text-white transition-colors">
                   Réalisations
                 </Link>
               </li>
               <li>
-                <Link to="/a-propos" className="text-base text-white/80 hover:text-brand transition-all duration-300 inline-block hover:translate-x-1">
+                <Link to="/a-propos" className="text-white/70 hover:text-white transition-colors">
                   À propos
                 </Link>
               </li>
@@ -88,29 +66,23 @@ const Footer = () => {
 
           {/* Coordonnées */}
           <div>
-            <h3 className="font-bold text-xl mb-6 text-white">Contactez-nous</h3>
+            <h3 className="font-bold text-lg mb-6 text-white">Contact</h3>
             <ul className="space-y-4">
-              <li className="flex items-center gap-3 text-base group">
-                <div className="bg-brand/10 p-2 rounded-lg group-hover:bg-brand/20 transition-colors">
-                  <Phone className="h-5 w-5 text-brand flex-shrink-0" />
-                </div>
-                <a href="tel:+14188050063" className="text-white/80 hover:text-brand transition-colors">
+              <li className="flex items-center gap-3 group">
+                <Phone className="h-5 w-5 text-orange flex-shrink-0" />
+                <a href="tel:+14188050063" className="text-white/70 hover:text-white transition-colors">
                   418-805-0063
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-base group">
-                <div className="bg-brand/10 p-2 rounded-lg group-hover:bg-brand/20 transition-colors">
-                  <Mail className="h-5 w-5 text-brand flex-shrink-0" />
-                </div>
-                <a href="mailto:jsrdeneigement@gmail.com" className="text-white/80 hover:text-brand transition-colors break-all">
+              <li className="flex items-center gap-3 group">
+                <Mail className="h-5 w-5 text-orange flex-shrink-0" />
+                <a href="mailto:jsrdeneigement@gmail.com" className="text-white/70 hover:text-white transition-colors">
                   jsrdeneigement@gmail.com
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-base group">
-                <div className="bg-brand/10 p-2 rounded-lg group-hover:bg-brand/20 transition-colors">
-                  <MapPin className="h-5 w-5 text-brand flex-shrink-0" />
-                </div>
-                <span className="text-white/80">
+              <li className="flex items-start gap-3 group">
+                <MapPin className="h-5 w-5 text-orange flex-shrink-0 mt-1" />
+                <span className="text-white/70">
                   303 rue des Mélèzes<br />
                   Saint-Raymond (QC) G3L 0E8
                 </span>
@@ -119,16 +91,16 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/20 mt-12 pt-8">
+        <div className="border-t border-white/10 mt-12 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-base text-white/70">
+            <p className="text-sm text-white/60">
               &copy; {new Date().getFullYear()} JSR Solutions. Tous droits réservés.
             </p>
             
             <div className="flex gap-6">
               <Link 
                 to="/politique-confidentialite" 
-                className="text-sm text-white/60 hover:text-brand transition-colors"
+                className="text-sm text-white/60 hover:text-white transition-colors"
               >
                 Politique de confidentialité
               </Link>

@@ -1,36 +1,33 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Snowflake, Truck, Mountain, Phone, ArrowRight } from "lucide-react";
+import { Snowflake, Truck, Mountain, Phone, ArrowRight, Shield, Clock, Award } from "lucide-react";
 import { PHOTOS } from "@/lib/photos";
 
 const Accueil = () => {
   const services = [
     {
       icon: Snowflake,
-      title: "Déneigement",
-      description: "Service rapide et fiable 24/7 pour la saison hivernale",
-      emoji: "❄️",
+      title: "Déneigement Commercial",
+      description: "Services de déneigement professionnel disponibles 24h/24 pour maintenir vos accès dégagés",
     },
     {
       icon: Truck,
-      title: "Excavation",
-      description: "Travaux professionnels pour tous vos projets de construction",
-      emoji: "🚜",
+      title: "Excavation & Fondation",
+      description: "Travaux d'excavation précis pour fondations résidentielles et commerciales",
     },
     {
       icon: Mountain,
-      title: "Terrassement",
-      description: "Préparation et nivellement de terrain avec expertise",
-      emoji: "⛏️",
+      title: "Terrassement & Nivellement",
+      description: "Préparation et aménagement de terrain selon les normes industrielles",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      {/* Hero Section - ULTRA MINIMAL */}
-      <section className="relative min-h-screen flex items-end pb-32 overflow-hidden">
-        {/* Image de fond - PLEINE VISIBILITÉ PARTOUT */}
+    <div className="min-h-screen bg-background">
+      {/* Hero Section - Professional & Clean */}
+      <section className="relative h-[85vh] flex items-center overflow-hidden">
+        {/* Background Image with Overlay */}
         <div className="absolute inset-0">
           <picture>
             <source type="image/webp" srcSet={PHOTOS.parcMachines.webp640} />
@@ -40,41 +37,44 @@ const Accueil = () => {
               className="w-full h-full object-cover object-center"
             />
           </picture>
-          {/* Léger gradient du bas uniquement pour profondeur */}
-          <div className="absolute inset-0 bg-gradient-to-t from-dark/20 via-transparent to-transparent" />
+          {/* Professional dark overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-dark/95 via-dark/80 to-dark/50" />
         </div>
 
-        {/* Contenu centré en bas - Texte transparent */}
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <div className="max-w-2xl mx-auto">
-            {/* Titre centré plus petit et transparent */}
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white/80 leading-tight opacity-0 animate-fade-in">
-              Votre partenaire en
-              <span className="block text-brand/90 mt-2">travaux extérieurs</span>
+        {/* Content - Left Aligned */}
+        <div className="relative z-10 container mx-auto px-4">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+              Excellence en
+              <span className="block text-orange mt-2">Travaux d'Excavation</span>
             </h1>
             
-            {/* Description centrée et transparente */}
-            <p className="text-sm md:text-base lg:text-lg text-white/70 mt-6 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Excavation, déneigement et terrassement professionnel
+            <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl leading-relaxed">
+              Entrepreneur spécialisé en excavation, terrassement et déneigement commercial. Plus de 15 ans d'expertise au service de votre projet.
             </p>
-          </div>
-        </div>
-        
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50 hover:opacity-100 transition-opacity">
-          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-3 bg-white/60 rounded-full animate-pulse" />
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button asChild size="lg" className="bg-orange hover:bg-orange-hover text-white text-lg px-8 py-6">
+                <Link to="/contact">Obtenir une soumission</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-dark text-lg px-8 py-6">
+                <a href="tel:+14188050063" className="flex items-center gap-2">
+                  <Phone className="h-5 w-5" />
+                  418-805-0063
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Services Section - Modern Card Design */}
-      <section className="py-24 bg-background">
+      {/* Services Section - Professional Grid */}
+      <section className="py-20 bg-surface-light">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Nos services professionnels</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Des solutions complètes pour tous vos besoins en aménagement extérieur
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-text-primary">Nos Services Spécialisés</h2>
+            <p className="text-lg text-text-secondary max-w-2xl mx-auto">
+              Solutions complètes pour projets résidentiels et commerciaux
             </p>
           </div>
 
@@ -82,24 +82,18 @@ const Accueil = () => {
             {services.map((service, index) => (
               <Card 
                 key={index} 
-                className="group hover:shadow-2xl hover:border-brand transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 border-2"
+                className="group hover:shadow-lg transition-all duration-300 border border-surface-border bg-white"
               >
-                <CardContent className="p-8 text-center">
-                  {/* Icon Badge */}
-                  <div className="bg-brand/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-brand group-hover:scale-110 transition-all duration-300 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <service.icon className="h-10 w-10 text-brand group-hover:text-white transition-colors duration-300 relative z-10" />
+                <CardContent className="p-8">
+                  {/* Icon */}
+                  <div className="bg-brand/10 w-16 h-16 rounded-lg flex items-center justify-center mb-6 group-hover:bg-brand transition-all duration-300">
+                    <service.icon className="h-8 w-8 text-brand group-hover:text-white transition-colors duration-300" />
                   </div>
                   
-                  {/* Emoji Badge */}
-                  <div className="text-5xl mb-4 group-hover:scale-125 transition-transform duration-300">
-                    {service.emoji}
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold mb-3 group-hover:text-brand transition-colors duration-300">
+                  <h3 className="text-xl font-bold mb-3 text-text-primary">
                     {service.title}
                   </h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
+                  <p className="text-text-secondary leading-relaxed">
                     {service.description}
                   </p>
                 </CardContent>
@@ -107,10 +101,10 @@ const Accueil = () => {
             ))}
           </div>
 
-          <div className="text-center mt-16">
-            <Button asChild size="lg" className="bg-brand hover:bg-brand-hover text-white px-10 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="text-center mt-12">
+            <Button asChild size="lg" className="bg-brand hover:bg-brand-hover text-white px-8 py-6">
               <Link to="/services" className="flex items-center gap-2">
-                Voir tous les services
+                Tous nos services
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
@@ -118,48 +112,52 @@ const Accueil = () => {
         </div>
       </section>
 
-      {/* Why Choose Us - Quick Section */}
-      <section className="py-20 bg-muted/40">
+      {/* Why Choose Us - Professional Stats */}
+      <section className="py-20 bg-white border-y border-surface-border">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="text-center group">
-              <div className="text-5xl mb-4 group-hover:scale-125 transition-transform duration-300">🏆</div>
-              <h3 className="text-xl font-bold mb-2 group-hover:text-brand transition-colors">15+ ans d'expérience</h3>
-              <p className="text-muted-foreground">Expertise reconnue dans la région</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+            <div className="text-center">
+              <div className="bg-brand/10 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Award className="h-8 w-8 text-brand" />
+              </div>
+              <h3 className="text-2xl font-bold mb-2 text-text-primary">15+ Années</h3>
+              <p className="text-text-secondary">D'expérience dans l'industrie</p>
             </div>
             
-            <div className="text-center group">
-              <div className="text-5xl mb-4 group-hover:scale-125 transition-transform duration-300">⚡</div>
-              <h3 className="text-xl font-bold mb-2 group-hover:text-brand transition-colors">Service rapide 24/7</h3>
-              <p className="text-muted-foreground">Disponible en tout temps</p>
+            <div className="text-center">
+              <div className="bg-brand/10 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Clock className="h-8 w-8 text-brand" />
+              </div>
+              <h3 className="text-2xl font-bold mb-2 text-text-primary">Service 24/7</h3>
+              <p className="text-text-secondary">Disponibilité pour urgences</p>
             </div>
             
-            <div className="text-center group">
-              <div className="text-5xl mb-4 group-hover:scale-125 transition-transform duration-300">✅</div>
-              <h3 className="text-xl font-bold mb-2 group-hover:text-brand transition-colors">Qualité garantie</h3>
-              <p className="text-muted-foreground">Satisfaction client assurée</p>
+            <div className="text-center">
+              <div className="bg-brand/10 w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8 text-brand" />
+              </div>
+              <h3 className="text-2xl font-bold mb-2 text-text-primary">Qualité Assurée</h3>
+              <p className="text-text-secondary">Travaux garantis et conformes</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section - Enhanced with Phone Button Fix */}
-      <section className="py-24 bg-gradient-to-br from-brand via-brand to-brand/90 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjA1IiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZGkpIi8+PC9zdmc+')] opacity-30" />
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
-            Prêt à démarrer votre projet?
+      {/* CTA Section - Professional */}
+      <section className="py-20 bg-dark text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Démarrez Votre Projet Aujourd'hui
           </h2>
-          <p className="text-xl md:text-2xl mb-10 text-white/90 max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            Contactez-nous dès aujourd'hui pour une soumission gratuite et sans engagement
+          <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
+            Demandez une soumission gratuite et détaillée pour votre projet d'excavation ou de terrassement
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-5 justify-center animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <Button asChild size="lg" className="text-lg px-10 py-6 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 font-semibold bg-white text-brand hover:bg-white/90 hover:-translate-y-1">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="bg-orange hover:bg-orange-hover text-white text-lg px-8 py-6">
               <Link to="/contact">Demander une soumission</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-10 py-6 border-2 border-white bg-transparent text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-300 hover:scale-105 font-semibold hover:-translate-y-1">
+            <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-dark text-lg px-8 py-6">
               <a href="tel:+14188050063" className="flex items-center gap-2">
                 <Phone className="h-5 w-5" />
                 418-805-0063
