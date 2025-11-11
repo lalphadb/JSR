@@ -25,9 +25,9 @@ const Accueil = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section - Professional & Clean */}
-      <section className="relative h-[85vh] flex items-center overflow-hidden">
-        {/* Background Image with Overlay */}
+      {/* Hero Section - Minimalist avec photo visible */}
+      <section className="relative h-screen flex items-end pb-20 overflow-hidden">
+        {/* Background Image - Plus visible */}
         <div className="absolute inset-0">
           <picture>
             <source type="image/webp" srcSet={PHOTOS.parcMachines.webp640} />
@@ -37,27 +37,27 @@ const Accueil = () => {
               className="w-full h-full object-cover object-center"
             />
           </picture>
-          {/* Professional dark overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-dark/95 via-dark/80 to-dark/50" />
+          {/* Overlay léger en bas seulement */}
+          <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-transparent to-transparent" />
         </div>
 
-        {/* Content - Left Aligned */}
-        <div className="relative z-10 container mx-auto px-4">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+        {/* Content - Compact en bas */}
+        <div className="relative z-10 container mx-auto px-4 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
               Excellence en
-              <span className="block text-orange mt-2">Travaux d'Excavation</span>
+              <span className="block text-orange mt-2">Excavation • Terrassement • Déneigement</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl leading-relaxed">
-              Entrepreneur spécialisé en excavation, terrassement et déneigement commercial. Plus de 15 ans d'expertise au service de votre projet.
+            <p className="text-base md:text-lg text-white/90 mb-6">
+              Plus de 15 ans d'expertise au service de votre projet
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-orange hover:bg-orange-hover text-white text-lg px-8 py-6">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button asChild size="lg" className="bg-orange hover:bg-orange-hover text-white px-8">
                 <Link to="/contact">Obtenir une soumission</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-dark text-lg px-8 py-6">
+              <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-dark px-8">
                 <a href="tel:+14188050063" className="flex items-center gap-2">
                   <Phone className="h-5 w-5" />
                   418-805-0063
