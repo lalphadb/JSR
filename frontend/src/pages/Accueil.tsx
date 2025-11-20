@@ -123,7 +123,7 @@ const Accueil = () => {
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button asChild size="lg" variant="outline" className="border-2 border-white bg-white text-dark hover:bg-gray-100 px-8">
+                <Button asChild size="lg" variant="outline" className="border-2 border-white bg-white text-dark hover:bg-gray-100 hover:text-dark px-8">
                   <a href="tel:+14188050063" className="flex items-center gap-2">
                     <Phone className="h-5 w-5" />
                     418-805-0063
@@ -287,7 +287,7 @@ const Accueil = () => {
               </Button>
             </motion.div>
             <motion.div variants={itemVariants} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild size="lg" variant="outline" className="border-2 border-white bg-white text-dark hover:bg-gray-100 text-lg px-8 py-6">
+              <Button asChild size="lg" variant="outline" className="border-2 border-white bg-white text-dark hover:bg-gray-100 hover:text-dark text-lg px-8 py-6">
                 <a href="tel:+14188050063" className="flex items-center gap-2">
                   <Phone className="h-5 w-5" />
                   418-805-0063
