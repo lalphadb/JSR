@@ -8,6 +8,12 @@ import { FadeInUp, FadeInLeft, FadeInRight, ScaleIn, StaggerContainer, StaggerIt
 import { Testimonials } from "@/components/Testimonials";
 import { AnimatedStats } from "@/components/AnimatedStats";
 import { FAQ } from "@/components/FAQ";
+import { BeforeAfterComparator } from "@/components/BeforeAfterComparator";
+import { Timeline } from "@/components/Timeline";
+import { BlogSection } from "@/components/BlogSection";
+import { DynamicForm } from "@/components/DynamicForm";
+import { ParallaxSection } from "@/components/ParallaxSection";
+import { CounterAnimation } from "@/components/CounterAnimation";
 
 const Accueil = () => {
   const services = [
