@@ -1,0 +1,23 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jsr-frontend
+    ports:
+      - "8082:80"
+    networks:
+      - jsr-network
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jsr.rule=Host(`jsr.4lb.ca`)"
+      - "traefik.http.routers.jsr.entrypoints=websecure"
+      - "traefik.http.routers.jsr.tls=true"
+      - "traefik.http.routers.jsr.tls.certresolver=letsencrypt"
+      - "traefik.http.services.jsr.loadbalancer.server.port=80"
+
+networks:
+  jsr-network:
+    external: true
+    name: traefik-net
