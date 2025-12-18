@@ -18,7 +18,7 @@ const Realisations = () => {
       title: "Excavation de fondation",
       location: "Saint Gabriel De Valcartier",
       category: "Excavation",
-      image: PHOTOS.services.excavation,
+      image: PHOTOS.services.excavationFondation,
       description: "Excavation complète pour nouvelle construction résidentielle avec sous-sol",
       emoji: "🚜",
     },

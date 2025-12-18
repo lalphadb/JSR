@@ -21,6 +21,9 @@ import deneigementJpg1280 from "@/assets/photos/services/deneigement-1280.jpg";
 import excavationWebp640 from "@/assets/photos/services/excavation-640.webp";
 import excavationJpg1280 from "@/assets/photos/services/excavation-1280.jpg";
 
+import excavationFondationWebp640 from "@/assets/photos/services/excavation-fondation-640.webp";
+import excavationFondationJpg1280 from "@/assets/photos/services/excavation-fondation-1280.jpg";
+
 import terrassementWebp640 from "@/assets/photos/services/terrassement-640.webp";
 import terrassementJpg1280 from "@/assets/photos/services/terrassement-1280.jpg";
 
@@ -54,6 +57,11 @@ export const PHOTOS = {
       webp640: excavationWebp640,
       jpg1280: excavationJpg1280,
       alt: "Excavation – pelle mécanique sur chantier",
+    } satisfies PhotoSet,
+    excavationFondation: {
+      webp640: excavationFondationWebp640,
+      jpg1280: excavationFondationJpg1280,
+      alt: "Excavation de fondation – pelle mécanique JSR sur chantier résidentiel",
     } satisfies PhotoSet,
     terrassement: {
       webp640: terrassementWebp640,
