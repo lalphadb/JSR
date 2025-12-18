@@ -5,12 +5,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useRateLimit } from "@/hooks/useRateLimit";
 import { sendContactEmail, ContactFormData } from "@/lib/backend-email";
 
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hp, setHp] = useState("");
+  const { canSubmit, recordAttempt, remainingAttempts, resetTime } = useRateLimit({
+    maxAttempts: 5,
+    windowMs: 300000, // 5 minutes
+  });
   const [formData, setFormData] = useState<ContactFormData>({
     nom: "",
     telephone: "",
@@ -20,7 +25,17 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Rate limiting check
+    if (!canSubmit) {
+      toast({
+        title: "Trop de tentatives",
+        description: `Veuillez attendre ${resetTime} secondes avant de soumettre le formulaire.`,
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!formData.nom || !formData.telephone || !formData.courriel || !formData.message) {
       toast({
         title: "Erreur",
@@ -66,12 +81,13 @@ const Contact = () => {
     }
 
     setIsSubmitting(true);
+    recordAttempt();
 
     try {
       await sendContactEmail(formData);
 
       toast({
-        title: "Message envoyé avec succès! 🎉",
+        title: "Message envoyé avec succès!",
         description: "Nous vous contacterons dans les plus brefs délais. Merci!",
       });
       setFormData({ nom: "", telephone: "", courriel: "", message: "" });
@@ -98,16 +114,20 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-bg text-white">
-      {/* Hero Section - Style Industriel JSR */}
-      <section className="py-20 bg-bg border-b-4 border-accent-yellow">
+      {/* Hero Section */}
+      <section className="py-16 md:py-24 bg-bg border-b-4 border-accent-yellow">
         <div className="container mx-auto px-4">
-          <div className="w-24 h-2 bg-accent-yellow mb-6" />
-          <h1 className="text-6xl md:text-7xl font-black mb-6 leading-tight uppercase text-white">
-            CONTACT
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl leading-relaxed font-medium">
-            JSR Solutions – Excavation, déneigement et construction spécialisée
-          </p>
+          <div className="max-w-4xl">
+            <span className="text-accent-yellow text-sm font-bold uppercase tracking-widest mb-4 block">
+              Contactez-nous
+            </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading mb-6 leading-tight text-white">
+              Obtenez votre soumission gratuite
+            </h1>
+            <p className="text-xl text-gray-300 leading-relaxed">
+              Réponse garantie en moins de 24 heures. Sans engagement, sans surprise.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -118,8 +138,10 @@ const Contact = () => {
             {/* Contact Info - 40% */}
             <div className="lg:col-span-2 space-y-8">
               <div>
-                <h2 className="text-4xl font-black mb-6 uppercase text-white">Nos coordonnées</h2>
-                <div className="h-2 w-16 bg-accent-yellow mb-8" />
+                <span className="text-accent-yellow text-sm font-bold uppercase tracking-widest mb-2 block">
+                  Rejoignez-nous
+                </span>
+                <h2 className="text-3xl md:text-4xl font-heading mb-6 text-white">Nos coordonnées</h2>
               </div>
 
               <div className="space-y-6">
@@ -130,7 +152,7 @@ const Contact = () => {
                         <Phone className="h-6 w-6 text-accent-yellow group-hover:text-bg transition-colors duration-300" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors uppercase">Téléphone</h3>
+                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors">Téléphone</h3>
                         <a href="tel:+14188050063" className="text-gray-400 hover:text-accent-yellow transition-colors text-lg font-medium">
                           418-805-0063
                         </a>
@@ -147,7 +169,7 @@ const Contact = () => {
                         <Mail className="h-6 w-6 text-accent-yellow group-hover:text-bg transition-colors duration-300" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors uppercase">Courriel</h3>
+                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors">Courriel</h3>
                         <a href="mailto:jsrdeneigement@gmail.com" className="text-gray-400 hover:text-accent-yellow transition-colors break-all font-medium">
                           jsrdeneigement@gmail.com
                         </a>
@@ -164,7 +186,7 @@ const Contact = () => {
                         <MapPin className="h-6 w-6 text-accent-yellow group-hover:text-bg transition-colors duration-300" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors uppercase">Adresse</h3>
+                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors">Adresse</h3>
                         <p className="text-gray-400 font-medium">
                           303 rue des Mélèzes<br />
                           Saint-Raymond (QC)
@@ -183,7 +205,7 @@ const Contact = () => {
                         <Clock className="h-6 w-6 text-accent-yellow group-hover:text-bg transition-colors duration-300" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors uppercase">Disponibilité</h3>
+                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors">Disponibilité</h3>
                         <div className="text-gray-400 space-y-1 font-medium">
                           <p className="text-base font-bold text-accent-yellow">24/7 en saison (déneigement)</p>
                           <p className="text-base">Lundi - Vendredi: 7h - 18h</p>
@@ -200,9 +222,9 @@ const Contact = () => {
             <div className="lg:col-span-3">
               <Card className="border-4 border-accent-yellow bg-zinc-900 rounded-none shadow-2xl">
                 <CardHeader>
-                  <CardTitle className="text-3xl font-black uppercase text-white">Demandez une soumission gratuite</CardTitle>
-                  <p className="text-gray-400 mt-2 font-medium">
-                    Remplissez le formulaire ci-dessous et nous vous contacterons dans les plus brefs délais
+                  <CardTitle className="text-2xl md:text-3xl font-heading text-white">Demandez votre soumission</CardTitle>
+                  <p className="text-gray-400 mt-2">
+                    Décrivez votre projet et recevez une réponse en moins de 24h.
                   </p>
                 </CardHeader>
                 <CardContent>
@@ -222,7 +244,7 @@ const Contact = () => {
                     </div>
 
                     <div>
-                      <label htmlFor="nom" className="block text-sm font-bold mb-2 text-white uppercase">
+                      <label htmlFor="nom" className="block text-sm font-medium mb-2 text-white">
                         Nom complet <span className="text-accent-yellow">*</span>
                       </label>
                       <Input
@@ -239,7 +261,7 @@ const Contact = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="telephone" className="block text-sm font-bold mb-2 text-white uppercase">
+                        <label htmlFor="telephone" className="block text-sm font-medium mb-2 text-white">
                           Téléphone <span className="text-accent-yellow">*</span>
                         </label>
                         <Input
@@ -255,7 +277,7 @@ const Contact = () => {
                       </div>
 
                       <div>
-                        <label htmlFor="courriel" className="block text-sm font-bold mb-2 text-white uppercase">
+                        <label htmlFor="courriel" className="block text-sm font-medium mb-2 text-white">
                           Courriel <span className="text-accent-yellow">*</span>
                         </label>
                         <Input
@@ -272,8 +294,8 @@ const Contact = () => {
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="block text-sm font-bold mb-2 text-white uppercase">
-                        Message <span className="text-accent-yellow">*</span>
+                      <label htmlFor="message" className="block text-sm font-medium mb-2 text-white">
+                        Décrivez votre projet <span className="text-accent-yellow">*</span>
                       </label>
                       <Textarea
                         id="message"
@@ -289,14 +311,16 @@ const Contact = () => {
                     <Button
                       type="submit"
                       size="lg"
-                      disabled={isSubmitting}
-                      className="w-full bg-accent-yellow hover:bg-yellow-500 text-bg h-16 text-lg font-black uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 rounded-none"
+                      disabled={isSubmitting || !canSubmit}
+                      className="w-full bg-accent-yellow hover:bg-yellow-500 text-bg h-16 text-lg font-black uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 rounded-none disabled:opacity-50"
                     >
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                           Envoi en cours...
                         </>
+                      ) : !canSubmit ? (
+                        `Veuillez attendre ${resetTime}s`
                       ) : (
                         "Envoyer le message"
                       )}
@@ -314,24 +338,20 @@ const Contact = () => {
       </section>
 
       {/* Quick Contact CTA */}
-      <section className="py-20 bg-zinc-900 border-t-4 border-accent-yellow">
-        <div className="container mx-auto px-4">
-          <Card className="max-w-4xl mx-auto border-2 border-zinc-800 bg-bg shadow-xl rounded-none">
-            <CardContent className="p-8 md:p-12 text-center">
-              <h3 className="text-3xl md:text-4xl font-black mb-4 text-white uppercase">
-                Besoin d'une intervention urgente?
-              </h3>
-              <p className="text-xl text-gray-400 mb-8 font-medium">
-                Notre équipe est disponible 24/7 pour les urgences
-              </p>
-              <Button asChild size="lg" className="bg-accent-yellow hover:bg-yellow-500 text-bg text-lg px-10 py-6 shadow-lg hover:shadow-xl transition-all duration-300 rounded-none font-bold uppercase tracking-wider">
-                <a href="tel:+14188050063" className="flex items-center gap-2">
-                  <Phone className="h-5 w-5" />
-                  Appelez maintenant: 418-805-0063
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
+      <section className="py-16 bg-accent-yellow">
+        <div className="container mx-auto px-4 text-center">
+          <h3 className="text-2xl md:text-3xl font-heading mb-4 text-bg">
+            Besoin d'une intervention urgente?
+          </h3>
+          <p className="text-lg text-bg/80 mb-6">
+            Notre équipe est disponible 24/7 en saison de déneigement.
+          </p>
+          <Button asChild size="lg" className="bg-bg hover:bg-black text-white text-lg px-8 py-6 font-bold">
+            <a href="tel:+14188050063" className="flex items-center gap-2">
+              <Phone className="h-5 w-5" />
+              Appeler: 418-805-0063
+            </a>
+          </Button>
         </div>
       </section>
     </div>
