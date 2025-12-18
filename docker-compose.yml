@@ -1,32 +1,16 @@
-# ============================================
-# JSR-SOLUTIONS - PRODUCTION
-# Domain: jsr-solutions.ca
-# Container: jsr-solutions-prod
-# ============================================
-
 services:
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: jsr-solutions-prod
-    restart: always
+    build: .
+    container_name: jsr-dev
+    restart: unless-stopped
     networks:
       - traefik-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.jsr-solutions.rule=Host(`jsr-solutions.ca`) || Host(`www.jsr-solutions.ca`)"
-      - "traefik.http.routers.jsr-solutions.entrypoints=websecure"
-      - "traefik.http.routers.jsr-solutions.tls=true"
-      - "traefik.http.routers.jsr-solutions.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.jsr-solutions-http.rule=Host(`jsr-solutions.ca`) || Host(`www.jsr-solutions.ca`)"
-      - "traefik.http.routers.jsr-solutions-http.entrypoints=web"
-      - "traefik.http.routers.jsr-solutions-http.middlewares=https-redirect"
-      - "traefik.http.middlewares.jsr-www-redirect.redirectregex.regex=^https://www.jsr-solutions.ca/(.*)"
-      - "traefik.http.middlewares.jsr-www-redirect.redirectregex.replacement=https://jsr-solutions.ca/$${1}"
-      - "traefik.http.middlewares.jsr-www-redirect.redirectregex.permanent=true"
-      - "traefik.http.routers.jsr-solutions.middlewares=jsr-www-redirect"
-      - "traefik.http.services.jsr-solutions.loadbalancer.server.port=80"
+      - "traefik.http.routers.jsr-dev.rule=Host(`jsr.4lb.ca`)"
+      - "traefik.http.routers.jsr-dev.entrypoints=websecure"
+      - "traefik.http.routers.jsr-dev.tls.certresolver=letsencrypt"
+      - "traefik.http.services.jsr-dev.loadbalancer.server.port=80"
 
 networks:
   traefik-net:

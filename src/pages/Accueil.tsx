@@ -1,286 +1,384 @@
 import { Link } from "react-router-dom";
-import { Phone, Shield, Clock, Award, ChevronRight } from "lucide-react";
+import { Phone, Shield, Clock, Award, ChevronRight, Truck, Snowflake, HardHat, Star, CheckCircle, MapPin } from "lucide-react";
 import { PHOTOS } from "@/lib/photos";
 
-type Service = {
-  code: string;
-  title: string;
-  desc: string;
-  link: string;
+// Déterminer la saison actuelle (pour bannière modulable)
+const getCurrentSeason = () => {
+  const month = new Date().getMonth();
+  // Novembre à Mars = Hiver (déneigement)
+  if (month >= 10 || month <= 2) return "winter";
+  // Avril à Octobre = Été (excavation/terrassement)
+  return "summer";
 };
 
-const services: Service[] = [
+const season = getCurrentSeason();
+
+const services = [
   {
-    code: "01",
-    title: "Déneigement",
-    desc: "Résidentiel et commercial. Service 24/7 en saison hivernale.",
-    link: "/services#deneigement",
-  },
-  {
-    code: "02",
+    icon: HardHat,
     title: "Excavation",
-    desc: "Fondations, drains français, tranchées et nivellement.",
+    desc: "Fondations, piscines, drains français et tranchées. Équipement moderne pour tous vos projets.",
     link: "/services#excavation",
+    image: PHOTOS.services.excavation.jpg1280,
   },
   {
-    code: "03",
+    icon: Truck,
     title: "Terrassement",
-    desc: "Préparation de terrain, pavage et aménagement extérieur.",
+    desc: "Préparation de terrain, nivellement et aménagement extérieur professionnel.",
     link: "/services#terrassement",
+    image: PHOTOS.services.terrassement.jpg1280,
   },
   {
-    code: "04",
-    title: "Construction",
-    desc: "Terrasses, escaliers et structures extérieures durables.",
-    link: "/services#construction",
+    icon: Snowflake,
+    title: "Déneigement",
+    desc: "Service résidentiel et commercial 24/7. Contrats saisonniers disponibles.",
+    link: "/services#deneigement",
+    image: PHOTOS.services.deneigement.jpg1280,
+    featured: season === "winter",
   },
 ];
 
-const stats = [
-  { value: "15+", label: "Années d'expérience" },
-  { value: "500+", label: "Projets complétés" },
-  { value: "24/7", label: "Service en saison" },
+const whyChooseUs = [
+  {
+    icon: Clock,
+    title: "Réponse rapide",
+    desc: "Soumission en moins de 24 heures, intervention urgente possible.",
+  },
+  {
+    icon: Shield,
+    title: "Assuré et licencié",
+    desc: "Licence RBQ 5804-4926-01 et assurance responsabilité 2M$.",
+  },
+  {
+    icon: Truck,
+    title: "Équipement moderne",
+    desc: "Flotte de machinerie récente et bien entretenue.",
+  },
+  {
+    icon: Award,
+    title: "15+ ans d'expérience",
+    desc: "Plus de 500 projets réalisés dans la région de Québec.",
+  },
+];
+
+const testimonials = [
+  {
+    name: "Marc Tremblay",
+    location: "Lac-Saint-Charles",
+    text: "Excellent service pour l'excavation de ma piscine. Travail propre et professionnel.",
+    rating: 5,
+  },
+  {
+    name: "Julie Gagnon",
+    location: "Saint-Raymond",
+    text: "Contrat de déneigement depuis 3 ans. Toujours fiables, même lors des tempêtes.",
+    rating: 5,
+  },
+  {
+    name: "Pierre Lavoie",
+    location: "Stoneham",
+    text: "Terrassement complet de mon terrain. Résultat impeccable!",
+    rating: 5,
+  },
 ];
 
 export default function HomePage() {
   return (
-    <main className="bg-bg text-textc-primary">
-      {/* HERO SECTION - Plein écran immersif */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Image de fond */}
+    <main className="bg-bg text-textc-primary font-body">
+      
+      {/* BANDEAU DE RÉASSURANCE */}
+      <div className="bg-industrial-gray py-3 border-b border-accent-yellow/20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12 text-sm text-textc-secondary">
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5 text-accent-yellow" />
+              <span><strong className="text-white">Licence RBQ</strong> 5804-4926-01</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5 text-accent-yellow" />
+              <span><strong className="text-white">Assurances</strong> 2M$ couverture</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Award className="w-5 h-5 text-accent-yellow" />
+              <span><strong className="text-white">15+ années</strong> d'expérience</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-accent-yellow" />
+              <span><strong className="text-white">Région</strong> de Québec</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* HERO SECTION */}
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+        {/* Image de fond avec overlay saisonnier */}
         <div className="absolute inset-0">
           <img
-            src={PHOTOS.hero.jpg1280}
-            alt="Machinerie JSR en action"
+            src={season === "winter" ? PHOTOS.services.deneigement.jpg1280 : PHOTOS.parcMachines.jpg1280}
+            alt="JSR Solutions - Machinerie en action"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/90 to-bg/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/90 to-bg/50" />
         </div>
 
+        {/* Badge saisonnier */}
+        {season === "winter" && (
+          <div className="absolute top-4 right-4 md:top-8 md:right-8 bg-blue-600 text-white px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 animate-pulse">
+            <Snowflake className="w-4 h-4" />
+            Saison de déneigement active
+          </div>
+        )}
+
         {/* Contenu Hero */}
-        <div className="relative z-10 container mx-auto px-4 py-20">
+        <div className="relative z-10 container mx-auto px-4 py-16">
           <div className="max-w-3xl">
             {/* Badge */}
-            <div className="inline-flex items-center gap-3 mb-8 animate-fade-in">
-              <span className="h-[3px] w-12 bg-accent-yellow" />
+            <div className="inline-flex items-center gap-3 mb-6">
+              <span className="h-1 w-12 bg-accent-yellow" />
               <span className="text-sm tracking-widest uppercase text-accent-yellow font-bold">
-                Disponible toute l'année
+                {season === "winter" ? "❄️ Service 24/7 en hiver" : "🚜 Disponible maintenant"}
               </span>
             </div>
 
-            {/* Titre principal */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl leading-[1.1] font-heading mb-6">
-              Votre terrain,
-              <br />
-              <span className="text-accent-yellow">notre expertise</span>
+            {/* Titre H1 */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-black leading-tight mb-6">
+              {season === "winter" ? (
+                <>
+                  Déneigement <span className="text-accent-yellow">professionnel</span>
+                  <br />
+                  pour l'hiver québécois
+                </>
+              ) : (
+                <>
+                  Excavation & terrassement
+                  <br />
+                  <span className="text-accent-yellow">dans la région de Québec</span>
+                </>
+              )}
             </h1>
 
             {/* Sous-titre */}
-            <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mb-8 leading-relaxed">
-              Excavation, déneigement et construction spécialisée dans la région de Québec.
-              <strong className="text-white"> Réponse en moins de 24h.</strong>
+            <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-8 leading-relaxed">
+              {season === "winter" ? (
+                <>
+                  Service résidentiel et commercial fiable. Contrats saisonniers disponibles.
+                  <strong className="text-white"> Réponse en moins de 24h.</strong>
+                </>
+              ) : (
+                <>
+                  Fondations, piscines, drains français et aménagement de terrain.
+                  <strong className="text-white"> Plus de 500 projets réalisés.</strong>
+                </>
+              )}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-4 mb-12">
+            <div className="flex flex-wrap items-center gap-4 mb-8">
               <Link
                 to="/contact"
-                className="group bg-accent-yellow text-bg px-8 py-4 font-bold text-lg hover:bg-yellow-400 transition-all duration-300 flex items-center gap-2"
+                className="group bg-accent-yellow text-bg px-8 py-4 font-bold text-lg hover:bg-yellow-400 transition-all duration-300 flex items-center gap-2 shadow-xl shadow-accent-yellow/20"
               >
                 Soumission gratuite
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a
                 href="tel:+14188050063"
-                className="flex items-center gap-3 px-8 py-4 border-2 border-white/30 text-white hover:border-accent-yellow hover:text-accent-yellow transition-all duration-300 font-bold"
+                className="flex items-center gap-3 px-8 py-4 border-2 border-white/40 text-white hover:border-accent-yellow hover:text-accent-yellow transition-all duration-300 font-bold"
               >
                 <Phone className="w-5 h-5" />
                 418-805-0063
               </a>
             </div>
 
-            {/* Badges de confiance */}
-            <div className="flex flex-wrap gap-6 text-sm">
-              <div className="flex items-center gap-2 text-gray-300">
-                <Shield className="w-5 h-5 text-accent-yellow" />
-                <span>RBQ 5804-4926-01</span>
+            {/* Stats rapides */}
+            <div className="flex flex-wrap gap-8 text-sm">
+              <div>
+                <div className="text-3xl font-heading font-black text-accent-yellow">15+</div>
+                <div className="text-gray-400">Années d'expérience</div>
               </div>
-              <div className="flex items-center gap-2 text-gray-300">
-                <Award className="w-5 h-5 text-accent-yellow" />
-                <span>Assuré et licencié</span>
+              <div>
+                <div className="text-3xl font-heading font-black text-accent-yellow">500+</div>
+                <div className="text-gray-400">Projets complétés</div>
               </div>
-              <div className="flex items-center gap-2 text-gray-300">
-                <Clock className="w-5 h-5 text-accent-yellow" />
-                <span>Intervention rapide</span>
+              <div>
+                <div className="text-3xl font-heading font-black text-accent-yellow">24/7</div>
+                <div className="text-gray-400">Service en saison</div>
               </div>
             </div>
           </div>
         </div>
-
       </section>
 
-      {/* STATS SECTION */}
-      <section className="bg-accent-yellow py-8">
+      {/* SECTION SERVICES */}
+      <section className="py-20 bg-bg-soft">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-4xl mx-auto text-center">
-            {stats.map((stat, index) => (
-              <div key={index} className="py-4">
-                <div className="text-3xl md:text-5xl font-black text-bg mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm md:text-base font-bold text-bg/80 uppercase tracking-wide">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICES SECTION */}
-      <section className="py-20 md:py-28 bg-bg">
-        <div className="container mx-auto px-4">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <span className="text-accent-yellow text-sm font-bold uppercase tracking-widest mb-4 block">
-              Nos services
-            </span>
-            <h2 className="text-4xl md:text-5xl font-heading mb-6">
-              Solutions complètes pour vos projets
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-black mb-4">
+              Nos <span className="text-accent-yellow">services</span>
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              De l'excavation au déneigement, nous offrons des services professionnels adaptés à vos besoins.
+            <p className="text-textc-secondary max-w-2xl mx-auto">
+              Solutions complètes pour tous vos projets d'excavation, terrassement et déneigement.
             </p>
           </div>
 
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
             {services.map((service) => (
               <Link
-                key={service.code}
+                key={service.title}
                 to={service.link}
-                className="group bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow p-8 transition-all duration-300 hover:-translate-y-1"
+                className={`group relative overflow-hidden bg-bg rounded-lg border transition-all duration-300 hover:border-accent-yellow hover:-translate-y-2 ${
+                  service.featured ? "border-accent-yellow ring-2 ring-accent-yellow/30" : "border-white/10"
+                }`}
               >
-                <span className="text-accent-yellow text-4xl font-black opacity-30 group-hover:opacity-100 transition-opacity">
-                  {service.code}
-                </span>
-                <h3 className="text-xl font-bold text-white mt-4 mb-3 group-hover:text-accent-yellow transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                  {service.desc}
-                </p>
-                <span className="text-accent-yellow text-sm font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  En savoir plus
-                  <ChevronRight className="w-4 h-4" />
-                </span>
+                {service.featured && (
+                  <div className="absolute top-4 right-4 bg-accent-yellow text-bg px-3 py-1 text-xs font-bold rounded-full z-10">
+                    POPULAIRE
+                  </div>
+                )}
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <service.icon className="w-8 h-8 text-accent-yellow" />
+                    <h3 className="text-xl font-heading font-bold">{service.title}</h3>
+                  </div>
+                  <p className="text-textc-secondary mb-4">{service.desc}</p>
+                  <span className="text-accent-yellow font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                    En savoir plus <ChevronRight className="w-4 h-4" />
+                  </span>
+                </div>
               </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 border-2 border-accent-yellow text-accent-yellow px-8 py-3 font-bold hover:bg-accent-yellow hover:text-bg transition-all duration-300"
+            >
+              Voir tous nos services
+              <ChevronRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION POURQUOI NOUS CHOISIR */}
+      <section className="py-20 bg-bg">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-black mb-4">
+              Pourquoi choisir <span className="text-accent-yellow">JSR Solutions</span>?
+            </h2>
+            <p className="text-textc-secondary max-w-2xl mx-auto">
+              Une entreprise locale de confiance pour tous vos travaux d'excavation et déneigement.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {whyChooseUs.map((item, index) => (
+              <div
+                key={index}
+                className="bg-bg-soft border border-white/10 p-6 rounded-lg hover:border-accent-yellow/50 transition-all duration-300 group"
+              >
+                <div className="w-14 h-14 bg-accent-yellow/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent-yellow/20 transition-colors">
+                  <item.icon className="w-7 h-7 text-accent-yellow" />
+                </div>
+                <h3 className="text-lg font-heading font-bold mb-2">{item.title}</h3>
+                <p className="text-textc-secondary text-sm">{item.desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WHY CHOOSE US SECTION */}
-      <section className="py-20 bg-zinc-900 border-y-4 border-accent-yellow">
+      {/* SECTION TÉMOIGNAGES / AVIS */}
+      <section className="py-20 bg-industrial-gray">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-            {/* Image */}
-            <div className="relative">
-              <div className="border-4 border-accent-yellow overflow-hidden">
-                <img
-                  src={PHOTOS.hero.jpg1280}
-                  alt="Équipe JSR Solutions"
-                  className="w-full h-80 object-cover"
-                />
-              </div>
-              {/* Floating badge */}
-              <div className="absolute -bottom-6 -right-6 bg-accent-yellow text-bg p-6 font-black text-center hidden md:block">
-                <div className="text-4xl">15+</div>
-                <div className="text-sm uppercase">Ans</div>
-              </div>
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-1 mb-4">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Star key={i} className="w-6 h-6 text-accent-yellow fill-accent-yellow" />
+              ))}
             </div>
+            <h2 className="text-3xl md:text-4xl font-heading font-black mb-4">
+              Ce que nos <span className="text-accent-yellow">clients</span> disent
+            </h2>
+            <p className="text-textc-secondary">
+              Plus de 500 clients satisfaits dans la région de Québec
+            </p>
+          </div>
 
-            {/* Content */}
-            <div>
-              <span className="text-accent-yellow text-sm font-bold uppercase tracking-widest mb-4 block">
-                Pourquoi nous choisir
-              </span>
-              <h2 className="text-3xl md:text-4xl font-heading mb-6 text-white">
-                Une équipe locale, fiable et expérimentée
-              </h2>
-              <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                Basés à Saint-Raymond, nous connaissons le terrain et les défis de la région.
-                Notre engagement : un travail de qualité, dans les délais, au juste prix.
-              </p>
-
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-start gap-4">
-                  <div className="w-6 h-6 bg-accent-yellow flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-bg font-bold text-sm">✓</span>
-                  </div>
-                  <div>
-                    <strong className="text-white">Réponse rapide</strong>
-                    <p className="text-gray-400 text-sm">Retour d'appel en moins de 24 heures</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="w-6 h-6 bg-accent-yellow flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-bg font-bold text-sm">✓</span>
-                  </div>
-                  <div>
-                    <strong className="text-white">Équipement moderne</strong>
-                    <p className="text-gray-400 text-sm">Machinerie entretenue et adaptée à chaque projet</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="w-6 h-6 bg-accent-yellow flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-bg font-bold text-sm">✓</span>
-                  </div>
-                  <div>
-                    <strong className="text-white">Soumission transparente</strong>
-                    <p className="text-gray-400 text-sm">Pas de surprise, prix fixe avant les travaux</p>
-                  </div>
-                </li>
-              </ul>
-
-              <Link
-                to="/a-propos"
-                className="inline-flex items-center gap-2 text-accent-yellow font-bold hover:gap-4 transition-all"
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-bg p-6 rounded-lg border border-white/10"
               >
-                En savoir plus sur notre entreprise
-                <ChevronRight className="w-5 h-5" />
-              </Link>
-            </div>
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-accent-yellow fill-accent-yellow" />
+                  ))}
+                </div>
+                <p className="text-textc-secondary mb-4 italic">"{testimonial.text}"</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 bg-accent-yellow/20 rounded-full flex items-center justify-center">
+                    <span className="text-accent-yellow font-bold">{testimonial.name[0]}</span>
+                  </div>
+                  <div>
+                    <div className="font-bold text-sm">{testimonial.name}</div>
+                    <div className="text-xs text-textc-secondary">{testimonial.location}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA SECTION */}
-      <section className="py-20 bg-bg">
-        <div className="container mx-auto px-4">
-          <div className="bg-accent-yellow p-12 md:p-16 max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-heading text-bg mb-4">
-              Prêt à démarrer votre projet?
-            </h2>
-            <p className="text-bg/80 text-lg mb-8 max-w-xl mx-auto">
-              Obtenez une soumission gratuite en moins de 24 heures. Sans engagement.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/contact"
-                className="bg-bg text-white px-8 py-4 font-bold text-lg hover:bg-black transition-colors"
-              >
-                Demander une soumission
-              </Link>
-              <a
-                href="tel:+14188050063"
-                className="border-2 border-bg text-bg px-8 py-4 font-bold text-lg hover:bg-bg hover:text-white transition-colors flex items-center justify-center gap-2"
-              >
-                <Phone className="w-5 h-5" />
-                Appeler maintenant
-              </a>
-            </div>
+      {/* SECTION CTA FINALE */}
+      <section className="py-20 bg-accent-yellow">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-heading font-black text-bg mb-4">
+            Prêt à démarrer votre projet?
+          </h2>
+          <p className="text-bg/80 mb-8 max-w-xl mx-auto">
+            Obtenez une soumission gratuite en moins de 24 heures. Sans obligation.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              to="/contact"
+              className="bg-bg text-white px-8 py-4 font-bold text-lg hover:bg-bg-soft transition-all duration-300 flex items-center gap-2"
+            >
+              <CheckCircle className="w-5 h-5" />
+              Demander une soumission
+            </Link>
+            <a
+              href="tel:+14188050063"
+              className="border-2 border-bg text-bg px-8 py-4 font-bold hover:bg-bg hover:text-accent-yellow transition-all duration-300 flex items-center gap-2"
+            >
+              <Phone className="w-5 h-5" />
+              418-805-0063
+            </a>
           </div>
+        </div>
+      </section>
+
+      {/* ZONES DESSERVIES */}
+      <section className="py-12 bg-bg border-t border-white/10">
+        <div className="container mx-auto px-4 text-center">
+          <h3 className="text-sm font-bold text-textc-secondary uppercase tracking-wider mb-4">
+            Zones desservies
+          </h3>
+          <p className="text-textc-secondary">
+            Lac-Saint-Charles • Saint-Raymond • Stoneham • Portneuf • Québec et environs
+          </p>
         </div>
       </section>
     </main>

@@ -138,3 +138,28 @@
     }
   }
 }
+
+/* Animations personnalisées */
+@keyframes pulse-subtle {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(228, 161, 27, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(228, 161, 27, 0);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite;
+}
+
+/* Amélioration des polices */
+body {
+  font-family: 'Poppins', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Montserrat', system-ui, sans-serif;
+}

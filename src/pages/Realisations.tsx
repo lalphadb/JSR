@@ -1,152 +1,315 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Phone, ArrowRight } from "lucide-react";
+import { Phone, ArrowRight, Filter, MapPin, Calendar, X } from "lucide-react";
 import { PHOTOS } from "@/lib/photos";
 
+type Project = {
+  id: number;
+  title: string;
+  location: string;
+  category: string;
+  image: { webp640: string; jpg1280: string; alt: string };
+  description: string;
+  year: string;
+};
+
+const projects: Project[] = [
+  {
+    id: 1,
+    title: "Déneigement résidentiel",
+    location: "Lac-Saint-Charles",
+    category: "Déneigement",
+    image: PHOTOS.services.deneigement,
+    description: "Service de déneigement complet pour propriété résidentielle avec stationnement double et entrée de garage.",
+    year: "2024",
+  },
+  {
+    id: 2,
+    title: "Excavation de fondation",
+    location: "Saint-Gabriel-de-Valcartier",
+    category: "Excavation",
+    image: PHOTOS.services.excavationFondation,
+    description: "Excavation complète pour nouvelle construction résidentielle avec sous-sol complet et drain français.",
+    year: "2024",
+  },
+  {
+    id: 3,
+    title: "Terrassement commercial",
+    location: "Saint-Raymond",
+    category: "Terrassement",
+    image: PHOTOS.services.terrassement,
+    description: "Préparation de terrain pour projet commercial de 5000 pi². Nivellement et compactage professionnel.",
+    year: "2024",
+  },
+  {
+    id: 4,
+    title: "Installation de drains français",
+    location: "Saint-Émile",
+    category: "Drains",
+    image: PHOTOS.services.drains,
+    description: "Installation complète de système de drainage français autour d'une résidence pour éliminer les infiltrations.",
+    year: "2023",
+  },
+  {
+    id: 5,
+    title: "Terrasse en bois traité",
+    location: "Lac-Saint-Charles",
+    category: "Construction",
+    image: PHOTOS.services.terrasse,
+    description: "Construction de terrasse sur mesure en bois traité avec escalier et rampes conformes au code.",
+    year: "2023",
+  },
+  {
+    id: 6,
+    title: "Excavation piscine creusée",
+    location: "Stoneham",
+    category: "Excavation",
+    image: PHOTOS.services.excavation,
+    description: "Excavation et terrassement pour installation de piscine creusée 18x36 pieds avec remblayage.",
+    year: "2023",
+  },
+];
+
+const categories = ["Tous", "Excavation", "Terrassement", "Déneigement", "Drains", "Construction"];
+
 const Realisations = () => {
-  const projects = [
-    {
-      title: "Déneigement résidentiel",
-      location: "Lac St-Charles",
-      category: "Déneigement",
-      image: PHOTOS.services.deneigement,
-      description: "Service de déneigement complet pour propriété résidentielle avec stationnement double",
-      emoji: "❄️",
-    },
-    {
-      title: "Excavation de fondation",
-      location: "Saint Gabriel De Valcartier",
-      category: "Excavation",
-      image: PHOTOS.services.excavationFondation,
-      description: "Excavation complète pour nouvelle construction résidentielle avec sous-sol",
-      emoji: "🚜",
-    },
-    {
-      title: "Terrassement commercial",
-      location: "Saint-Raymond",
-      category: "Terrassement",
-      image: PHOTOS.services.terrassement,
-      description: "Préparation de terrain pour projet commercial de 5000 pi²",
-      emoji: "⛏️",
-    },
-    {
-      title: "Installation de drains",
-      location: "St-Émile",
-      category: "Drains de fondation",
-      image: PHOTOS.services.drains,
-      description: "Installation complète de système de drainage français autour d'une résidence",
-      emoji: "💧",
-    },
-    {
-      title: "Terrasse en bois",
-      location: "Lac St-Charles",
-      category: "Construction de terrasse",
-      image: PHOTOS.services.terrasse,
-      description: "Construction de terrasse sur mesure en cèdre avec pergola intégrée",
-      emoji: "🏡",
-    },
-    {
-      title: "Excavation piscine",
-      location: "Stoneham",
-      category: "Excavation",
-      image: PHOTOS.services.excavation,
-      description: "Excavation et terrassement pour installation de piscine creusée",
-      emoji: "🏊",
-    },
-  ];
+  const [activeFilter, setActiveFilter] = useState("Tous");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const filteredProjects = activeFilter === "Tous" 
+    ? projects 
+    : projects.filter(p => p.category === activeFilter);
 
   return (
-    <div className="min-h-screen bg-bg text-white">
-      {/* Hero Section - Enhanced with Visual Effects */}
-      <section className="relative bg-bg border-b-4 border-accent-yellow py-32 overflow-hidden">
-        {/* Animated Background Pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzMzMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMiIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20" />
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-6xl md:text-7xl font-black mb-8 tracking-tight uppercase text-white">
-            Nos réalisations
-          </h1>
-          <p className="text-xl md:text-2xl max-w-4xl mx-auto text-gray-300 leading-relaxed font-medium">
-            Découvrez quelques-uns de nos projets récents et la qualité de notre travail dans la région de Québec
-          </p>
-        </div>
-      </section>
-
-      {/* Gallery - Modern Card Grid */}
-      <section className="py-24 bg-bg">
+    <div className="min-h-screen bg-bg text-white font-body">
+      
+      {/* HEADER */}
+      <section className="py-16 md:py-24 bg-bg border-b border-accent-yellow/20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {projects.map((project, index) => (
-              <Card 
-                key={index}
-                className="group bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none overflow-hidden"
-              >
-                {/* Image with Overlay */}
-                <div className="relative overflow-hidden aspect-[4/3]">
-                  <picture>
-                    <source type="image/webp" srcSet={project.image.webp640} />
-                    <img
-                      src={project.image.jpg1280}
-                      alt={project.image.alt}
-                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                    />
-                  </picture>
-                  
-                  {/* Category Badge */}
-                  <div className="absolute top-4 right-4 bg-accent-yellow text-bg px-4 py-2 font-bold uppercase text-sm shadow-lg">
-                    {project.category}
-                  </div>
-                  
-                  {/* Emoji Badge */}
-                  <div className="absolute top-4 left-4 text-4xl group-hover:scale-125 transition-transform duration-300 drop-shadow-md">
-                    {project.emoji}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <CardContent className="p-6">
-                  <h3 className="text-2xl font-black mb-2 text-white group-hover:text-accent-yellow transition-colors duration-300 uppercase">
-                    {project.title}
-                  </h3>
-                  <p className="text-accent-yellow font-bold mb-3 uppercase tracking-wide">
-                    📍 {project.location}
-                  </p>
-                  <p className="text-gray-400 leading-relaxed font-medium">
-                    {project.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-4xl">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="h-1 w-12 bg-accent-yellow" />
+              <span className="text-accent-yellow text-sm font-bold uppercase tracking-widest">
+                Portfolio
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-6 leading-tight">
+              Nos <span className="text-accent-yellow">réalisations</span>
+            </h1>
+            <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
+              Découvrez nos projets complétés dans la région de Québec. 
+              Chaque chantier reflète notre engagement envers la qualité et la satisfaction client.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-accent-yellow text-bg relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-10" />
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl font-black mb-6 uppercase">
-            Votre projet sera notre prochaine réalisation
+      {/* FILTRES */}
+      <section className="py-6 bg-industrial-gray border-b border-accent-yellow/20 sticky top-[60px] z-40">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center gap-4 overflow-x-auto pb-2">
+            <Filter className="w-5 h-5 text-accent-yellow flex-shrink-0" />
+            <div className="flex gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveFilter(cat)}
+                  className={`px-4 py-2 text-sm font-medium whitespace-nowrap transition-all rounded ${
+                    activeFilter === cat
+                      ? "bg-accent-yellow text-bg"
+                      : "bg-white/5 hover:bg-white/10"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* GRILLE DE PROJETS */}
+      <section className="py-16 bg-bg">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project) => (
+              <div
+                key={project.id}
+                className="group bg-bg-soft border border-white/10 overflow-hidden hover:border-accent-yellow/50 transition-all duration-300 cursor-pointer"
+                onClick={() => setSelectedProject(project)}
+              >
+                {/* Image */}
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={project.image.jpg1280}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent" />
+                  
+                  {/* Badge catégorie */}
+                  <div className="absolute top-4 left-4 bg-accent-yellow text-bg px-3 py-1 text-xs font-bold uppercase">
+                    {project.category}
+                  </div>
+                </div>
+
+                {/* Contenu */}
+                <div className="p-6">
+                  <h3 className="text-xl font-heading font-bold mb-2 group-hover:text-accent-yellow transition-colors">
+                    {project.title}
+                  </h3>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
+                    <span className="flex items-center gap-1">
+                      <MapPin className="w-4 h-4" />
+                      {project.location}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      {project.year}
+                    </span>
+                  </div>
+                  
+                  <p className="text-gray-400 text-sm line-clamp-2">
+                    {project.description}
+                  </p>
+                  
+                  <div className="mt-4 flex items-center gap-1 text-accent-yellow font-bold text-sm group-hover:gap-2 transition-all">
+                    Voir les détails
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-400">Aucun projet trouvé pour cette catégorie.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* MODAL DÉTAIL PROJET */}
+      {selectedProject && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedProject(null)}
+        >
+          <div 
+            className="bg-bg-soft max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-accent-yellow/30"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header modal */}
+            <div className="relative">
+              <img
+                src={selectedProject.image.jpg1280}
+                alt={selectedProject.title}
+                className="w-full h-64 md:h-80 object-cover"
+              />
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 bg-bg/80 p-2 hover:bg-accent-yellow hover:text-bg transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <div className="absolute bottom-4 left-4 bg-accent-yellow text-bg px-4 py-2 font-bold">
+                {selectedProject.category}
+              </div>
+            </div>
+
+            {/* Contenu modal */}
+            <div className="p-6 md:p-8">
+              <h2 className="text-2xl md:text-3xl font-heading font-black mb-4">
+                {selectedProject.title}
+              </h2>
+              
+              <div className="flex flex-wrap gap-4 text-sm text-gray-400 mb-6">
+                <span className="flex items-center gap-2 bg-white/5 px-3 py-1 rounded">
+                  <MapPin className="w-4 h-4 text-accent-yellow" />
+                  {selectedProject.location}
+                </span>
+                <span className="flex items-center gap-2 bg-white/5 px-3 py-1 rounded">
+                  <Calendar className="w-4 h-4 text-accent-yellow" />
+                  {selectedProject.year}
+                </span>
+              </div>
+              
+              <p className="text-gray-300 leading-relaxed mb-8">
+                {selectedProject.description}
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  to="/contact"
+                  className="bg-accent-yellow text-bg px-6 py-3 font-bold hover:bg-yellow-400 transition-all flex items-center gap-2"
+                  onClick={() => setSelectedProject(null)}
+                >
+                  Projet similaire? Contactez-nous
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+                <a
+                  href="tel:+14188050063"
+                  className="border-2 border-white/30 text-white px-6 py-3 font-bold hover:border-accent-yellow hover:text-accent-yellow transition-all flex items-center gap-2"
+                >
+                  <Phone className="w-5 h-5" />
+                  418-805-0063
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* STATISTIQUES */}
+      <section className="py-16 bg-industrial-gray">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-4xl md:text-5xl font-heading font-black text-accent-yellow mb-2">500+</div>
+              <div className="text-gray-400">Projets complétés</div>
+            </div>
+            <div>
+              <div className="text-4xl md:text-5xl font-heading font-black text-accent-yellow mb-2">15+</div>
+              <div className="text-gray-400">Années d'expérience</div>
+            </div>
+            <div>
+              <div className="text-4xl md:text-5xl font-heading font-black text-accent-yellow mb-2">100%</div>
+              <div className="text-gray-400">Clients satisfaits</div>
+            </div>
+            <div>
+              <div className="text-4xl md:text-5xl font-heading font-black text-accent-yellow mb-2">24/7</div>
+              <div className="text-gray-400">Service en saison</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA FINALE */}
+      <section className="py-20 bg-accent-yellow">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-heading font-black text-bg mb-4">
+            Votre projet pourrait être le prochain!
           </h2>
-          <p className="text-xl md:text-2xl mb-10 text-bg/90 max-w-3xl mx-auto leading-relaxed font-bold uppercase tracking-wide">
-            Contactez-nous dès aujourd'hui pour discuter de votre projet et obtenir une soumission gratuite
+          <p className="text-bg/80 mb-8 max-w-xl mx-auto">
+            Contactez-nous pour une soumission gratuite et sans engagement.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-5 justify-center">
-            <Button asChild size="lg" className="text-lg px-10 py-6 shadow-2xl hover:shadow-3xl transition-all duration-300 font-black bg-bg text-white hover:bg-black rounded-none uppercase tracking-wider">
-              <Link to="/contact" className="flex items-center gap-2">
-                Demander une soumission
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-10 py-6 border-4 border-bg text-bg hover:bg-bg hover:text-white transition-all duration-300 font-black rounded-none uppercase tracking-wider bg-transparent">
-              <a href="tel:+14188050063" className="flex items-center gap-2">
-                <Phone className="h-5 w-5" />
-                418-805-0063
-              </a>
-            </Button>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              to="/contact"
+              className="bg-bg text-white px-8 py-4 font-bold text-lg hover:bg-bg-soft transition-all flex items-center gap-2"
+            >
+              Demander une soumission
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <a
+              href="tel:+14188050063"
+              className="border-2 border-bg text-bg px-8 py-4 font-bold hover:bg-bg hover:text-accent-yellow transition-all flex items-center gap-2"
+            >
+              <Phone className="w-5 h-5" />
+              418-805-0063
+            </a>
           </div>
         </div>
       </section>
