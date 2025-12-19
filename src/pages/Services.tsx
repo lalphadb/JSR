@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Phone, CheckCircle, ArrowRight, Snowflake, HardHat, Truck, Wrench, Clock, Shield, MapPin } from "lucide-react";
 import { PHOTOS } from "@/lib/photos";
@@ -104,6 +105,50 @@ const servicesData = [
 ];
 
 const Services = () => {
+  const [activeSection, setActiveSection] = useState("excavation");
+
+  // Scroll spy - détecte quelle section est visible
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = servicesData.map(s => ({
+        id: s.id,
+        element: document.getElementById(s.id)
+      }));
+
+      // Trouver la section actuellement visible
+      for (const section of sections) {
+        if (section.element) {
+          const rect = section.element.getBoundingClientRect();
+          // Si le haut de la section est dans la moitié supérieure de l'écran
+          if (rect.top <= 200 && rect.bottom >= 200) {
+            setActiveSection(section.id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Vérifier au chargement
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll fluide vers une section
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 140; // Hauteur du header + nav sticky
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-bg text-white font-body">
       
@@ -155,21 +200,24 @@ const Services = () => {
         </div>
       </section>
 
-      {/* NAVIGATION RAPIDE */}
-      <section className="py-6 bg-industrial-gray border-y border-accent-yellow/20 sticky top-[60px] z-40">
+      {/* NAVIGATION RAPIDE - Scroll Spy */}
+      <section className="py-4 bg-industrial-gray border-y border-accent-yellow/20 sticky top-[60px] z-40">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-2 md:gap-4">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
             {servicesData.map((service) => (
-              <a
+              <button
                 key={service.id}
-                href={`#${service.id}`}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all hover:bg-accent-yellow hover:text-bg rounded ${
-                  service.featured ? "bg-accent-yellow/20 text-accent-yellow" : "bg-white/5"
+                onClick={() => scrollToSection(service.id)}
+                className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-all duration-300 rounded ${
+                  activeSection === service.id
+                    ? "bg-accent-yellow text-bg shadow-lg shadow-accent-yellow/30"
+                    : "bg-white/5 hover:bg-white/10 text-white/80 hover:text-white"
                 }`}
               >
                 <service.icon className="w-4 h-4" />
-                {service.title}
-              </a>
+                <span className="hidden sm:inline">{service.title}</span>
+                <span className="sm:hidden">{service.title.split(" ")[0]}</span>
+              </button>
             ))}
           </div>
         </div>
