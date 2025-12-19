@@ -105,7 +105,7 @@ const Realisations = () => {
       </section>
 
       {/* FILTRES */}
-      <section className="py-6 bg-industrial-gray border-b border-accent-yellow/20 sticky top-[60px] z-40">
+      <section className="py-6 bg-industrial-gray border-b border-accent-yellow/20 sticky top-[104px] z-40">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-4 overflow-x-auto pb-2">
             <Filter className="w-5 h-5 text-accent-yellow flex-shrink-0" />
