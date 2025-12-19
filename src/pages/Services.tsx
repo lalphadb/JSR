@@ -138,7 +138,7 @@ const Services = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 140; // Hauteur du header + nav sticky
+      const offset = 160; // Hauteur du header + nav sticky
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -201,7 +201,7 @@ const Services = () => {
       </section>
 
       {/* NAVIGATION RAPIDE - Scroll Spy */}
-      <section className="py-4 bg-industrial-gray border-y border-accent-yellow/20 sticky top-[60px] z-40">
+      <section className="py-4 bg-industrial-gray border-y border-accent-yellow/20 sticky top-[104px] z-40">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-2 md:gap-3">
             {servicesData.map((service) => (
@@ -228,7 +228,7 @@ const Services = () => {
         <section
           key={service.id}
           id={service.id}
-          className={`py-20 ${service.bgColor} scroll-mt-32`}
+          className={`py-20 ${service.bgColor} scroll-mt-44`}
         >
           <div className="container mx-auto px-4">
             <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto ${
