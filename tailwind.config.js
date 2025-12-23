@@ -55,8 +55,8 @@ export default {
         },
       },
       fontFamily: {
-        heading: ["Oswald", "system-ui", "sans-serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        heading: ["Montserrat", "system-ui", "sans-serif"],
+        body: ["Poppins", "system-ui", "sans-serif"],
       },
       borderWidth: {
         3: "3px",

@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, ExternalLink, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import jsrLogoWebp from "@/assets/jsr-logo-transparent.webp";
 import jsrLogoPng from "@/assets/jsr-logo-transparent.png";
@@ -28,10 +28,15 @@ const Footer = () => {
 
             {/* Badges RBQ et Assurance */}
             <div className="flex flex-wrap gap-2 mb-6">
-              <div className="inline-flex items-center gap-2 bg-white/10 border-2 border-brand/30 px-3 py-1.5 text-white text-sm font-bold">
+              <a
+                href="https://www.rbq.gouv.qc.ca/services-en-ligne/registre-des-detenteurs-de-licence/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white/10 border-2 border-brand/30 px-3 py-1.5 text-white text-sm font-bold hover:border-brand hover:bg-white/20 transition-all"
+              >
                 <span className="text-brand">✓</span>
                 RBQ 5804-4926-01
-              </div>
+              </a>
 
               <div className="inline-flex items-center gap-2 bg-white/10 border-2 border-brand/30 px-3 py-1.5 text-white text-sm font-bold">
                 <span className="text-brand">✓</span>
@@ -109,7 +114,33 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t-2 border-brand/30 mt-12 pt-8">
+        {/* Section Vos droits - Subtile */}
+        <div className="border-t border-white/10 mt-12 pt-8">
+          <div className="flex items-start gap-3 mb-4">
+            <Shield className="w-5 h-5 text-accent-yellow flex-shrink-0 mt-0.5" />
+            <div>
+              <h4 className="text-sm font-bold text-white/90 mb-2">Connaître vos droits</h4>
+              <p className="text-xs text-white/50 leading-relaxed max-w-3xl">
+                Vérifiez toujours la licence RBQ de votre entrepreneur • 
+                Exigez un contrat écrit détaillé • 
+                Vous êtes protégé par un cautionnement de licence • 
+                Des recours existent en cas de problème
+              </p>
+            </div>
+          </div>
+          <a
+            href="https://www.rbq.gouv.qc.ca/vous-etes/citoyen/travaux-de-renovation/signer-un-contrat-de-renovation/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-accent-yellow transition-colors"
+          >
+            En savoir plus sur le site de la RBQ
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        </div>
+
+        {/* Copyright */}
+        <div className="border-t border-white/10 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-base text-white/90 font-bold">
               &copy; {new Date().getFullYear()} JSR Solutions. Tous droits réservés.

@@ -1,36 +1,59 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Phone, Mail, MapPin, Clock, Loader2 } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Loader2, CheckCircle, Shield, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useRateLimit } from "@/hooks/useRateLimit";
 import { sendContactEmail, ContactFormData } from "@/lib/backend-email";
 
+const serviceTypes = [
+  "Excavation",
+  "Terrassement", 
+  "Déneigement",
+  "Drains français",
+  "Construction extérieure",
+  "Autre",
+];
+
+const zones = [
+  "Lac-Saint-Charles",
+  "Saint-Raymond",
+  "Stoneham",
+  "Portneuf",
+  "Val-Bélair",
+  "Saint-Émile",
+  "Québec",
+  "Saint-Gabriel-de-Valcartier",
+];
+
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [hp, setHp] = useState("");
   const { canSubmit, recordAttempt, remainingAttempts, resetTime } = useRateLimit({
     maxAttempts: 5,
-    windowMs: 300000, // 5 minutes
+    windowMs: 300000,
   });
-  const [formData, setFormData] = useState<ContactFormData>({
+  const [formData, setFormData] = useState<ContactFormData & { service: string }>({
     nom: "",
     telephone: "",
     courriel: "",
     message: "",
+    service: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Rate limiting check
+    // Honeypot check
+    if (hp) {
+      console.log("Bot détecté");
+      return;
+    }
+
     if (!canSubmit) {
       toast({
         title: "Trop de tentatives",
-        description: `Veuillez attendre ${resetTime} secondes avant de soumettre le formulaire.`,
+        description: `Veuillez attendre ${resetTime} secondes.`,
         variant: "destructive",
       });
       return;
@@ -38,8 +61,8 @@ const Contact = () => {
 
     if (!formData.nom || !formData.telephone || !formData.courriel || !formData.message) {
       toast({
-        title: "Erreur",
-        description: "Veuillez remplir tous les champs du formulaire.",
+        title: "Champs requis",
+        description: "Veuillez remplir tous les champs obligatoires.",
         variant: "destructive",
       });
       return;
@@ -48,35 +71,20 @@ const Contact = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.courriel)) {
       toast({
-        title: "Erreur",
+        title: "Courriel invalide",
         description: "Veuillez entrer une adresse courriel valide.",
         variant: "destructive",
       });
       return;
     }
 
-    const phoneRegex = /^(\+1)?[\s.-]?\(?[0-9]{3}\)?[\s.-]?[0-9]{3}[\s.-]?[0-9]{4}$/;
+    const phoneRegex = /^[\d\s\-().+]{10,}$/;
     if (!phoneRegex.test(formData.telephone)) {
       toast({
-        title: "Erreur",
-        description: "Veuillez entrer un numéro de téléphone valide (ex: 418-123-4567).",
+        title: "Téléphone invalide",
+        description: "Veuillez entrer un numéro de téléphone valide.",
         variant: "destructive",
       });
-      return;
-    }
-
-    if (hp.trim() !== "") {
-      setIsSubmitting(true);
-      try {
-        toast({
-          title: "Message envoyé avec succès! 🎉",
-          description: "Nous vous contacterons dans les plus brefs délais. Merci!",
-        });
-        setFormData({ nom: "", telephone: "", courriel: "", message: "" });
-        setHp("");
-      } finally {
-        setIsSubmitting(false);
-      }
       return;
     }
 
@@ -84,274 +92,325 @@ const Contact = () => {
     recordAttempt();
 
     try {
-      await sendContactEmail(formData);
+      // Ajouter le type de service au message
+      const messageWithService = formData.service 
+        ? `[Service: ${formData.service}]\n\n${formData.message}`
+        : formData.message;
 
-      toast({
-        title: "Message envoyé avec succès!",
-        description: "Nous vous contacterons dans les plus brefs délais. Merci!",
+      await sendContactEmail({
+        nom: formData.nom,
+        telephone: formData.telephone,
+        courriel: formData.courriel,
+        message: messageWithService,
       });
-      setFormData({ nom: "", telephone: "", courriel: "", message: "" });
+
+      setIsSuccess(true);
+      toast({
+        title: "Message envoyé!",
+        description: "Nous vous répondrons dans les 24 heures.",
+      });
+
+      setFormData({ nom: "", telephone: "", courriel: "", message: "", service: "" });
     } catch (error) {
+      console.error("Erreur envoi:", error);
       toast({
         title: "Erreur",
-        description: "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
+        description: "Une erreur est survenue. Appelez-nous au 418-805-0063.",
         variant: "destructive",
       });
-      console.error("Submit error:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   return (
-    <div className="min-h-screen bg-bg text-white">
-      {/* Hero Section */}
-      <section className="py-16 md:py-24 bg-bg border-b-4 border-accent-yellow">
+    <div className="min-h-screen bg-bg text-white font-body">
+      
+      {/* HEADER */}
+      <section className="py-16 md:py-20 bg-bg border-b border-accent-yellow/20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl">
-            <span className="text-accent-yellow text-sm font-bold uppercase tracking-widest mb-4 block">
-              Contactez-nous
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading mb-6 leading-tight text-white">
-              Obtenez votre soumission gratuite
+            <div className="flex items-center gap-3 mb-6">
+              <span className="h-1 w-12 bg-accent-yellow" />
+              <span className="text-accent-yellow text-sm font-bold uppercase tracking-widest">
+                Contact
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-6 leading-tight">
+              Demandez votre
+              <br />
+              <span className="text-accent-yellow">soumission gratuite</span>
             </h1>
-            <p className="text-xl text-gray-300 leading-relaxed">
-              Réponse garantie en moins de 24 heures. Sans engagement, sans surprise.
+            <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
+              Réponse garantie en moins de 24 heures. Sans obligation de votre part.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Section - Split Layout */}
-      <section className="py-24 bg-bg">
+      {/* CONTENU PRINCIPAL */}
+      <section className="py-16 bg-bg">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 max-w-7xl mx-auto">
-            {/* Contact Info - 40% */}
-            <div className="lg:col-span-2 space-y-8">
-              <div>
-                <span className="text-accent-yellow text-sm font-bold uppercase tracking-widest mb-2 block">
-                  Rejoignez-nous
-                </span>
-                <h2 className="text-3xl md:text-4xl font-heading mb-6 text-white">Nos coordonnées</h2>
-              </div>
+          <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
+            
+            {/* FORMULAIRE - 3 colonnes */}
+            <div className="lg:col-span-3">
+              {isSuccess ? (
+                <div className="bg-green-900/20 border-2 border-green-500 p-8 text-center">
+                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                  <h2 className="text-2xl font-heading font-bold mb-2">Message envoyé!</h2>
+                  <p className="text-gray-300 mb-6">
+                    Nous avons bien reçu votre demande et vous répondrons dans les prochaines 24 heures.
+                  </p>
+                  <button
+                    onClick={() => setIsSuccess(false)}
+                    className="text-accent-yellow font-bold hover:underline"
+                  >
+                    Envoyer un autre message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Honeypot caché */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={hp}
+                    onChange={(e) => setHp(e.target.value)}
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
 
-              <div className="space-y-6">
-                <Card className="group bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-accent-yellow/10 p-3 group-hover:bg-accent-yellow transition-colors duration-300 rounded-none">
-                        <Phone className="h-6 w-6 text-accent-yellow group-hover:text-bg transition-colors duration-300" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors">Téléphone</h3>
-                        <a href="tel:+14188050063" className="text-gray-400 hover:text-accent-yellow transition-colors text-lg font-medium">
-                          418-805-0063
-                        </a>
-                        <p className="text-sm text-gray-500 mt-1">Service 24/7 disponible</p>
-                      </div>
+                  {/* Type de service */}
+                  <div>
+                    <label className="block text-sm font-bold mb-2 text-gray-300">
+                      Type de service souhaité
+                    </label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                      {serviceTypes.map((service) => (
+                        <button
+                          key={service}
+                          type="button"
+                          onClick={() => setFormData({ ...formData, service })}
+                          className={`px-4 py-3 text-sm font-medium transition-all border ${
+                            formData.service === service
+                              ? "bg-accent-yellow text-bg border-accent-yellow"
+                              : "bg-white/5 border-white/10 hover:border-accent-yellow/50"
+                          }`}
+                        >
+                          {service}
+                        </button>
+                      ))}
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
 
-                <Card className="group bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-accent-yellow/10 p-3 group-hover:bg-accent-yellow transition-colors duration-300 rounded-none">
-                        <Mail className="h-6 w-6 text-accent-yellow group-hover:text-bg transition-colors duration-300" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors">Courriel</h3>
-                        <a href="mailto:jsrdeneigement@gmail.com" className="text-gray-400 hover:text-accent-yellow transition-colors break-all font-medium">
-                          jsrdeneigement@gmail.com
-                        </a>
-                        <p className="text-sm text-gray-500 mt-1">Réponse sous 24h</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                  {/* Nom */}
+                  <div>
+                    <label htmlFor="nom" className="block text-sm font-bold mb-2 text-gray-300">
+                      Nom complet <span className="text-accent-yellow">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="nom"
+                      value={formData.nom}
+                      onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
+                      className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:border-accent-yellow focus:outline-none transition-colors"
+                      placeholder="Votre nom"
+                      required
+                    />
+                  </div>
 
-                <Card className="group bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-accent-yellow/10 p-3 group-hover:bg-accent-yellow transition-colors duration-300 rounded-none">
-                        <MapPin className="h-6 w-6 text-accent-yellow group-hover:text-bg transition-colors duration-300" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors">Adresse</h3>
-                        <p className="text-gray-400 font-medium">
-                          303 rue des Mélèzes<br />
-                          Saint-Raymond (QC)
-                        </p>
-                        <p className="text-sm text-gray-500 mt-2">RBQ : 5804-4926-01</p>
-                        <p className="text-sm text-gray-500">Assurance responsabilité ✓</p>
-                      </div>
+                  {/* Téléphone et Courriel */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="telephone" className="block text-sm font-bold mb-2 text-gray-300">
+                        Téléphone <span className="text-accent-yellow">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        id="telephone"
+                        value={formData.telephone}
+                        onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
+                        className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:border-accent-yellow focus:outline-none transition-colors"
+                        placeholder="418-555-1234"
+                        required
+                      />
                     </div>
-                  </CardContent>
-                </Card>
+                    <div>
+                      <label htmlFor="courriel" className="block text-sm font-bold mb-2 text-gray-300">
+                        Courriel <span className="text-accent-yellow">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        id="courriel"
+                        value={formData.courriel}
+                        onChange={(e) => setFormData({ ...formData, courriel: e.target.value })}
+                        className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:border-accent-yellow focus:outline-none transition-colors"
+                        placeholder="votre@courriel.com"
+                        required
+                      />
+                    </div>
+                  </div>
 
-                <Card className="group bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-accent-yellow/10 p-3 group-hover:bg-accent-yellow transition-colors duration-300 rounded-none">
-                        <Clock className="h-6 w-6 text-accent-yellow group-hover:text-bg transition-colors duration-300" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg mb-2 text-white group-hover:text-accent-yellow transition-colors">Disponibilité</h3>
-                        <div className="text-gray-400 space-y-1 font-medium">
-                          <p className="text-base font-bold text-accent-yellow">24/7 en saison (déneigement)</p>
-                          <p className="text-base">Lundi - Vendredi: 7h - 18h</p>
-                          <p className="text-base">Samedi: Sur appel</p>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+                  {/* Message */}
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-bold mb-2 text-gray-300">
+                      Décrivez votre projet <span className="text-accent-yellow">*</span>
+                    </label>
+                    <textarea
+                      id="message"
+                      rows={5}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:border-accent-yellow focus:outline-none transition-colors resize-none"
+                      placeholder="Décrivez votre projet, les dimensions approximatives, l'adresse des travaux..."
+                      required
+                    />
+                  </div>
+
+                  {/* Bouton submit */}
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !canSubmit}
+                    className="w-full bg-accent-yellow text-bg py-4 font-bold text-lg hover:bg-yellow-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Envoi en cours...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" />
+                        Envoyer ma demande
+                      </>
+                    )}
+                  </button>
+
+                  {!canSubmit && (
+                    <p className="text-sm text-red-400 text-center">
+                      Trop de tentatives. Attendez {resetTime}s ou appelez-nous.
+                    </p>
+                  )}
+                </form>
+              )}
             </div>
 
-            {/* Contact Form - 60% */}
-            <div className="lg:col-span-3">
-              <Card className="border-4 border-accent-yellow bg-zinc-900 rounded-none shadow-2xl">
-                <CardHeader>
-                  <CardTitle className="text-2xl md:text-3xl font-heading text-white">Demandez votre soumission</CardTitle>
-                  <p className="text-gray-400 mt-2">
-                    Décrivez votre projet et recevez une réponse en moins de 24h.
-                  </p>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Honeypot field (hidden from real users) */}
-                    <div className="hidden" aria-hidden="true">
-                      <label htmlFor="hp">Leave this field blank</label>
-                      <input
-                        type="text"
-                        id="hp"
-                        name="hp"
-                        value={hp}
-                        onChange={(e) => setHp(e.target.value)}
-                        tabIndex={-1}
-                        autoComplete="off"
-                      />
-                    </div>
+            {/* INFOS CONTACT - 2 colonnes */}
+            <div className="lg:col-span-2 space-y-6">
+              
+              {/* Téléphone */}
+              <div className="bg-accent-yellow p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <Phone className="w-8 h-8 text-bg" />
+                  <div>
+                    <div className="text-bg/70 text-sm font-bold">Appelez-nous</div>
+                    <a href="tel:+14188050063" className="text-2xl font-heading font-black text-bg">
+                      418-805-0063
+                    </a>
+                  </div>
+                </div>
+                <p className="text-bg/80 text-sm">
+                  Réponse rapide, estimation par téléphone possible.
+                </p>
+              </div>
 
-                    <div>
-                      <label htmlFor="nom" className="block text-sm font-medium mb-2 text-white">
-                        Nom complet <span className="text-accent-yellow">*</span>
-                      </label>
-                      <Input
-                        type="text"
-                        id="nom"
-                        name="nom"
-                        value={formData.nom}
-                        onChange={handleChange}
-                        required
-                        className="h-14 border-2 border-zinc-700 bg-bg text-white focus:border-accent-yellow rounded-none"
-                        placeholder="VOTRE NOM"
-                      />
-                    </div>
+              {/* Courriel */}
+              <div className="bg-bg-soft border border-white/10 p-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <Mail className="w-6 h-6 text-accent-yellow" />
+                  <div>
+                    <div className="text-gray-400 text-sm">Courriel</div>
+                    <a href="mailto:info@jsr-solutions.ca" className="text-white font-bold hover:text-accent-yellow transition-colors">
+                      info@jsr-solutions.ca
+                    </a>
+                  </div>
+                </div>
+              </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label htmlFor="telephone" className="block text-sm font-medium mb-2 text-white">
-                          Téléphone <span className="text-accent-yellow">*</span>
-                        </label>
-                        <Input
-                          type="tel"
-                          id="telephone"
-                          name="telephone"
-                          value={formData.telephone}
-                          onChange={handleChange}
-                          required
-                          className="h-14 border-2 border-zinc-700 bg-bg text-white focus:border-accent-yellow rounded-none"
-                          placeholder="418-XXX-XXXX"
-                        />
-                      </div>
+              {/* Heures */}
+              <div className="bg-bg-soft border border-white/10 p-6">
+                <div className="flex items-center gap-4 mb-2">
+                  <Clock className="w-6 h-6 text-accent-yellow" />
+                  <div>
+                    <div className="text-gray-400 text-sm">Heures d'ouverture</div>
+                    <div className="text-white font-bold">Lun-Ven: 7h-18h</div>
+                    <div className="text-gray-400 text-sm">Urgences 24/7 en hiver</div>
+                  </div>
+                </div>
+              </div>
 
-                      <div>
-                        <label htmlFor="courriel" className="block text-sm font-medium mb-2 text-white">
-                          Courriel <span className="text-accent-yellow">*</span>
-                        </label>
-                        <Input
-                          type="email"
-                          id="courriel"
-                          name="courriel"
-                          value={formData.courriel}
-                          onChange={handleChange}
-                          required
-                          className="h-14 border-2 border-zinc-700 bg-bg text-white focus:border-accent-yellow rounded-none"
-                          placeholder="VOTRE@EMAIL.COM"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium mb-2 text-white">
-                        Décrivez votre projet <span className="text-accent-yellow">*</span>
-                      </label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        className="min-h-[160px] border-2 border-zinc-700 bg-bg text-white focus:border-accent-yellow resize-none rounded-none"
-                        placeholder="DÉCRIVEZ VOTRE PROJET EN DÉTAIL..."
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      size="lg"
-                      disabled={isSubmitting || !canSubmit}
-                      className="w-full bg-accent-yellow hover:bg-yellow-500 text-bg h-16 text-lg font-black uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-300 rounded-none disabled:opacity-50"
+              {/* Zones desservies */}
+              <div className="bg-bg-soft border border-white/10 p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <MapPin className="w-6 h-6 text-accent-yellow" />
+                  <div className="text-white font-bold">Zones desservies</div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {zones.map((zone) => (
+                    <span 
+                      key={zone}
+                      className="bg-white/5 px-3 py-1 text-sm text-gray-300"
                     >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                          Envoi en cours...
-                        </>
-                      ) : !canSubmit ? (
-                        `Veuillez attendre ${resetTime}s`
-                      ) : (
-                        "Envoyer le message"
-                      )}
-                    </Button>
+                      {zone}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-                    <p className="text-sm text-gray-500 text-center mt-4">
-                      En soumettant ce formulaire, vous acceptez d'être contacté par JSR Solutions
-                    </p>
-                  </form>
-                </CardContent>
-              </Card>
+              {/* Confiance */}
+              <div className="bg-industrial-gray border border-accent-yellow/30 p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <Shield className="w-6 h-6 text-accent-yellow" />
+                  <span className="font-bold">Entreprise certifiée</span>
+                </div>
+                <ul className="space-y-2 text-sm text-gray-300">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-accent-yellow" />
+                    Licence RBQ 5804-4926-01
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-accent-yellow" />
+                    Assurance responsabilité 2M$
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-accent-yellow" />
+                    15+ années d'expérience
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quick Contact CTA */}
-      <section className="py-16 bg-accent-yellow">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl md:text-3xl font-heading mb-4 text-bg">
-            Besoin d'une intervention urgente?
-          </h3>
-          <p className="text-lg text-bg/80 mb-6">
-            Notre équipe est disponible 24/7 en saison de déneigement.
-          </p>
-          <Button asChild size="lg" className="bg-bg hover:bg-black text-white text-lg px-8 py-6 font-bold">
-            <a href="tel:+14188050063" className="flex items-center gap-2">
-              <Phone className="h-5 w-5" />
-              Appeler: 418-805-0063
-            </a>
-          </Button>
+      {/* FAQ RAPIDE */}
+      <section className="py-16 bg-industrial-gray">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-heading font-black text-center mb-10">
+            Questions <span className="text-accent-yellow">fréquentes</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="bg-bg p-6 border border-white/10">
+              <h3 className="font-bold mb-2">Délai pour une soumission?</h3>
+              <p className="text-gray-400 text-sm">
+                Nous répondons généralement dans les 24 heures suivant votre demande.
+              </p>
+            </div>
+            <div className="bg-bg p-6 border border-white/10">
+              <h3 className="font-bold mb-2">La soumission est-elle gratuite?</h3>
+              <p className="text-gray-400 text-sm">
+                Oui, toutes nos soumissions sont gratuites et sans obligation.
+              </p>
+            </div>
+            <div className="bg-bg p-6 border border-white/10">
+              <h3 className="font-bold mb-2">Servez-vous ma région?</h3>
+              <p className="text-gray-400 text-sm">
+                Nous desservons la grande région de Québec et ses environs.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </div>

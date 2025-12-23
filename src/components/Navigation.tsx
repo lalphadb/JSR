@@ -1,76 +1,210 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import jsrLogoWebp from "@/assets/jsr-logo-transparent.webp";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import jsrLogoPng from "@/assets/jsr-logo-transparent.png";
 
-export function Navigation() {
+const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Fonction pour naviguer vers une section de Services
+  const navigateToService = (sectionId: string) => {
+    setServicesOpen(false);
+    setIsOpen(false);
+    
+    if (location.pathname === "/services") {
+      // Déjà sur la page, scroll direct
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const offset = 160;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      }
+    } else {
+      // Naviguer vers /services puis scroll
+      navigate("/services");
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const offset = 160;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        }
+      }, 100);
+    }
+  };
 
   return (
-    <header className="w-full bg-bg border-b-3 border-accent-yellow sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <header className="w-full bg-bg/95 backdrop-blur-sm border-b-4 border-accent-yellow sticky top-0 z-50">
+      {/* Bandeau supérieur */}
+      <div className="bg-accent-yellow text-bg py-1.5 text-center text-sm font-medium hidden md:block">
+        <span className="inline-flex items-center gap-2">
+          <Phone className="w-4 h-4" />
+          <strong>Service rapide :</strong> Appelez maintenant{" "}
+          <a href="tel:+14188050063" className="font-bold hover:underline">418-805-0063</a>
+          {" "}• Soumission gratuite en 24h
+        </span>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
           <picture>
-            <source type="image/webp" srcSet={jsrLogoWebp} />
-            <img src={jsrLogoPng} alt="JSR Solutions" className="h-10" />
+            <img src={jsrLogoPng} alt="JSR Solutions" className="h-12" />
           </picture>
-          <div className="text-xs text-textc-secondary leading-tight hidden sm:block">
-            <div className="font-heading text-sm text-textc-primary">
-              JSR SOLUTIONS
-            </div>
-            <div>Déneigement • Excavation • Terrassement</div>
+          <div className="hidden sm:block">
+            <span className="text-xl font-black text-white">JSR SOLUTIONS</span>
+            <span className="block text-xs text-gray-400">Déneigement • Excavation • Terrassement</span>
           </div>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6 text-xs font-heading uppercase" aria-label="Navigation principale">
-          <Link to="/" className="text-textc-primary hover:text-accent-yellow transition-colors">Accueil</Link>
-          <Link to="/services" className="text-textc-primary hover:text-accent-yellow transition-colors">Services</Link>
-          <Link to="/realisations" className="text-textc-primary hover:text-accent-yellow transition-colors">Réalisations</Link>
-          <Link to="/a-propos" className="text-textc-primary hover:text-accent-yellow transition-colors">À propos</Link>
+        {/* Navigation Desktop */}
+        <nav className="hidden lg:flex items-center gap-1">
+          <Link
+            to="/"
+            className="px-4 py-2 text-textc-primary hover:text-accent-yellow transition-colors font-medium"
+          >
+            Accueil
+          </Link>
+
+          {/* Menu Services avec dropdown */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
+          >
+            <button
+              className="px-4 py-2 text-textc-primary hover:text-accent-yellow transition-colors font-medium flex items-center gap-1"
+              onClick={() => navigate("/services")}
+            >
+              Services
+              <ChevronDown className="w-4 h-4" />
+            </button>
+            <div
+              className={`absolute top-full left-0 bg-bg border border-accent-yellow/30 min-w-[200px] py-2 shadow-xl transition-all duration-200 ${servicesOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+            >
+              <button 
+                onClick={() => navigateToService("excavation")} 
+                className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
+              >
+                🚜 Excavation
+              </button>
+              <button 
+                onClick={() => navigateToService("terrassement")} 
+                className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
+              >
+                🏗️ Terrassement
+              </button>
+              <button 
+                onClick={() => navigateToService("deneigement")} 
+                className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
+              >
+                ❄️ Déneigement
+              </button>
+              <button 
+                onClick={() => navigateToService("construction")} 
+                className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
+              >
+                🔨 Construction
+              </button>
+              <div className="border-t border-accent-yellow/20 mt-2 pt-2">
+                <Link to="/services" className="block px-4 py-2 text-accent-yellow font-medium hover:bg-accent-yellow/10 transition-colors">
+                  Voir tous les services →
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <Link
+            to="/realisations"
+            className="px-4 py-2 text-textc-primary hover:text-accent-yellow transition-colors font-medium"
+          >
+            Réalisations
+          </Link>
+          <Link
+            to="/a-propos"
+            className="px-4 py-2 text-textc-primary hover:text-accent-yellow transition-colors font-medium"
+          >
+            À propos
+          </Link>
+
+          {/* Téléphone */}
+          <a
+            href="tel:+14188050063"
+            className="flex items-center gap-2 px-4 py-2 text-textc-primary hover:text-accent-yellow transition-colors font-medium"
+          >
+            <Phone className="w-4 h-4" />
+            418-805-0063
+          </a>
+
+          {/* CTA Principal */}
           <Link
             to="/contact"
-            className="bg-accent-yellow text-bg px-4 py-2 border-3 border-accent-yellow hover:bg-bg hover:text-accent-yellow transition-colors font-bold"
+            className="ml-2 bg-accent-yellow text-bg px-6 py-3 font-bold text-base hover:bg-yellow-400 hover:scale-105 transition-all duration-300 shadow-lg shadow-accent-yellow/30 animate-pulse-subtle"
           >
-            Soumission
+            SOUMISSION GRATUITE
           </Link>
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-textc-primary"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-expanded={isOpen}
-          aria-controls="mobile-navigation"
-          aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
-        >
-          {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
-        </button>
+        {/* Mobile: Téléphone + Menu */}
+        <div className="lg:hidden flex items-center gap-2">
+          <a
+            href="tel:+14188050063"
+            className="bg-accent-yellow text-bg p-2 rounded"
+          >
+            <Phone className="w-5 h-5" />
+          </a>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-textc-primary hover:text-accent-yellow p-2"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile Menu */}
       {isOpen && (
-        <nav
-          id="mobile-navigation"
-          className="md:hidden bg-bg border-t border-accent-yellow/20 p-4 flex flex-col gap-4 text-sm font-heading uppercase"
-          aria-label="Navigation mobile"
-        >
-          <Link to="/" className="text-textc-primary" onClick={() => setIsOpen(false)}>Accueil</Link>
-          <Link to="/services" className="text-textc-primary" onClick={() => setIsOpen(false)}>Services</Link>
-          <Link to="/realisations" className="text-textc-primary" onClick={() => setIsOpen(false)}>Réalisations</Link>
-          <Link to="/a-propos" className="text-textc-primary" onClick={() => setIsOpen(false)}>À propos</Link>
-          <Link
-            to="/contact"
-            className="bg-accent-yellow text-bg px-4 py-2 border-3 border-accent-yellow text-center font-bold"
-            onClick={() => setIsOpen(false)}
-          >
-            Soumission
-          </Link>
-        </nav>
+        <div className="lg:hidden bg-bg border-t border-accent-yellow/30 py-4 px-4">
+          <nav className="flex flex-col space-y-1">
+            <Link to="/" className="py-3 px-4 text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors" onClick={() => setIsOpen(false)}>
+              Accueil
+            </Link>
+            <Link to="/services" className="py-3 px-4 text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors font-medium" onClick={() => setIsOpen(false)}>
+              Services
+            </Link>
+            <button onClick={() => navigateToService("excavation")} className="py-2 px-6 text-left text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors block">
+              🚜 Excavation
+            </button>
+            <button onClick={() => navigateToService("terrassement")} className="py-2 px-6 text-left text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors block">
+              🏗️ Terrassement
+            </button>
+            <button onClick={() => navigateToService("deneigement")} className="py-2 px-6 text-left text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors block">
+              ❄️ Déneigement
+            </button>
+            <button onClick={() => navigateToService("construction")} className="py-2 px-6 text-left text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors block">
+              🔨 Construction
+            </button>
+            <Link to="/realisations" className="py-3 px-4 text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors" onClick={() => setIsOpen(false)}>
+              Réalisations
+            </Link>
+            <Link to="/a-propos" className="py-3 px-4 text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors" onClick={() => setIsOpen(false)}>
+              À propos
+            </Link>
+            <Link to="/contact" className="mt-4 bg-accent-yellow text-bg py-3 px-4 rounded font-bold text-center" onClick={() => setIsOpen(false)}>
+              SOUMISSION GRATUITE
+            </Link>
+          </nav>
+        </div>
       )}
     </header>
   );
-}
+};
 
 export default Navigation;
+
+export { Navigation };
