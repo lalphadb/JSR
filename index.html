@@ -32,13 +32,248 @@
     <meta name="twitter:image" content="https://jsr-solutions.ca/og-image.jpg" />
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#ffcc00" />
-    <meta name="msapplication-TileColor" content="#1a1a1a" />
+    <meta name="theme-color" content="#E4A11B" />
+    <meta name="msapplication-TileColor" content="#101010" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Schema.org LocalBusiness + Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://jsr-solutions.ca/#business",
+          "name": "JSR Solutions",
+          "alternateName": "JSR Déneigement & Excavation",
+          "description": "Services professionnels d'excavation, déneigement et construction spécialisée dans la région de Québec. Licence RBQ, assurance 2M$, service 24/7 en hiver.",
+          "url": "https://jsr-solutions.ca",
+          "telephone": "+1-418-805-0063",
+          "email": "jsrdeneigement@gmail.com",
+          "foundingDate": "2010",
+          "priceRange": "$$",
+          "currenciesAccepted": "CAD",
+          "paymentAccepted": "Cash, Cheque, Credit Card, Debit Card, Interac",
+          "image": [
+            "https://jsr-solutions.ca/og-image.jpg"
+          ],
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://jsr-solutions.ca/favicon.svg"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "303 rue des Mélèzes",
+            "addressLocality": "Saint-Raymond",
+            "addressRegion": "QC",
+            "postalCode": "G3L 4B6",
+            "addressCountry": "CA"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 46.8977,
+            "longitude": -71.8364
+          },
+          "areaServed": [
+            {
+              "@type": "City",
+              "name": "Saint-Raymond",
+              "containedInPlace": { "@type": "AdministrativeArea", "name": "Québec" }
+            },
+            {
+              "@type": "City",
+              "name": "Lac-Saint-Charles"
+            },
+            {
+              "@type": "City",
+              "name": "Stoneham-et-Tewkesbury"
+            },
+            {
+              "@type": "City",
+              "name": "Val-Bélair"
+            },
+            {
+              "@type": "City",
+              "name": "Saint-Émile"
+            },
+            {
+              "@type": "City",
+              "name": "Portneuf"
+            },
+            {
+              "@type": "City",
+              "name": "Saint-Gabriel-de-Valcartier"
+            },
+            {
+              "@type": "City",
+              "name": "Québec"
+            }
+          ],
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              "opens": "07:00",
+              "closes": "18:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Saturday"],
+              "opens": "08:00",
+              "closes": "12:00"
+            }
+          ],
+          "hasCredential": [
+            {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Professional License",
+              "name": "Licence RBQ",
+              "identifier": "5804-4926-01",
+              "recognizedBy": {
+                "@type": "GovernmentOrganization",
+                "name": "Régie du bâtiment du Québec",
+                "url": "https://www.rbq.gouv.qc.ca"
+              }
+            }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Services JSR Solutions",
+            "itemListElement": [
+              {
+                "@type": "OfferCatalog",
+                "name": "Excavation",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Excavation de fondations",
+                      "description": "Creusage professionnel pour fondations résidentielles et commerciales"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Installation de drains français",
+                      "description": "Systèmes de drainage pour protéger les fondations"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Excavation de piscines creusées",
+                      "description": "Préparation de terrain pour piscines"
+                    }
+                  }
+                ]
+              },
+              {
+                "@type": "OfferCatalog",
+                "name": "Déneigement",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Déneigement résidentiel",
+                      "description": "Service de déneigement pour entrées et stationnements résidentiels"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Déneigement commercial",
+                      "description": "Contrats saisonniers pour entreprises et commerces"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Service d'urgence 24/7",
+                      "description": "Intervention rapide lors des tempêtes de neige"
+                    }
+                  }
+                ]
+              },
+              {
+                "@type": "OfferCatalog",
+                "name": "Terrassement",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Nivellement de terrain",
+                      "description": "Préparation et nivellement pour construction ou aménagement"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Aménagement de stationnement",
+                      "description": "Préparation de surfaces pour stationnements"
+                    }
+                  }
+                ]
+              },
+              {
+                "@type": "OfferCatalog",
+                "name": "Construction extérieure",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Construction de terrasses",
+                      "description": "Terrasses en bois traité ou composite"
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Escaliers extérieurs",
+                      "description": "Construction d'escaliers durables"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "sameAs": []
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://jsr-solutions.ca/#website",
+          "url": "https://jsr-solutions.ca",
+          "name": "JSR Solutions",
+          "description": "Site officiel de JSR Solutions - Excavation, Déneigement et Construction",
+          "publisher": { "@id": "https://jsr-solutions.ca/#business" },
+          "inLanguage": "fr-CA"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://jsr-solutions.ca/#webpage",
+          "url": "https://jsr-solutions.ca",
+          "name": "JSR Solutions - Excavation, Déneigement & Construction Spécialisée",
+          "isPartOf": { "@id": "https://jsr-solutions.ca/#website" },
+          "about": { "@id": "https://jsr-solutions.ca/#business" },
+          "description": "Services professionnels d'excavation, déneigement et construction spécialisée à Saint-Raymond et région de Québec. Licence RBQ, assurance 2M$.",
+          "inLanguage": "fr-CA"
+        }
+      ]
+    }
+    </script>
 
     <title>JSR Solutions - Excavation, Déneigement & Construction Spécialisée</title>
   </head>
