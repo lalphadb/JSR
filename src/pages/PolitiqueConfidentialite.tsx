@@ -1,12 +1,13 @@
-import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Shield, Lock, Eye, FileText, Mail, Phone } from "lucide-react";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const PolitiqueConfidentialite = () => {
-  useEffect(() => {
-    document.title = "Politique de confidentialité - JSR Pro Solutions";
-    window.scrollTo(0, 0);
-  }, []);
+  usePageMeta({
+    title: "Politique de confidentialité",
+    description: "Politique de confidentialité de JSR Solutions conforme à la Loi 25. Découvrez comment nous protégeons vos renseignements personnels.",
+    canonicalPath: "/confidentialite",
+  });
 
   const sections = [
     {
@@ -14,7 +15,7 @@ const PolitiqueConfidentialite = () => {
       title: "Protection de vos données",
       emoji: "🔒",
       content: [
-        "Chez JSR Pro Solutions, nous prenons très au sérieux la protection de vos renseignements personnels. Cette politique de confidentialité décrit comment nous recueillons, utilisons, divulguons et protégeons vos informations personnelles conformément aux lois québécoises et canadiennes applicables, notamment la Loi 25 modifiant la Loi sur la protection des renseignements personnels dans le secteur privé."
+        "Chez JSR Solutions, nous prenons très au sérieux la protection de vos renseignements personnels. Cette politique de confidentialité décrit comment nous recueillons, utilisons, divulguons et protégeons vos informations personnelles conformément aux lois québécoises et canadiennes applicables, notamment la Loi 25 modifiant la Loi sur la protection des renseignements personnels dans le secteur privé."
       ]
     },
     {
@@ -51,7 +52,7 @@ const PolitiqueConfidentialite = () => {
       title: "Protection et conservation",
       emoji: "🛡️",
       content: [
-        "JSR Pro Solutions met en œuvre des mesures de sécurité appropriées pour protéger vos renseignements personnels contre tout accès, modification, divulgation ou destruction non autorisés.",
+        "JSR Solutions met en œuvre des mesures de sécurité appropriées pour protéger vos renseignements personnels contre tout accès, modification, divulgation ou destruction non autorisés.",
         "",
         "Conservation des données :",
         "• Vos renseignements sont conservés uniquement le temps nécessaire pour accomplir les fins pour lesquelles ils ont été recueillis",
@@ -76,10 +77,10 @@ const PolitiqueConfidentialite = () => {
           <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight uppercase text-white">
             Politique de confidentialité
           </h1>
-          <p className="text-xl md:text-2xl max-w-4xl mx-auto text-gray-300 leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl max-w-4xl mx-auto text-textc-primary leading-relaxed font-medium">
             Votre vie privée est importante pour nous. Découvrez comment nous protégeons vos renseignements personnels.
           </p>
-          <p className="text-sm text-gray-500 mt-6 font-bold uppercase">
+          <p className="text-sm text-textc-secondary/60 mt-6 font-bold uppercase">
             Dernière mise à jour : Janvier 2025
           </p>
         </div>
@@ -90,7 +91,7 @@ const PolitiqueConfidentialite = () => {
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="space-y-8">
             {sections.map((section, index) => (
-              <Card key={index} className="bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none">
+              <Card key={index} className="bg-bg-soft border-2 border-white/10 hover:border-accent-yellow transition-all duration-300 rounded-none">
                 <CardContent className="p-8">
                   <div className="flex items-start gap-4 mb-6">
                     <div className="bg-accent-yellow/10 p-3 rounded-none flex-shrink-0">
@@ -101,7 +102,7 @@ const PolitiqueConfidentialite = () => {
                         <span className="text-4xl">{section.emoji}</span>
                         <h2 className="text-3xl font-black uppercase text-white">{section.title}</h2>
                       </div>
-                      <div className="text-gray-300 leading-relaxed space-y-3 font-medium">
+                      <div className="text-textc-primary leading-relaxed space-y-3 font-medium">
                         {section.content.map((paragraph, idx) => (
                           <p key={idx} className={paragraph.startsWith('•') ? 'ml-4' : ''}>
                             {paragraph}
@@ -115,7 +116,7 @@ const PolitiqueConfidentialite = () => {
             ))}
 
             {/* Divulgation à des tiers */}
-            <Card className="bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none">
+            <Card className="bg-bg-soft border-2 border-white/10 hover:border-accent-yellow transition-all duration-300 rounded-none">
               <CardContent className="p-8">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="bg-accent-yellow/10 p-3 rounded-none flex-shrink-0">
@@ -126,9 +127,9 @@ const PolitiqueConfidentialite = () => {
                       <span className="text-4xl">🤝</span>
                       <h2 className="text-3xl font-black uppercase text-white">Divulgation à des tiers</h2>
                     </div>
-                    <div className="text-gray-300 leading-relaxed space-y-3 font-medium">
+                    <div className="text-textc-primary leading-relaxed space-y-3 font-medium">
                       <p>
-                        JSR Pro Solutions ne vend, ne loue ni n'échange vos renseignements personnels avec des tiers.
+                        JSR Solutions ne vend, ne loue ni n'échange vos renseignements personnels avec des tiers.
                       </p>
                       <p>
                         Nous pouvons divulguer vos renseignements personnels uniquement dans les cas suivants :
@@ -144,7 +145,7 @@ const PolitiqueConfidentialite = () => {
             </Card>
 
             {/* Vos droits */}
-            <Card className="bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none">
+            <Card className="bg-bg-soft border-2 border-white/10 hover:border-accent-yellow transition-all duration-300 rounded-none">
               <CardContent className="p-8">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="bg-accent-yellow/10 p-3 rounded-none flex-shrink-0">
@@ -155,7 +156,7 @@ const PolitiqueConfidentialite = () => {
                       <span className="text-4xl">⚖️</span>
                       <h2 className="text-3xl font-black uppercase text-white">Vos droits</h2>
                     </div>
-                    <div className="text-gray-300 leading-relaxed space-y-3 font-medium">
+                    <div className="text-textc-primary leading-relaxed space-y-3 font-medium">
                       <p>
                         Conformément à la législation québécoise, vous avez les droits suivants concernant vos renseignements personnels :
                       </p>
@@ -172,7 +173,7 @@ const PolitiqueConfidentialite = () => {
             </Card>
 
             {/* Cookies et technologies */}
-            <Card className="bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none">
+            <Card className="bg-bg-soft border-2 border-white/10 hover:border-accent-yellow transition-all duration-300 rounded-none">
               <CardContent className="p-8">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="bg-accent-yellow/10 p-3 rounded-none flex-shrink-0">
@@ -183,7 +184,7 @@ const PolitiqueConfidentialite = () => {
                       <span className="text-4xl">🍪</span>
                       <h2 className="text-3xl font-black uppercase text-white">Cookies et technologies similaires</h2>
                     </div>
-                    <div className="text-gray-300 leading-relaxed space-y-3 font-medium">
+                    <div className="text-textc-primary leading-relaxed space-y-3 font-medium">
                       <p>
                         Notre site web peut utiliser des cookies et des technologies similaires pour améliorer votre expérience de navigation. Les cookies sont de petits fichiers texte stockés sur votre appareil.
                       </p>
@@ -202,7 +203,7 @@ const PolitiqueConfidentialite = () => {
             </Card>
 
             {/* Modifications */}
-            <Card className="bg-zinc-900 border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none">
+            <Card className="bg-bg-soft border-2 border-white/10 hover:border-accent-yellow transition-all duration-300 rounded-none">
               <CardContent className="p-8">
                 <div className="flex items-start gap-4 mb-6">
                   <div className="bg-accent-yellow/10 p-3 rounded-none flex-shrink-0">
@@ -213,7 +214,7 @@ const PolitiqueConfidentialite = () => {
                       <span className="text-4xl">📝</span>
                       <h2 className="text-3xl font-black uppercase text-white">Modifications de la politique</h2>
                     </div>
-                    <div className="text-gray-300 leading-relaxed space-y-3 font-medium">
+                    <div className="text-textc-primary leading-relaxed space-y-3 font-medium">
                       <p>
                         Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Toute modification sera publiée sur cette page avec une date de mise à jour révisée.
                       </p>
@@ -228,37 +229,37 @@ const PolitiqueConfidentialite = () => {
           </div>
 
           {/* Contact Section */}
-          <Card className="mt-12 border-4 border-accent-yellow bg-zinc-900 rounded-none">
+          <Card className="mt-12 border-4 border-accent-yellow bg-bg-soft rounded-none">
             <CardContent className="p-8">
               <div className="text-center">
                 <h2 className="text-3xl font-black mb-6 uppercase text-white">Questions ou préoccupations ?</h2>
-                <p className="text-lg text-gray-300 mb-8 max-w-3xl mx-auto font-medium">
+                <p className="text-lg text-textc-primary mb-8 max-w-3xl mx-auto font-medium">
                   Si vous avez des questions concernant cette politique de confidentialité ou si vous souhaitez exercer vos droits, n'hésitez pas à nous contacter :
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                  <div className="flex items-center justify-center gap-3 p-4 bg-bg border-2 border-zinc-800 rounded-none">
+                  <div className="flex items-center justify-center gap-3 p-4 bg-bg border-2 border-white/10 rounded-none">
                     <Phone className="h-5 w-5 text-accent-yellow" />
                     <a href="tel:+14188050063" className="font-bold text-white hover:text-accent-yellow transition-colors">
                       418-805-0063
                     </a>
                   </div>
                   
-                  <div className="flex items-center justify-center gap-3 p-4 bg-bg border-2 border-zinc-800 rounded-none">
+                  <div className="flex items-center justify-center gap-3 p-4 bg-bg border-2 border-white/10 rounded-none">
                     <Mail className="h-5 w-5 text-accent-yellow" />
-                    <a href="mailto:info@jsrprosolutions.com" className="font-bold text-white hover:text-accent-yellow transition-colors">
-                      info@jsrprosolutions.com
+                    <a href="mailto:info@jsr-solutions.ca" className="font-bold text-white hover:text-accent-yellow transition-colors">
+                      info@jsr-solutions.ca
                     </a>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-zinc-800">
-                  <p className="text-sm text-gray-500">
+                <div className="mt-8 pt-8 border-t border-white/10">
+                  <p className="text-sm text-textc-secondary/60">
                     <strong className="text-white">Responsable de la protection des renseignements personnels :</strong><br />
-                    JSR Pro Solutions<br />
-                    303 rue des Mélèzes, Saint-Raymond (QC) G3L 0E8
+                    JSR Solutions<br />
+                    303 rue des Mélèzes, Saint-Raymond (QC) G3L 4B6
                   </p>
-                  <p className="text-sm text-gray-500 mt-4">
+                  <p className="text-sm text-textc-secondary/60 mt-4">
                     <strong className="text-white">Commission d'accès à l'information du Québec :</strong><br />
                     En cas de litige, vous pouvez contacter la CAI au 1-888-528-7741 ou consulter leur site web à{' '}
                     <a href="https://www.cai.gouv.qc.ca" target="_blank" rel="noopener noreferrer" className="text-accent-yellow hover:underline font-bold">

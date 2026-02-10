@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, Clock, Loader2, CheckCircle, Shield, Send } from "
 import { useToast } from "@/hooks/use-toast";
 import { useRateLimit } from "@/hooks/useRateLimit";
 import { sendContactEmail, ContactFormData } from "@/lib/backend-email";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const serviceTypes = [
   "Excavation",
@@ -25,6 +26,12 @@ const zones = [
 ];
 
 const Contact = () => {
+  usePageMeta({
+    title: "Contact et soumission gratuite",
+    description: "Demandez une soumission gratuite en excavation, déneigement ou terrassement. Réponse en moins de 24 heures. JSR Solutions, région de Québec.",
+    canonicalPath: "/contact",
+  });
+
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -46,7 +53,6 @@ const Contact = () => {
 
     // Honeypot check
     if (hp) {
-      console.log("Bot détecté");
       return;
     }
 
@@ -141,7 +147,7 @@ const Contact = () => {
               <br />
               <span className="text-accent-yellow">soumission gratuite</span>
             </h1>
-            <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
+            <p className="text-xl text-textc-primary leading-relaxed max-w-2xl">
               Réponse garantie en moins de 24 heures. Sans obligation de votre part.
             </p>
           </div>
@@ -156,10 +162,10 @@ const Contact = () => {
             {/* FORMULAIRE - 3 colonnes */}
             <div className="lg:col-span-3">
               {isSuccess ? (
-                <div className="bg-green-900/20 border-2 border-green-500 p-8 text-center">
-                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                <div className="bg-accent-yellow/10 border-2 border-accent-yellow p-8 text-center">
+                  <CheckCircle className="w-16 h-16 text-accent-yellow mx-auto mb-4" />
                   <h2 className="text-2xl font-heading font-bold mb-2">Message envoyé!</h2>
-                  <p className="text-gray-300 mb-6">
+                  <p className="text-textc-primary mb-6">
                     Nous avons bien reçu votre demande et vous répondrons dans les prochaines 24 heures.
                   </p>
                   <button
@@ -184,7 +190,7 @@ const Contact = () => {
 
                   {/* Type de service */}
                   <div>
-                    <label className="block text-sm font-bold mb-2 text-gray-300">
+                    <label className="block text-sm font-bold mb-2 text-textc-primary">
                       Type de service souhaité
                     </label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -207,47 +213,54 @@ const Contact = () => {
 
                   {/* Nom */}
                   <div>
-                    <label htmlFor="nom" className="block text-sm font-bold mb-2 text-gray-300">
+                    <label htmlFor="nom" className="block text-sm font-bold mb-2 text-textc-primary">
                       Nom complet <span className="text-accent-yellow">*</span>
                     </label>
-                    <input
-                      type="text"
-                      id="nom"
-                      value={formData.nom}
-                      onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
-                      className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:border-accent-yellow focus:outline-none transition-colors"
-                      placeholder="Votre nom"
-                      required
-                    />
+                  <input
+                    type="text"
+                    id="nom"
+                    name="nom"
+                    value={formData.nom}
+                    onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-white/40 focus:border-accent-yellow focus:outline-none transition-colors"
+                    placeholder="Votre nom"
+                    autoComplete="name"
+                    required
+                  />
                   </div>
 
                   {/* Téléphone et Courriel */}
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="telephone" className="block text-sm font-bold mb-2 text-gray-300">
+                      <label htmlFor="telephone" className="block text-sm font-bold mb-2 text-textc-primary">
                         Téléphone <span className="text-accent-yellow">*</span>
                       </label>
                       <input
                         type="tel"
                         id="telephone"
+                        name="telephone"
                         value={formData.telephone}
                         onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:border-accent-yellow focus:outline-none transition-colors"
+                        className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-white/40 focus:border-accent-yellow focus:outline-none transition-colors"
                         placeholder="418-555-1234"
+                        autoComplete="tel"
+                        inputMode="tel"
                         required
                       />
                     </div>
                     <div>
-                      <label htmlFor="courriel" className="block text-sm font-bold mb-2 text-gray-300">
+                      <label htmlFor="courriel" className="block text-sm font-bold mb-2 text-textc-primary">
                         Courriel <span className="text-accent-yellow">*</span>
                       </label>
                       <input
                         type="email"
                         id="courriel"
+                        name="courriel"
                         value={formData.courriel}
                         onChange={(e) => setFormData({ ...formData, courriel: e.target.value })}
-                        className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:border-accent-yellow focus:outline-none transition-colors"
+                        className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-white/40 focus:border-accent-yellow focus:outline-none transition-colors"
                         placeholder="votre@courriel.com"
+                        autoComplete="email"
                         required
                       />
                     </div>
@@ -255,16 +268,18 @@ const Contact = () => {
 
                   {/* Message */}
                   <div>
-                    <label htmlFor="message" className="block text-sm font-bold mb-2 text-gray-300">
+                    <label htmlFor="message" className="block text-sm font-bold mb-2 text-textc-primary">
                       Décrivez votre projet <span className="text-accent-yellow">*</span>
                     </label>
                     <textarea
                       id="message"
+                      name="message"
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:border-accent-yellow focus:outline-none transition-colors resize-none"
+                      className="w-full bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-white/40 focus:border-accent-yellow focus:outline-none transition-colors resize-none"
                       placeholder="Décrivez votre projet, les dimensions approximatives, l'adresse des travaux..."
+                      autoComplete="off"
                       required
                     />
                   </div>
@@ -273,7 +288,7 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting || !canSubmit}
-                    className="w-full bg-accent-yellow text-bg py-4 font-bold text-lg hover:bg-yellow-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-accent-yellow text-bg py-4 font-bold text-lg hover:bg-accent-yellow/80 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <>
@@ -289,7 +304,7 @@ const Contact = () => {
                   </button>
 
                   {!canSubmit && (
-                    <p className="text-sm text-red-400 text-center">
+                    <p className="text-sm text-accent-yellow text-center">
                       Trop de tentatives. Attendez {resetTime}s ou appelez-nous.
                     </p>
                   )}
@@ -321,7 +336,7 @@ const Contact = () => {
                 <div className="flex items-center gap-4 mb-2">
                   <Mail className="w-6 h-6 text-accent-yellow" />
                   <div>
-                    <div className="text-gray-400 text-sm">Courriel</div>
+                    <div className="text-textc-secondary text-sm">Courriel</div>
                     <a href="mailto:info@jsr-solutions.ca" className="text-white font-bold hover:text-accent-yellow transition-colors">
                       info@jsr-solutions.ca
                     </a>
@@ -334,9 +349,9 @@ const Contact = () => {
                 <div className="flex items-center gap-4 mb-2">
                   <Clock className="w-6 h-6 text-accent-yellow" />
                   <div>
-                    <div className="text-gray-400 text-sm">Heures d'ouverture</div>
+                    <div className="text-textc-secondary text-sm">Heures d'ouverture</div>
                     <div className="text-white font-bold">Lun-Ven: 7h-18h</div>
-                    <div className="text-gray-400 text-sm">Urgences 24/7 en hiver</div>
+                    <div className="text-textc-secondary text-sm">Urgences 24/7 en hiver</div>
                   </div>
                 </div>
               </div>
@@ -351,7 +366,7 @@ const Contact = () => {
                   {zones.map((zone) => (
                     <span 
                       key={zone}
-                      className="bg-white/5 px-3 py-1 text-sm text-gray-300"
+                      className="bg-white/5 px-3 py-1 text-sm text-textc-primary"
                     >
                       {zone}
                     </span>
@@ -365,7 +380,7 @@ const Contact = () => {
                   <Shield className="w-6 h-6 text-accent-yellow" />
                   <span className="font-bold">Entreprise certifiée</span>
                 </div>
-                <ul className="space-y-2 text-sm text-gray-300">
+                <ul className="space-y-2 text-sm text-textc-primary">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-accent-yellow" />
                     Licence RBQ 5804-4926-01
@@ -394,19 +409,19 @@ const Contact = () => {
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div className="bg-bg p-6 border border-white/10">
               <h3 className="font-bold mb-2">Délai pour une soumission?</h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-textc-secondary text-sm">
                 Nous répondons généralement dans les 24 heures suivant votre demande.
               </p>
             </div>
             <div className="bg-bg p-6 border border-white/10">
               <h3 className="font-bold mb-2">La soumission est-elle gratuite?</h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-textc-secondary text-sm">
                 Oui, toutes nos soumissions sont gratuites et sans obligation.
               </p>
             </div>
             <div className="bg-bg p-6 border border-white/10">
               <h3 className="font-bold mb-2">Servez-vous ma région?</h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-textc-secondary text-sm">
                 Nous desservons la grande région de Québec et ses environs.
               </p>
             </div>

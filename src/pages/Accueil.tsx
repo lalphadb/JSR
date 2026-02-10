@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Phone, Shield, Clock, Award, ChevronRight, Truck, Snowflake, HardHat, Star, CheckCircle, MapPin } from "lucide-react";
 import { PHOTOS } from "@/lib/photos";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 // Déterminer la saison actuelle (pour bannière modulable)
 const getCurrentSeason = () => {
@@ -19,21 +20,21 @@ const services = [
     title: "Excavation",
     desc: "Fondations, piscines, drains français et tranchées. Équipement moderne pour tous vos projets.",
     link: "/services#excavation",
-    image: PHOTOS.services.excavation.jpg1280,
+    image: PHOTOS.services.excavation,
   },
   {
     icon: Truck,
     title: "Terrassement",
     desc: "Préparation de terrain, nivellement et aménagement extérieur professionnel.",
     link: "/services#terrassement",
-    image: PHOTOS.services.terrassement.jpg1280,
+    image: PHOTOS.services.terrassement,
   },
   {
     icon: Snowflake,
     title: "Déneigement",
     desc: "Service résidentiel et commercial 24/7. Contrats saisonniers disponibles.",
     link: "/services#deneigement",
-    image: PHOTOS.services.deneigement.jpg1280,
+    image: PHOTOS.services.deneigement,
     featured: season === "winter",
   },
 ];
@@ -83,6 +84,12 @@ const testimonials = [
 ];
 
 export default function HomePage() {
+  usePageMeta({
+    title: "Excavation, déneigement et construction à Québec",
+    description: "JSR Solutions offre des services d'excavation, de déneigement et de construction spécialisée à Saint-Raymond et dans la région de Québec. Service 24/7 en hiver.",
+    canonicalPath: "/",
+  });
+
   return (
     <main className="bg-bg text-textc-primary font-body">
       
@@ -114,17 +121,25 @@ export default function HomePage() {
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         {/* Image de fond avec overlay saisonnier */}
         <div className="absolute inset-0">
-          <img
-            src={season === "winter" ? PHOTOS.services.deneigement.jpg1280 : PHOTOS.parcMachines.jpg1280}
-            alt="JSR Solutions - Machinerie en action"
-            className="w-full h-full object-cover"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcSet={season === "winter" ? PHOTOS.services.deneigement.webp640 : PHOTOS.parcMachines.webp640}
+            />
+            <img
+              src={season === "winter" ? PHOTOS.services.deneigement.jpg1280 : PHOTOS.parcMachines.jpg1280}
+              alt="JSR Solutions - Machinerie en action"
+              className="w-full h-full object-cover"
+              decoding="async"
+              fetchPriority="high"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/90 to-bg/50" />
         </div>
 
         {/* Badge saisonnier */}
         {season === "winter" && (
-          <div className="absolute top-4 right-4 md:top-8 md:right-8 bg-blue-600 text-white px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 animate-pulse">
+          <div className="absolute top-4 right-4 md:top-8 md:right-8 bg-industrial-gray border border-accent-yellow text-accent-yellow px-4 py-2 rounded-full font-bold text-sm flex items-center gap-2 animate-pulse">
             <Snowflake className="w-4 h-4" />
             Saison de déneigement active
           </div>
@@ -159,7 +174,7 @@ export default function HomePage() {
             </h1>
 
             {/* Sous-titre */}
-            <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-textc-primary max-w-2xl mb-8 leading-relaxed">
               {season === "winter" ? (
                 <>
                   Service résidentiel et commercial fiable. Contrats saisonniers disponibles.
@@ -177,7 +192,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center gap-4 mb-8">
               <Link
                 to="/contact"
-                className="group bg-accent-yellow text-bg px-8 py-4 font-bold text-lg hover:bg-yellow-400 transition-all duration-300 flex items-center gap-2 shadow-xl shadow-accent-yellow/20"
+                className="group bg-accent-yellow text-bg px-8 py-4 font-bold text-lg hover:bg-accent-yellow/80 transition-all duration-300 flex items-center gap-2 shadow-xl shadow-accent-yellow/20"
               >
                 Soumission gratuite
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -195,15 +210,15 @@ export default function HomePage() {
             <div className="flex flex-wrap gap-8 text-sm">
               <div>
                 <div className="text-3xl font-heading font-black text-accent-yellow">15+</div>
-                <div className="text-gray-400">Années d'expérience</div>
+                <div className="text-textc-secondary">Années d'expérience</div>
               </div>
               <div>
                 <div className="text-3xl font-heading font-black text-accent-yellow">500+</div>
-                <div className="text-gray-400">Projets complétés</div>
+                <div className="text-textc-secondary">Projets complétés</div>
               </div>
               <div>
                 <div className="text-3xl font-heading font-black text-accent-yellow">24/7</div>
-                <div className="text-gray-400">Service en saison</div>
+                <div className="text-textc-secondary">Service en saison</div>
               </div>
             </div>
           </div>
@@ -237,11 +252,16 @@ export default function HomePage() {
                   </div>
                 )}
                 <div className="h-48 overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+                  <picture>
+                    <source type="image/webp" srcSet={service.image.webp640} />
+                    <img
+                      src={service.image.jpg1280}
+                      alt={service.image.alt}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">

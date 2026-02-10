@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Phone, ArrowRight, Filter, MapPin, Calendar, X } from "lucide-react";
 import { PHOTOS } from "@/lib/photos";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 type Project = {
   id: number;
@@ -75,10 +76,64 @@ const categories = ["Tous", "Excavation", "Terrassement", "Déneigement", "Drain
 const Realisations = () => {
   const [activeFilter, setActiveFilter] = useState("Tous");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
 
   const filteredProjects = activeFilter === "Tous" 
     ? projects 
     : projects.filter(p => p.category === activeFilter);
+
+  usePageMeta({
+    title: "Réalisations en excavation et déneigement",
+    description: "Découvrez nos réalisations en excavation, terrassement, drains et déneigement dans la région de Québec. Projets récents et savoir-faire local.",
+    canonicalPath: "/realisations",
+  });
+
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    lastFocusedRef.current = document.activeElement as HTMLElement | null;
+    closeButtonRef.current?.focus();
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedProject(null);
+        return;
+      }
+
+      if (event.key !== "Tab" || !modalRef.current) return;
+
+      const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+      lastFocusedRef.current?.focus();
+    };
+  }, [selectedProject]);
 
   return (
     <div className="min-h-screen bg-bg text-white font-body">
@@ -96,7 +151,7 @@ const Realisations = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-6 leading-tight">
               Nos <span className="text-accent-yellow">réalisations</span>
             </h1>
-            <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">
+            <p className="text-xl text-textc-primary leading-relaxed max-w-2xl">
               Découvrez nos projets complétés dans la région de Québec. 
               Chaque chantier reflète notre engagement envers la qualité et la satisfaction client.
             </p>
@@ -135,16 +190,25 @@ const Realisations = () => {
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
-                className="group bg-bg-soft border border-white/10 overflow-hidden hover:border-accent-yellow/50 transition-all duration-300 cursor-pointer"
+                className="group bg-bg-soft border border-white/10 overflow-hidden hover:border-accent-yellow/50 transition-all duration-300 cursor-pointer focus-within:border-accent-yellow/50"
+                role="button"
+                tabIndex={0}
                 onClick={() => setSelectedProject(project)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedProject(project); } }}
+                aria-label={`Voir les détails du projet : ${project.title}`}
               >
                 {/* Image */}
                 <div className="relative h-56 overflow-hidden">
-                  <img
-                    src={project.image.jpg1280}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+                  <picture>
+                    <source type="image/webp" srcSet={project.image.webp640} />
+                    <img
+                      src={project.image.jpg1280}
+                      alt={project.image.alt}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent" />
                   
                   {/* Badge catégorie */}
@@ -159,7 +223,7 @@ const Realisations = () => {
                     {project.title}
                   </h3>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
+                  <div className="flex items-center gap-4 text-sm text-textc-secondary mb-3">
                     <span className="flex items-center gap-1">
                       <MapPin className="w-4 h-4" />
                       {project.location}
@@ -170,7 +234,7 @@ const Realisations = () => {
                     </span>
                   </div>
                   
-                  <p className="text-gray-400 text-sm line-clamp-2">
+                  <p className="text-textc-secondary text-sm line-clamp-2">
                     {project.description}
                   </p>
                   
@@ -185,7 +249,7 @@ const Realisations = () => {
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-400">Aucun projet trouvé pour cette catégorie.</p>
+              <p className="text-textc-secondary">Aucun projet trouvé pour cette catégorie.</p>
             </div>
           )}
         </div>
@@ -198,19 +262,29 @@ const Realisations = () => {
           onClick={() => setSelectedProject(null)}
         >
           <div 
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
             className="bg-bg-soft max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-accent-yellow/30"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header modal */}
             <div className="relative">
-              <img
-                src={selectedProject.image.jpg1280}
-                alt={selectedProject.title}
-                className="w-full h-64 md:h-80 object-cover"
-              />
+              <picture>
+                <source type="image/webp" srcSet={selectedProject.image.webp640} />
+                <img
+                  src={selectedProject.image.jpg1280}
+                  alt={selectedProject.image.alt}
+                  className="w-full h-64 md:h-80 object-cover"
+                  decoding="async"
+                />
+              </picture>
               <button
                 onClick={() => setSelectedProject(null)}
+                ref={closeButtonRef}
                 className="absolute top-4 right-4 bg-bg/80 p-2 hover:bg-accent-yellow hover:text-bg transition-colors"
+                aria-label="Fermer la fenêtre"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -221,11 +295,11 @@ const Realisations = () => {
 
             {/* Contenu modal */}
             <div className="p-6 md:p-8">
-              <h2 className="text-2xl md:text-3xl font-heading font-black mb-4">
+              <h2 id="project-modal-title" className="text-2xl md:text-3xl font-heading font-black mb-4">
                 {selectedProject.title}
               </h2>
               
-              <div className="flex flex-wrap gap-4 text-sm text-gray-400 mb-6">
+              <div className="flex flex-wrap gap-4 text-sm text-textc-secondary mb-6">
                 <span className="flex items-center gap-2 bg-white/5 px-3 py-1 rounded">
                   <MapPin className="w-4 h-4 text-accent-yellow" />
                   {selectedProject.location}
@@ -236,14 +310,14 @@ const Realisations = () => {
                 </span>
               </div>
               
-              <p className="text-gray-300 leading-relaxed mb-8">
+              <p className="text-textc-primary leading-relaxed mb-8">
                 {selectedProject.description}
               </p>
 
               <div className="flex flex-wrap gap-4">
                 <Link
                   to="/contact"
-                  className="bg-accent-yellow text-bg px-6 py-3 font-bold hover:bg-yellow-400 transition-all flex items-center gap-2"
+                  className="bg-accent-yellow text-bg px-6 py-3 font-bold hover:bg-accent-yellow/80 transition-all flex items-center gap-2"
                   onClick={() => setSelectedProject(null)}
                 >
                   Projet similaire? Contactez-nous
@@ -268,19 +342,19 @@ const Realisations = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-4xl md:text-5xl font-heading font-black text-accent-yellow mb-2">500+</div>
-              <div className="text-gray-400">Projets complétés</div>
+              <div className="text-textc-secondary">Projets complétés</div>
             </div>
             <div>
               <div className="text-4xl md:text-5xl font-heading font-black text-accent-yellow mb-2">15+</div>
-              <div className="text-gray-400">Années d'expérience</div>
+              <div className="text-textc-secondary">Années d'expérience</div>
             </div>
             <div>
               <div className="text-4xl md:text-5xl font-heading font-black text-accent-yellow mb-2">100%</div>
-              <div className="text-gray-400">Clients satisfaits</div>
+              <div className="text-textc-secondary">Clients satisfaits</div>
             </div>
             <div>
               <div className="text-4xl md:text-5xl font-heading font-black text-accent-yellow mb-2">24/7</div>
-              <div className="text-gray-400">Service en saison</div>
+              <div className="text-textc-secondary">Service en saison</div>
             </div>
           </div>
         </div>

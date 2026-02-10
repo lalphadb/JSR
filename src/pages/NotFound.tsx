@@ -1,8 +1,15 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Home, Phone, Wrench } from "lucide-react";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const NotFound = () => {
+  usePageMeta({
+    title: "Page non trouvée",
+    description: "La page demandée est introuvable. Revenez à l'accueil ou découvrez nos services.",
+    canonicalPath: "/",
+  });
+
   return (
     <div className="min-h-[70vh] flex items-center justify-center bg-bg px-4">
       <div className="text-center max-w-md mx-auto">
@@ -11,12 +18,12 @@ const NotFound = () => {
         </div>
         
         <h1 className="text-4xl font-black mb-2 text-white uppercase">Page non trouvée</h1>
-        <p className="text-gray-400 mb-8 text-lg font-medium">
+        <p className="text-textc-secondary mb-8 text-lg font-medium">
           Désolé, la page que vous recherchez n'existe pas ou a été déplacée.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button asChild size="lg" className="bg-accent-yellow hover:bg-yellow-500 text-bg font-bold rounded-none uppercase tracking-wider">
+          <Button asChild size="lg" className="bg-accent-yellow hover:bg-accent-yellow/80 text-bg font-bold rounded-none uppercase tracking-wider">
             <Link to="/" className="flex items-center gap-2">
               <Home className="w-4 h-4" />
               Retour à l'accueil
@@ -32,7 +39,7 @@ const NotFound = () => {
         </div>
         
         <div className="mt-6">
-          <Button asChild variant="ghost" size="lg" className="text-accent-yellow hover:text-yellow-400 hover:bg-transparent font-bold uppercase">
+          <Button asChild variant="ghost" size="lg" className="text-accent-yellow hover:text-accent-yellow/80 hover:bg-transparent font-bold uppercase">
             <a href="tel:+14188050063" className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
               Urgence : 418-805-0063

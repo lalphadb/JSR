@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Award, Users, Truck, ThumbsUp, Phone, ChevronRight, Shield, Clock } from "lucide-react";
 import { useCounterAnimation } from "@/hooks/useCounterAnimation";
-import { useEffect } from "react";
+import { usePageMeta } from "@/hooks/usePageMeta";
 import { PHOTOS } from "@/lib/photos";
 
 const APropos = () => {
@@ -11,14 +11,11 @@ const APropos = () => {
   const { count: projectsCount, ref: projectsRef } = useCounterAnimation(500, 2500);
   const { count: satisfactionCount, ref: satisfactionRef } = useCounterAnimation(100, 2000);
 
-  useEffect(() => {
-    document.title = "À propos de JSR Solutions – Expertise depuis 15 ans | Québec";
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute("content", "Découvrez JSR Solutions : 15 ans d'expertise en excavation, déneigement et terrassement à Québec. Équipe qualifiée et équipement moderne.");
-    }
-  }, []);
+  usePageMeta({
+    title: "À propos de JSR Solutions",
+    description: "Depuis plus de 15 ans, JSR Solutions accompagne les particuliers et entreprises en excavation, déneigement et terrassement dans la région de Québec.",
+    canonicalPath: "/a-propos",
+  });
 
   const values = [
     {
@@ -55,7 +52,7 @@ const APropos = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading mb-6 leading-tight text-white">
               Une équipe locale à votre service
             </h1>
-            <p className="text-xl text-gray-300 leading-relaxed">
+            <p className="text-xl text-textc-primary leading-relaxed">
               Depuis plus de 15 ans, JSR Solutions accompagne les particuliers et entreprises
               de la région de Québec dans leurs projets d'excavation, déneigement et construction.
             </p>
@@ -95,7 +92,7 @@ const APropos = () => {
                 Bâtie sur l'expérience du terrain
               </h2>
 
-              <div className="space-y-4 text-gray-300 leading-relaxed">
+              <div className="space-y-4 text-textc-primary leading-relaxed">
                 <p>
                   Fondée il y a plus de <strong className="text-accent-yellow">15 ans</strong>,
                   JSR Solutions s'est établie comme une référence dans le domaine de l'excavation,
@@ -114,11 +111,11 @@ const APropos = () => {
 
               {/* Badges */}
               <div className="flex flex-wrap gap-4 mt-8">
-                <div className="flex items-center gap-2 bg-zinc-900 px-4 py-2 border border-zinc-800">
+                <div className="flex items-center gap-2 bg-bg-soft px-4 py-2 border border-white/10">
                   <Shield className="w-5 h-5 text-accent-yellow" />
                   <span className="text-sm font-bold">RBQ 5804-4926-01</span>
                 </div>
-                <div className="flex items-center gap-2 bg-zinc-900 px-4 py-2 border border-zinc-800">
+                <div className="flex items-center gap-2 bg-bg-soft px-4 py-2 border border-white/10">
                   <Award className="w-5 h-5 text-accent-yellow" />
                   <span className="text-sm font-bold">Assuré</span>
                 </div>
@@ -163,7 +160,7 @@ const APropos = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-zinc-900">
+      <section className="py-20 bg-bg-soft">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <span className="text-accent-yellow text-sm font-bold uppercase tracking-widest mb-4 block">
@@ -172,7 +169,7 @@ const APropos = () => {
             <h2 className="text-3xl md:text-4xl font-heading mb-4 text-white">
               Nos valeurs
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-textc-secondary max-w-2xl mx-auto">
               Les principes qui guident notre travail au quotidien
             </p>
           </div>
@@ -181,7 +178,7 @@ const APropos = () => {
             {values.map((value, index) => (
               <Card
                 key={index}
-                className="group bg-bg border-2 border-zinc-800 hover:border-accent-yellow transition-all duration-300 rounded-none"
+                className="group bg-bg border-2 border-white/10 hover:border-accent-yellow transition-all duration-300 rounded-none"
               >
                 <CardContent className="p-8 text-center">
                   <div className="bg-accent-yellow/10 w-16 h-16 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent-yellow transition-all duration-300">
@@ -191,7 +188,7 @@ const APropos = () => {
                   <h3 className="text-xl font-bold mb-3 text-white group-hover:text-accent-yellow transition-colors">
                     {value.title}
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-textc-secondary text-sm leading-relaxed">
                     {value.description}
                   </p>
                 </CardContent>
@@ -215,49 +212,49 @@ const APropos = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-start gap-4 p-6 bg-zinc-900 border border-zinc-800">
+              <div className="flex items-start gap-4 p-6 bg-bg-soft border border-white/10">
                 <div className="w-10 h-10 bg-accent-yellow flex items-center justify-center flex-shrink-0">
                   <Clock className="w-5 h-5 text-bg" />
                 </div>
                 <div>
                   <h3 className="font-bold text-white mb-2">Réponse rapide</h3>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-textc-secondary text-sm">
                     Retour d'appel garanti en moins de 24 heures pour toute demande de soumission.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-6 bg-zinc-900 border border-zinc-800">
+              <div className="flex items-start gap-4 p-6 bg-bg-soft border border-white/10">
                 <div className="w-10 h-10 bg-accent-yellow flex items-center justify-center flex-shrink-0">
                   <Shield className="w-5 h-5 text-bg" />
                 </div>
                 <div>
                   <h3 className="font-bold text-white mb-2">Travail garanti</h3>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-textc-secondary text-sm">
                     Licence RBQ, assurance responsabilité et travaux conformes aux normes.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-6 bg-zinc-900 border border-zinc-800">
+              <div className="flex items-start gap-4 p-6 bg-bg-soft border border-white/10">
                 <div className="w-10 h-10 bg-accent-yellow flex items-center justify-center flex-shrink-0">
                   <Truck className="w-5 h-5 text-bg" />
                 </div>
                 <div>
                   <h3 className="font-bold text-white mb-2">Équipement adapté</h3>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-textc-secondary text-sm">
                     Machinerie moderne et entretenue, adaptée à chaque type de projet.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-6 bg-zinc-900 border border-zinc-800">
+              <div className="flex items-start gap-4 p-6 bg-bg-soft border border-white/10">
                 <div className="w-10 h-10 bg-accent-yellow flex items-center justify-center flex-shrink-0">
                   <ThumbsUp className="w-5 h-5 text-bg" />
                 </div>
                 <div>
                   <h3 className="font-bold text-white mb-2">Prix transparent</h3>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-textc-secondary text-sm">
                     Soumission détaillée et prix fixe. Pas de mauvaise surprise à la fin.
                   </p>
                 </div>

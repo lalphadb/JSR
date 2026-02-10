@@ -106,8 +106,8 @@ const Footer = () => {
                 <div className="bg-accent-yellow p-2">
                   <Mail className="h-5 w-5 text-bg flex-shrink-0" />
                 </div>
-                <a href="mailto:jsrdeneigement@gmail.com" className="text-white/90 hover:text-accent-yellow transition-colors break-all">
-                  jsrdeneigement@gmail.com
+                <a href="mailto:info@jsr-solutions.ca" className="text-white/90 hover:text-accent-yellow transition-colors break-all">
+                  info@jsr-solutions.ca
                 </a>
               </li>
             </ul>

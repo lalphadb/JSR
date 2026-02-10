@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import jsrLogoPng from "@/assets/jsr-logo-transparent.png";
+import jsrLogoWebp from "@/assets/jsr-logo-transparent.webp";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const servicesMenuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -54,11 +56,12 @@ const Navigation = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
           <picture>
-            <img src={jsrLogoPng} alt="JSR Solutions" className="h-12" />
+            <source type="image/webp" srcSet={jsrLogoWebp} />
+            <img src={jsrLogoPng} alt="JSR Solutions" className="h-12" width="48" height="48" />
           </picture>
           <div className="hidden sm:block">
             <span className="text-xl font-black text-white">JSR SOLUTIONS</span>
-            <span className="block text-xs text-gray-400">Déneigement • Excavation • Terrassement</span>
+            <span className="block text-xs text-textc-secondary">Déneigement • Excavation • Terrassement</span>
           </div>
         </Link>
 
@@ -74,45 +77,61 @@ const Navigation = () => {
           {/* Menu Services avec dropdown */}
           <div 
             className="relative"
+            ref={servicesMenuRef}
             onMouseEnter={() => setServicesOpen(true)}
             onMouseLeave={() => setServicesOpen(false)}
+            onFocus={() => setServicesOpen(true)}
+            onBlur={(event) => {
+              if (!servicesMenuRef.current?.contains(event.relatedTarget as Node)) {
+                setServicesOpen(false);
+              }
+            }}
           >
             <button
               className="px-4 py-2 text-textc-primary hover:text-accent-yellow transition-colors font-medium flex items-center gap-1"
               onClick={() => navigate("/services")}
+              aria-haspopup="menu"
+              aria-expanded={servicesOpen}
+              aria-controls="services-menu"
             >
               Services
               <ChevronDown className="w-4 h-4" />
             </button>
             <div
+              id="services-menu"
+              role="menu"
               className={`absolute top-full left-0 bg-bg border border-accent-yellow/30 min-w-[200px] py-2 shadow-xl transition-all duration-200 ${servicesOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
             >
               <button 
                 onClick={() => navigateToService("excavation")} 
                 className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
+                role="menuitem"
               >
                 🚜 Excavation
               </button>
               <button 
                 onClick={() => navigateToService("terrassement")} 
                 className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
+                role="menuitem"
               >
                 🏗️ Terrassement
               </button>
               <button 
                 onClick={() => navigateToService("deneigement")} 
                 className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
+                role="menuitem"
               >
                 ❄️ Déneigement
               </button>
               <button 
                 onClick={() => navigateToService("construction")} 
                 className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
+                role="menuitem"
               >
                 🔨 Construction
               </button>
               <div className="border-t border-accent-yellow/20 mt-2 pt-2">
-                <Link to="/services" className="block px-4 py-2 text-accent-yellow font-medium hover:bg-accent-yellow/10 transition-colors">
+                <Link to="/services" className="block px-4 py-2 text-accent-yellow font-medium hover:bg-accent-yellow/10 transition-colors" role="menuitem">
                   Voir tous les services →
                 </Link>
               </div>
@@ -144,7 +163,7 @@ const Navigation = () => {
           {/* CTA Principal */}
           <Link
             to="/contact"
-            className="ml-2 bg-accent-yellow text-bg px-6 py-3 font-bold text-base hover:bg-yellow-400 hover:scale-105 transition-all duration-300 shadow-lg shadow-accent-yellow/30 animate-pulse-subtle"
+            className="ml-2 bg-accent-yellow text-bg px-6 py-3 font-bold text-base hover:bg-accent-yellow/80 hover:scale-105 transition-all duration-300 shadow-lg shadow-accent-yellow/30 animate-pulse-subtle"
           >
             SOUMISSION GRATUITE
           </Link>

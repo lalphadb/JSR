@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Phone, CheckCircle, ArrowRight, Snowflake, HardHat, Truck, Wrench, Clock, Shield, MapPin } from "lucide-react";
 import { PHOTOS } from "@/lib/photos";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 // Configuration des services avec processus
 const servicesData = [
@@ -11,8 +12,7 @@ const servicesData = [
     title: "Excavation",
     subtitle: "Fondations, piscines et tranchées",
     description: "Service complet d'excavation pour tous types de projets résidentiels et commerciaux. Équipement moderne et opérateurs expérimentés.",
-    image: PHOTOS.services.excavation.jpg1280,
-    imageAlt: PHOTOS.services.excavation.alt,
+    image: PHOTOS.services.excavation,
     features: [
       "Excavation de fondations résidentielles",
       "Creusage de piscines creusées",
@@ -35,8 +35,7 @@ const servicesData = [
     title: "Terrassement",
     subtitle: "Préparation et aménagement de terrain",
     description: "Préparation complète de votre terrain pour construction, aménagement paysager ou stationnement. Nivellement précis et drainage optimal.",
-    image: PHOTOS.services.terrassement.jpg1280,
-    imageAlt: PHOTOS.services.terrassement.alt,
+    image: PHOTOS.services.terrassement,
     features: [
       "Nivellement et préparation de terrain",
       "Aménagement de stationnements",
@@ -59,8 +58,7 @@ const servicesData = [
     title: "Déneigement",
     subtitle: "Service 24/7 en saison hivernale",
     description: "Service fiable de déneigement résidentiel et commercial. Contrats saisonniers disponibles pour une tranquillité d'esprit tout l'hiver.",
-    image: PHOTOS.services.deneigement.jpg1280,
-    imageAlt: PHOTOS.services.deneigement.alt,
+    image: PHOTOS.services.deneigement,
     features: [
       "Contrats saisonniers ou à la visite",
       "Résidentiel et commercial",
@@ -84,8 +82,7 @@ const servicesData = [
     title: "Construction extérieure",
     subtitle: "Terrasses, escaliers et structures",
     description: "Construction de structures extérieures durables : terrasses en bois, escaliers, murets de soutènement et aménagements sur mesure.",
-    image: PHOTOS.services.terrasse.jpg1280,
-    imageAlt: PHOTOS.services.terrasse.alt,
+    image: PHOTOS.services.terrasse,
     features: [
       "Terrasses en bois traité ou composite",
       "Escaliers extérieurs",
@@ -106,6 +103,11 @@ const servicesData = [
 
 const Services = () => {
   const [activeSection, setActiveSection] = useState("excavation");
+  usePageMeta({
+    title: "Services d'excavation, déneigement et terrassement",
+    description: "Découvrez nos services : excavation, terrassement, déneigement 24/7 et construction extérieure. Équipe locale, équipement moderne, réponse en 24h.",
+    canonicalPath: "/services",
+  });
 
   // Scroll spy - détecte quelle section est visible
   useEffect(() => {
@@ -155,11 +157,15 @@ const Services = () => {
       {/* HEADER HERO */}
       <section className="relative py-20 md:py-28 overflow-hidden">
         <div className="absolute inset-0">
-          <img
-            src={PHOTOS.parcMachines.jpg1280}
-            alt="Équipement JSR Solutions"
-            className="w-full h-full object-cover opacity-30"
-          />
+          <picture>
+            <source type="image/webp" srcSet={PHOTOS.parcMachines.webp640} />
+            <img
+              src={PHOTOS.parcMachines.jpg1280}
+              alt="Équipement JSR Solutions"
+              className="w-full h-full object-cover opacity-30"
+              decoding="async"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-b from-bg via-bg/95 to-bg" />
         </div>
         
@@ -176,7 +182,7 @@ const Services = () => {
               <br />
               <span className="text-accent-yellow">tous vos projets</span>
             </h1>
-            <p className="text-xl text-gray-300 leading-relaxed max-w-2xl mb-8">
+            <p className="text-xl text-textc-primary leading-relaxed max-w-2xl mb-8">
               De l'excavation au déneigement, nous offrons des services professionnels
               avec équipement moderne et équipe expérimentée.
             </p>
@@ -244,11 +250,16 @@ const Services = () => {
                     </div>
                   )}
                   <div className="overflow-hidden border-4 border-accent-yellow/50 hover:border-accent-yellow transition-colors">
-                    <img
-                      src={service.image}
-                      alt={service.imageAlt}
-                      className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500"
-                    />
+                    <picture>
+                      <source type="image/webp" srcSet={service.image.webp640} />
+                      <img
+                        src={service.image.jpg1280}
+                        alt={service.image.alt}
+                        className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </picture>
                   </div>
                 </div>
                 
@@ -260,7 +271,7 @@ const Services = () => {
                         {step.step}
                       </div>
                       <div className="text-xs font-bold text-white">{step.title}</div>
-                      <div className="text-xs text-gray-500 hidden md:block">{step.desc}</div>
+                      <div className="text-xs text-textc-secondary/60 hidden md:block">{step.desc}</div>
                     </div>
                   ))}
                 </div>
@@ -280,7 +291,7 @@ const Services = () => {
                   </div>
                 </div>
                 
-                <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+                <p className="text-lg text-textc-primary mb-6 leading-relaxed">
                   {service.description}
                 </p>
 
@@ -288,7 +299,7 @@ const Services = () => {
                   {service.features.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-accent-yellow flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">{item}</span>
+                      <span className="text-textc-primary">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -296,7 +307,7 @@ const Services = () => {
                 <div className="flex flex-wrap gap-4">
                   <Link
                     to="/contact"
-                    className="bg-accent-yellow text-bg px-6 py-3 font-bold hover:bg-yellow-400 transition-all flex items-center gap-2"
+                    className="bg-accent-yellow text-bg px-6 py-3 font-bold hover:bg-accent-yellow/80 transition-all flex items-center gap-2"
                   >
                     {service.cta}
                     <ArrowRight className="w-5 h-5" />
@@ -322,18 +333,23 @@ const Services = () => {
             <h2 className="text-3xl md:text-4xl font-heading font-black mb-4">
               <span className="text-accent-yellow">Drains français</span> et drainage
             </h2>
-            <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-textc-primary mb-8 max-w-2xl mx-auto">
               Installation et réparation de systèmes de drainage pour protéger vos fondations
               contre les infiltrations d'eau.
             </p>
             
             <div className="grid md:grid-cols-2 gap-8 mb-10">
               <div className="overflow-hidden border-2 border-accent-yellow/30">
-                <img
-                  src={PHOTOS.services.drains.jpg1280}
-                  alt={PHOTOS.services.drains.alt}
-                  className="w-full h-64 object-cover"
-                />
+                <picture>
+                  <source type="image/webp" srcSet={PHOTOS.services.drains.webp640} />
+                  <img
+                    src={PHOTOS.services.drains.jpg1280}
+                    alt={PHOTOS.services.drains.alt}
+                    className="w-full h-64 object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
               <div className="text-left flex flex-col justify-center">
                 <ul className="space-y-3">
@@ -346,7 +362,7 @@ const Services = () => {
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-accent-yellow flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">{item}</span>
+                      <span className="text-textc-primary">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -355,7 +371,7 @@ const Services = () => {
             
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 bg-accent-yellow text-bg px-8 py-4 font-bold text-lg hover:bg-yellow-400 transition-all"
+              className="inline-flex items-center gap-2 bg-accent-yellow text-bg px-8 py-4 font-bold text-lg hover:bg-accent-yellow/80 transition-all"
             >
               Évaluation gratuite de vos drains
               <ArrowRight className="w-5 h-5" />
