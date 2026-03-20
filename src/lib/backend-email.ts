@@ -25,10 +25,15 @@ export interface EmailResponse {
  */
 export const sendContactEmail = async (formData: ContactFormData): Promise<EmailResponse> => {
   try {
+    // Get CSRF token
+    const csrfRes = await fetch(`${API_BASE}/csrf-token`);
+    const { csrfToken } = await csrfRes.json();
+
     const response = await fetch(`${API_BASE}/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken,
       },
       body: JSON.stringify(formData),
     });

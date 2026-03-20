@@ -38,7 +38,7 @@ const Contact = () => {
   const [hp, setHp] = useState("");
   const { canSubmit, recordAttempt, remainingAttempts, resetTime } = useRateLimit({
     maxAttempts: 5,
-    windowMs: 300000,
+    windowMs: 900000,
   });
   const [formData, setFormData] = useState<ContactFormData & { service: string }>({
     nom: "",
