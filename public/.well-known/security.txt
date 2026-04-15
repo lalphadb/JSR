@@ -1,0 +1,5 @@
+Contact: mailto:info@jsr-solutions.ca
+Expires: 2027-04-15T00:00:00.000Z
+Preferred-Languages: fr, en
+Canonical: https://jsr-solutions.ca/.well-known/security.txt
+Policy: Si vous découvrez une vulnérabilité de sécurité sur ce site, veuillez nous en informer par courriel. Nous nous engageons à répondre dans les 48 heures.
