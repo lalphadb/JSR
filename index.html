@@ -1,30 +1,38 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <!-- Google Analytics GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGMPQ11RGC"></script>
+    <!-- Google Analytics GA4 — Mode Consentement (Loi 25 / GDPR) -->
+    <!-- Le consentement analytics est REFUSÉ par défaut, activé seulement après acceptation -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag("js", new Date());
-      gtag("config", "G-GGMPQ11RGC");
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        wait_for_update: 500
+      });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGMPQ11RGC"></script>
+    <script>
+      gtag('js', new Date());
+      gtag('config', 'G-GGMPQ11RGC', { anonymize_ip: true });
     </script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Favicon -->
     <!-- Preload polices critiques -->
     <link rel="preload" href="/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/poppins-400-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/poppins-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="JSR Solutions - Excavation, Déneigement et Construction spécialisée à Saint-Raymond et environs. Service 24/7, RBQ 5804-4926-01" />
-    <meta name="keywords" content="excavation, déneigement, construction, Saint-Raymond, Lac-Saint-Charles, Québec, terrassement, drain français" />
     <meta name="author" content="JSR Solutions" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://jsr-solutions.ca/" />
@@ -35,6 +43,8 @@
     <meta property="og:title" content="JSR Solutions - Excavation, Déneigement & Construction Spécialisée" />
     <meta property="og:description" content="Votre partenaire de confiance pour l'excavation, le déneigement et la construction spécialisée dans la région de Québec. Service 24/7, RBQ 5804-4926-01." />
     <meta property="og:image" content="https://jsr-solutions.ca/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="fr_CA" />
     <meta property="og:site_name" content="JSR Solutions" />
 
@@ -47,8 +57,6 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#2F855A" />
     <meta name="msapplication-TileColor" content="#101010" />
-
-    <!-- Fonts -->
 
     <!-- Schema.org LocalBusiness + Organization -->
     <script type="application/ld+json">
@@ -94,34 +102,13 @@
               "name": "Saint-Raymond",
               "containedInPlace": { "@type": "AdministrativeArea", "name": "Québec" }
             },
-            {
-              "@type": "City",
-              "name": "Lac-Saint-Charles"
-            },
-            {
-              "@type": "City",
-              "name": "Stoneham-et-Tewkesbury"
-            },
-            {
-              "@type": "City",
-              "name": "Val-Bélair"
-            },
-            {
-              "@type": "City",
-              "name": "Saint-Émile"
-            },
-            {
-              "@type": "City",
-              "name": "Portneuf"
-            },
-            {
-              "@type": "City",
-              "name": "Saint-Gabriel-de-Valcartier"
-            },
-            {
-              "@type": "City",
-              "name": "Québec"
-            }
+            { "@type": "City", "name": "Lac-Saint-Charles" },
+            { "@type": "City", "name": "Stoneham-et-Tewkesbury" },
+            { "@type": "City", "name": "Val-Bélair" },
+            { "@type": "City", "name": "Saint-Émile" },
+            { "@type": "City", "name": "Portneuf" },
+            { "@type": "City", "name": "Saint-Gabriel-de-Valcartier" },
+            { "@type": "City", "name": "Québec" }
           ],
           "openingHoursSpecification": [
             {
@@ -149,6 +136,9 @@
                 "url": "https://www.rbq.gouv.qc.ca"
               }
             }
+          ],
+          "sameAs": [
+            "https://www.google.com/maps?cid=JSR-Solutions"
           ],
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
@@ -259,8 +249,7 @@
                 ]
               }
             ]
-          },
-          "sameAs": []
+          }
         },
         {
           "@type": "WebSite",

@@ -199,6 +199,7 @@ const Contact = () => {
                           key={service}
                           type="button"
                           onClick={() => setFormData({ ...formData, service })}
+                          aria-pressed={formData.service === service}
                           className={`px-4 py-3 text-sm font-medium transition-all border ${
                             formData.service === service
                               ? "bg-accent-yellow text-bg border-accent-yellow"

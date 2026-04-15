@@ -107,28 +107,28 @@ const Navigation = () => {
                 className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
                 role="menuitem"
               >
-                🚜 Excavation
+                <span aria-hidden="true">🚜</span> Excavation
               </button>
               <button 
                 onClick={() => navigateToService("terrassement")} 
                 className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
                 role="menuitem"
               >
-                🏗️ Terrassement
+                <span aria-hidden="true">🏗️</span> Terrassement
               </button>
               <button 
                 onClick={() => navigateToService("deneigement")} 
                 className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
                 role="menuitem"
               >
-                ❄️ Déneigement
+                <span aria-hidden="true">❄️</span> Déneigement
               </button>
               <button 
                 onClick={() => navigateToService("construction")} 
                 className="block w-full text-left px-4 py-2 hover:bg-accent-yellow/10 hover:text-accent-yellow transition-colors"
                 role="menuitem"
               >
-                🔨 Construction
+                <span aria-hidden="true">🔨</span> Construction
               </button>
               <div className="border-t border-accent-yellow/20 mt-2 pt-2">
                 <Link to="/services" className="block px-4 py-2 text-accent-yellow font-medium hover:bg-accent-yellow/10 transition-colors" role="menuitem">
@@ -179,6 +179,9 @@ const Navigation = () => {
           </a>
           <button
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
             className="text-textc-primary hover:text-accent-yellow p-2"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -188,7 +191,7 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-bg border-t border-accent-yellow/30 py-4 px-4">
+        <div id="mobile-menu" className="lg:hidden bg-bg border-t border-accent-yellow/30 py-4 px-4">
           <nav className="flex flex-col space-y-1">
             <Link to="/" className="py-3 px-4 text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors" onClick={() => setIsOpen(false)}>
               Accueil
@@ -197,16 +200,16 @@ const Navigation = () => {
               Services
             </Link>
             <button onClick={() => navigateToService("excavation")} className="py-2 px-6 text-left text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors block">
-              🚜 Excavation
+              <span aria-hidden="true">🚜</span> Excavation
             </button>
             <button onClick={() => navigateToService("terrassement")} className="py-2 px-6 text-left text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors block">
-              🏗️ Terrassement
+              <span aria-hidden="true">🏗️</span> Terrassement
             </button>
             <button onClick={() => navigateToService("deneigement")} className="py-2 px-6 text-left text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors block">
-              ❄️ Déneigement
+              <span aria-hidden="true">❄️</span> Déneigement
             </button>
             <button onClick={() => navigateToService("construction")} className="py-2 px-6 text-left text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors block">
-              🔨 Construction
+              <span aria-hidden="true">🔨</span> Construction
             </button>
             <Link to="/realisations" className="py-3 px-4 text-textc-primary hover:bg-accent-yellow/10 rounded transition-colors" onClick={() => setIsOpen(false)}>
               Réalisations

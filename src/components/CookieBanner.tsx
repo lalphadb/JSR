@@ -3,6 +3,16 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Fonction pour mettre à jour le consentement GA4
+const updateGAConsent = (granted: boolean) => {
+  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    (window as any).gtag("consent", "update", {
+      analytics_storage: granted ? "granted" : "denied",
+      ad_storage: "denied", // On ne fait pas de pub — toujours refusé
+    });
+  }
+};
+
 export const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -10,16 +20,21 @@ export const CookieBanner = () => {
     const consent = localStorage.getItem("jsr-cookie-consent");
     if (!consent) {
       setIsVisible(true);
+    } else {
+      // Restaurer le consentement GA4 au rechargement de page
+      updateGAConsent(consent === "accepted");
     }
   }, []);
 
   const handleAccept = () => {
     localStorage.setItem("jsr-cookie-consent", "accepted");
+    updateGAConsent(true);
     setIsVisible(false);
   };
 
   const handleDecline = () => {
     localStorage.setItem("jsr-cookie-consent", "declined");
+    updateGAConsent(false);
     setIsVisible(false);
   };
 
@@ -32,7 +47,7 @@ export const CookieBanner = () => {
           <h3 className="text-lg font-semibold mb-2 text-accent-yellow">Politique de confidentialité (Loi 25)</h3>
           <p className="text-sm text-textc-secondary">
             Nous utilisons des témoins essentiels pour assurer le bon fonctionnement du site. 
-            Si des témoins de mesure d'audience sont activés, votre consentement sera demandé. 
+            Si vous acceptez, des témoins de mesure d'audience (Google Analytics) seront activés. 
             Consultez notre <Link to="/confidentialite" className="text-accent-yellow underline hover:text-accent-yellow/80">politique de confidentialité</Link>.
           </p>
         </div>
